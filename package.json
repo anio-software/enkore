@@ -10,8 +10,7 @@
       "import": "./dist/default/index.mjs"
     },
     "./package.json": {
-      "import": "./package.json",
-      "require": "./package.json"
+      "default": "./package.json"
     }
   },
   "repository": {
