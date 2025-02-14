@@ -1,32 +1,36 @@
 {
-  "name": "fourtune",
-  "version": "0.30000.1",
-  "description": "",
+  "name": "enkore",
+  "version": "0.0.0",
   "author": "Anio Software <info@anio.software>",
+  "description": "Next generation of fourtune.",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fourtune-org/fourtune.git"
-  },
   "exports": {
     ".": {
-      "import": "./src/main.mjs",
-      "require": "./src/main.mjs"
+      "types": "./dist/default/index.d.mts",
+      "import": "./dist/default/index.mjs"
     },
-    "./fs": {
-      "import": "./src/fs/index.mjs",
-      "types": "./src/fs/index.d.mts"
+    "./package.json": {
+      "import": "./package.json",
+      "require": "./package.json"
     }
   },
-  "bin": {
-    "fourtune": "./src/cli.mjs"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enkore-org/enkore.git"
   },
-  "dependencies": {
-    "@anio-js-foundation/str-colorize": "^2.1.0",
-    "@anio-node-foundation/cli-parse-args": "^3.0.0",
-    "@anio-software/fs": "^0.6.0"
+  "type": "module",
+  "devDependencies": {
+    "@aniojs/event-emitter": "^0.0.8",
+    "@aniojs/node-fs": "^0.3.1",
+    "@enkore/spec": "^0.20.0",
+    "@fourtune/core": "^0.1101.0",
+    "@fourtune/realm-js": "^0.31010.0",
+    "fourtune": "^0.30000.1"
   },
-  "peerDependencies": {
-    "@fourtune/core": "0.x"
-  }
+  "scripts": {
+    "prepare": "./node_modules/.bin/fourtune ."
+  },
+  "files": [
+    "./dist/"
+  ]
 }
