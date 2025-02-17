@@ -47,7 +47,6 @@ export async function createSession(
 		projectRoot,
 		projectConfig,
 		realmIntegrationAPI,
-		emitEvent,
 		publicAPI: null,
 		options,
 		debugPrint(message) {

@@ -7,8 +7,6 @@ import type {
 } from "@enkore/spec"
 
 import type {NodeAPIMessage} from "@enkore/spec/primitives"
-
-import type {Events} from "./Events.d.mts"
 import type {Step} from "./Step.d.mts"
 import type {_EmitEventType} from "@aniojs/event-emitter"
 
@@ -27,5 +25,4 @@ export type InternalSession = {
 	projectConfig: EnkoreConfig
 	realmIntegrationAPI: EnkoreRealmIntegrationAPI
 	publicAPI: EnkoreSessionAPI
-	emitEvent: _EmitEventType<Events>
 }
