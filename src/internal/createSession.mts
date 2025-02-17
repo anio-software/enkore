@@ -23,8 +23,6 @@ export async function createSession(
 	options: Required<RawType<EnkoreNodeAPIOptions>>,
 	enableDebugPrint: boolean
 ) : Promise<InternalSession> {
-	let currentStep: Step|undefined = undefined
-
 	const session : Omit<
 		InternalSession,
 		"publicAPI" | "state"
@@ -33,7 +31,7 @@ export async function createSession(
 		state: InternalSessionState|undefined
 	} = {
 		setCurrentStep(nextStep) {
-			currentStep = nextStep
+			
 		},
 		projectRoot,
 		projectConfig,
