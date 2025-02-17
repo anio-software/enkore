@@ -14,8 +14,6 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 export type InternalSession = {
 	state: InternalSessionState
 
-	getAggregatedMessages: () => NodeAPIMessage[]
-
 	onStepStarted: (step: Step) => Promise<undefined>
 	onStepFinished: (step: Step) => Promise<undefined>
 

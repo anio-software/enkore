@@ -37,9 +37,6 @@ export async function createSession(
 	> & {
 		publicAPI: unknown
 	} = {
-		getAggregatedMessages() {
-			return state.aggregatedMessages
-		},
 		projectRoot,
 		projectConfig,
 		realmIntegrationAPI,
