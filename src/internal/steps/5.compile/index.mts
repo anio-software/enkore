@@ -9,8 +9,8 @@ export async function compile(
 	const messages = await createObjectFiles(session)
 
 	return {
-		buildProducts: async function() {
-			return await buildProducts(session)
+		buildProducts: async function(productNames: string[]|null) {
+			return await buildProducts(session, productNames)
 		},
 		messages
 	}
