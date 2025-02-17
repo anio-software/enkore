@@ -22,7 +22,7 @@
     "@aniojs/event-emitter": "^0.0.8",
     "@aniojs/node-fs": "^0.3.1",
     "@enkore/common": "^0.0.1",
-    "@enkore/spec": "^0.24.0",
+    "@enkore/spec": "^0.30.0",
     "@fourtune/core": "^0.1101.0",
     "@fourtune/realm-js": "^0.31010.0",
     "fourtune": "^0.30000.1"
