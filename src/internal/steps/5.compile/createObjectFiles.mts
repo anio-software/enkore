@@ -21,11 +21,9 @@ export async function createObjectFiles(
 		)
 
 		if (ret === "ignore") {
-			session.publicAPI.emitMessage({
-				severity: "warn",
-				id: undefined,
-				message: `Ignoring unsupported file '${entry.name}'`
-			})
+			session.publicAPI.emitMessage(
+				"warning", undefined, `Ignoring unsupported file '${entry.name}'`
+			)
 
 			continue
 		} else if (ret === "copy") {
