@@ -7,7 +7,7 @@ import {fileNameIndicatesPreprocessable} from "@enkore/common"
 export async function preprocessFiles(
 	session: InternalSession
 ) {
-	const files = session.projectDirectoryEntries!.filter(e => {
+	const files = session.state.projectDirectoryEntries!.filter(e => {
 		return e.type === "regularFile"
 	})
 

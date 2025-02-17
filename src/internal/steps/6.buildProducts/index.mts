@@ -7,7 +7,7 @@ export async function buildProducts(
 ) : Promise<BuildProducts> {
 	session.setCurrentStep("buildProducts")
 
-	const productNamesToBuild = productNames === null ? session.productNames : productNames
+	const productNamesToBuild = productNames === null ? session.state.productNames : productNames
 
 	for (const productName of productNamesToBuild) {
 		session.debugPrint(`stage:buildProducts building '${productName}'`)

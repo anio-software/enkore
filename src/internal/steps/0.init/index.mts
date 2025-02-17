@@ -7,7 +7,7 @@ export async function init(
 ) : Promise<Init> {
 	session.setCurrentStep("init")
 
-	session.finalized = true
+	session.state.finalized = true
 
 	const data = await session.realmIntegrationAPI.initialize(session.publicAPI)
 
@@ -15,7 +15,7 @@ export async function init(
 		return product.name
 	})
 
-	session.productNames = productNames
+	session.state.productNames = productNames
 
 	return {
 		productNames,

@@ -11,6 +11,7 @@ import type {Events} from "./Events.d.mts"
 import type {Step} from "./Step.d.mts"
 import type {_EmitEventType} from "@aniojs/event-emitter"
 import type {InternalSession} from "./InternalSession.d.mts"
+import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import path from "node:path"
 
 export async function createSession(
@@ -26,9 +27,10 @@ export async function createSession(
 
 	const session : Omit<
 		InternalSession,
-		"publicAPI"
+		"publicAPI" | "state"
 	> & {
 		publicAPI: unknown
+		state: InternalSessionState|undefined
 	} = {
 		getCurrentStep() {
 			return currentStep
@@ -36,16 +38,12 @@ export async function createSession(
 		setCurrentStep(nextStep) {
 			currentStep = nextStep
 		},
-		finalized: false,
-		filesToAutogenerate: new Map(),
 		projectRoot,
 		projectConfig,
 		realmIntegrationAPI,
 		emitEvent,
-		projectDirectoryEntries: undefined,
 		publicAPI: null,
 		options,
-		productNames: [],
 		debugPrint(message) {
 			if (!enableDebugPrint) return
 
@@ -53,11 +51,18 @@ export async function createSession(
 				`session debug: ${message}\n`
 			)
 		},
-		state: {}
+		state: undefined
+	}
+
+	session.state = {
+		filesToAutogenerate: new Map(),
+		finalized: false,
+		productNames: [],
+		projectDirectoryEntries: undefined
 	}
 
 	function assertNotFinalized() {
-		if (session.finalized) {
+		if (session.state!.finalized) {
 			throw new Error(
 				`Session data has been finalized, it is not possible to modify the session data.`
 			)
@@ -119,12 +124,12 @@ export async function createSession(
 					)
 				}
 
-				if (session.filesToAutogenerate.has(normalizedDestinationPath)) {
+				if (session.state!.filesToAutogenerate.has(normalizedDestinationPath)) {
 					// todo: use session.emit.warning()
 					console.warn("duplicate auto generated file...")
 				}
 
-				session.filesToAutogenerate.set(
+				session.state!.filesToAutogenerate.set(
 					normalizedDestinationPath, {
 						normalizedDestinationPath,
 						generator: file.generator,

@@ -6,7 +6,7 @@ import path from "node:path"
 export async function createObjectFiles(
 	session: InternalSession
 ) {
-	for (const entry of session.projectDirectoryEntries!) {
+	for (const entry of session.state.projectDirectoryEntries!) {
 		if (entry.type !== "regularFile") continue
 		if (entry.name.startsWith(".")) continue
 

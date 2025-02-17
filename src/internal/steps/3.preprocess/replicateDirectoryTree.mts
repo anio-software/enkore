@@ -5,7 +5,7 @@ import {mkdirp} from "@aniojs/node-fs"
 export async function replicateDirectoryTree(
 	session: InternalSession
 ) {
-	const dirs = session.projectDirectoryEntries!.filter(e => {
+	const dirs = session.state.projectDirectoryEntries!.filter(e => {
 		return e.type === "regularDir"
 	})
 
