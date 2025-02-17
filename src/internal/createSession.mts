@@ -32,9 +32,6 @@ export async function createSession(
 		publicAPI: unknown
 		state: InternalSessionState|undefined
 	} = {
-		getCurrentStep() {
-			return currentStep
-		},
 		setCurrentStep(nextStep) {
 			currentStep = nextStep
 		},

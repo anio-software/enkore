@@ -15,7 +15,6 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 export type InternalSession = {
 	state: InternalSessionState
 
-	getCurrentStep: () => Step|undefined
 	setCurrentStep: (step: Step) => undefined
 
 	debugPrint: (message: string) => undefined
