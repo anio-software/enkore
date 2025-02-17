@@ -6,7 +6,6 @@ import type {
 	EnkoreNodeAPIOptions
 } from "@enkore/spec"
 
-import type {NodeAPIMessage} from "@enkore/spec/primitives"
 import type {_EmitEventType} from "@aniojs/event-emitter"
 import type {Step} from "./Step.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
