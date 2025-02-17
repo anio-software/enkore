@@ -7,6 +7,8 @@ import {lint} from "../4.lint/index.mts"
 export async function preprocess(
 	session: InternalSession
 ) : Promise<Preprocess> {
+	session.debugPrint(`stage:preprocess`)
+
 	await replicateDirectoryTree(session)
 
 	const messages = await preprocessFiles(session)
