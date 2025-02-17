@@ -11,12 +11,12 @@ export async function preprocess(
 
 	await replicateDirectoryTree(session)
 
-	const messages = await preprocessFiles(session)
+	await preprocessFiles(session)
 
 	return {
 		lint: async function() {
 			return await lint(session)
 		},
-		messages
+		messages: []
 	}
 }

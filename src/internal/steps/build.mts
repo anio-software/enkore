@@ -1,12 +1,12 @@
 import type {InternalSession} from "../InternalSession.d.mts"
-import type {EnkoreNodeAPIMessage} from "@enkore/spec"
+import type {NodeAPIMessage} from "@enkore/primitives"
 
 import {init} from "./0.init/index.mts"
 
 export async function build(
 	session: InternalSession
 ) : Promise<{
-	messages: EnkoreNodeAPIMessage[]
+	messages: NodeAPIMessage[]
 }> {
 	const {clean} = await init(session)
 

@@ -1,14 +1,11 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {EnkoreNodeAPIMessage} from "@enkore/spec"
 import {writeAtomicFile} from "@aniojs/node-fs"
 import fs from "node:fs/promises"
 import path from "node:path"
 
 export async function createObjectFiles(
 	session: InternalSession
-) : Promise<EnkoreNodeAPIMessage[]> {
-	let messages: EnkoreNodeAPIMessage[] = []
-
+) {
 	for (const entry of session.projectDirectoryEntries!) {
 		if (entry.type !== "regularFile") continue
 		if (entry.name.startsWith(".")) continue
@@ -19,23 +16,19 @@ export async function createObjectFiles(
 			)
 		)).toString()
 
-		const {object, messages: compileMessages} = await session.realmIntegrationAPI.generateObjectFile(
+		const ret = await session.realmIntegrationAPI.generateObjectFile(
 			session.publicAPI, entry.relative_path, contents
 		)
 
-		messages = [
-			...messages,
-			...compileMessages
-		]
-
-		if (object === "ignore") {
-			session.emitEvent("warning", {
+		if (ret === "ignore") {
+			session.publicAPI.emitMessage({
+				severity: "warn",
 				id: undefined,
 				message: `Ignoring unsupported file '${entry.name}'`
 			})
 
 			continue
-		} else if (object === "copy") {
+		} else if (ret === "copy") {
 			await writeAtomicFile(
 				path.join(
 					session.projectRoot,
@@ -48,7 +41,7 @@ export async function createObjectFiles(
 			continue
 		}
 
-		const objectFiles = Array.isArray(object) ? object : [object]
+		const objectFiles = Array.isArray(ret) ? ret : [ret]
 
 		for (const objectFile of objectFiles) {
 			let destinationPath : string = ""
@@ -68,6 +61,4 @@ export async function createObjectFiles(
 			)
 		}
 	}
-
-	return messages
 }

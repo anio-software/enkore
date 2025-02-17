@@ -2,14 +2,11 @@ import path from "node:path"
 import {copy, writeAtomicFile} from "@aniojs/node-fs"
 import fs from "node:fs/promises"
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {EnkoreNodeAPIMessage} from "@enkore/spec"
 import {fileNameIndicatesPreprocessable} from "@enkore/common"
 
 export async function preprocessFiles(
 	session: InternalSession
-) : Promise<EnkoreNodeAPIMessage[]> {
-	let messages: EnkoreNodeAPIMessage[] = []
-
+) {
 	const files = session.projectDirectoryEntries!.filter(e => {
 		return e.type === "regularFile"
 	})
@@ -28,16 +25,9 @@ export async function preprocessFiles(
 		}
 
 		if (typeof preprocessSourceFile === "function") {
-			const tmp = await preprocessSourceFile(
+			newStr = await preprocessSourceFile(
 				session.publicAPI, filePath, newStr
 			)
-
-			newStr = tmp.source
-
-			messages = [
-				...messages,
-				...tmp.messages
-			]
 		}
 
 		return newStr
@@ -65,6 +55,4 @@ export async function preprocessFiles(
 			await preprocess(file.relative_path, sourceCode)
 		)
 	}
-
-	return messages
 }
