@@ -62,9 +62,14 @@ export async function createSession(
 	}
 
 	const emitMessage : InternalSession["publicAPI"]["emitMessage"] = function(severity, id, message) {
-		session.state.aggregatedMessages.push({
-			severity, id, message
-		})
+		//
+		// only aggregate message if we are running a step currently
+		//
+		if (session.state.currentStep) {
+			session.state.aggregatedMessages.push({
+				severity, id, message
+			})
+		}
 
 		emitEvent("message", {severity, id, message})
 	}
