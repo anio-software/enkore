@@ -5,15 +5,19 @@ import {clean} from "../clean/index.mts"
 export async function init(
 	session: InternalSession
 ) : Promise<Init> {
-	session.productNames = (
-		await session.realmIntegrationAPI.initialize(session.publicAPI)
-	).products.map(x => x.name)
+	const data = await session.realmIntegrationAPI.initialize(session.publicAPI)
+
+	const productNames = data.products.map(product => {
+		return product.name
+	})
+
+	session.productNames = productNames
 
 	return {
+		productNames,
+
 		clean: async function() {
 			return await clean(session)
-		},
-
-		productNames: session.productNames
+		}
 	}
 }
