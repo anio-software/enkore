@@ -17,7 +17,7 @@ export function defineStep<T extends Fn>(stepName: Step, stepFn: T) {
 
 				return await stepFn(session, ...args.slice(1))
 			} finally {
-
+				session.state.currentStep = undefined
 			}
 		}
 	}
