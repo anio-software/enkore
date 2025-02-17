@@ -12,7 +12,11 @@ import type {Step} from "./Step.d.mts"
 import type {_EmitEventType} from "@aniojs/event-emitter"
 import type {ScandirEntry} from "@aniojs/node-fs"
 
+import type {InternalSessionState} from "./InternalSessionState.d.mts"
+
 export type InternalSession = {
+	state: InternalSessionState
+
 	getCurrentStep: () => Step|undefined
 	setCurrentStep: (step: Step) => undefined
 

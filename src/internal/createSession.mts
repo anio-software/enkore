@@ -52,7 +52,8 @@ export async function createSession(
 			process.stderr.write(
 				`session debug: ${message}\n`
 			)
-		}
+		},
+		state: {}
 	}
 
 	function assertNotFinalized() {
