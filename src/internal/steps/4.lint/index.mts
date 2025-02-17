@@ -9,8 +9,7 @@ async function executeStep(
 	return {
 		compile: async function() {
 			return await compile.runStep(session)
-		},
-		messages: session.getAggregatedMessages()
+		}
 	}
 }
 

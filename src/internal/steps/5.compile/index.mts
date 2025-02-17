@@ -12,8 +12,7 @@ async function executeStep(
 	return {
 		buildProducts: async function(productNames: string[]|null) {
 			return await buildProducts.runStep(session, productNames)
-		},
-		messages: session.getAggregatedMessages()
+		}
 	}
 }
 

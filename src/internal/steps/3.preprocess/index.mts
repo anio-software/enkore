@@ -15,8 +15,7 @@ async function executeStep(
 	return {
 		lint: async function() {
 			return await lint.runStep(session)
-		},
-		messages: session.getAggregatedMessages()
+		}
 	}
 }
 

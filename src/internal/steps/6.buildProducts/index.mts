@@ -16,9 +16,7 @@ async function executeStep(
 		)
 	}
 
-	return {
-		messages: session.getAggregatedMessages()
-	}
+	return {}
 }
 
 export default defineStep("buildProducts", executeStep)

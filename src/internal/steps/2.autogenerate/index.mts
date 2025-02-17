@@ -58,8 +58,7 @@ async function executeStep(
 	return {
 		preprocess: async function() {
 			return await preprocess.runStep(session)
-		},
-		messages: session.getAggregatedMessages()
+		}
 	}
 }
 

@@ -22,8 +22,7 @@ async function executeStep(
 	return {
 		autogenerate: async function() {
 			return await autogenerate.runStep(session)
-		},
-		messages: session.getAggregatedMessages()
+		}
 	}
 }
 
