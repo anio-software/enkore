@@ -55,6 +55,8 @@ export async function createSession(
 	}
 
 	session.state = {
+		currentStep: undefined,
+		aggregatedMessages: [],
 		filesToAutogenerate: new Map(),
 		finalized: false,
 		productNames: [],
