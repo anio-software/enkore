@@ -1,5 +1,5 @@
 import type {InternalSession} from "../InternalSession.d.mts"
-import type {NodeAPIMessage} from "@enkore/primitives"
+import type {NodeAPIMessage} from "@enkore/spec/primitives"
 
 import {init} from "./0.init/index.mts"
 
