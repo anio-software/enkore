@@ -1,16 +1,17 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {Lint} from "../Steps.d.mts"
-import {compile} from "../5.compile/index.mts"
+import compile from "../5.compile/index.mts"
+import {defineStep} from "../defineStep.mts"
 
-export async function lint(
+async function executeStep(
 	session: InternalSession
 ) : Promise<Lint> {
-	session.setCurrentStep("lint")
-
 	return {
 		compile: async function() {
-			return await compile(session)
+			return await compile.runStep(session)
 		},
 		messages: session.getAggregatedMessages()
 	}
 }
+
+export default defineStep("lint", executeStep)

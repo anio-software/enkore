@@ -1,12 +1,11 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {BuildProducts} from "../Steps.d.mts"
+import {defineStep} from "../defineStep.mts"
 
-export async function buildProducts(
+async function executeStep(
 	session: InternalSession,
 	productNames: string[]|null
 ) : Promise<BuildProducts> {
-	session.setCurrentStep("buildProducts")
-
 	const productNamesToBuild = productNames === null ? session.state.productNames : productNames
 
 	for (const productName of productNamesToBuild) {
@@ -21,3 +20,5 @@ export async function buildProducts(
 		messages: session.getAggregatedMessages()
 	}
 }
+
+export default defineStep("buildProducts", executeStep)

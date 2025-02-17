@@ -1,12 +1,11 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {Init} from "../Steps.d.mts"
-import {clean} from "../1.clean/index.mts"
+import {defineStep} from "../defineStep.mts"
+import clean from "../1.clean/index.mts"
 
-export async function init(
+async function executeStep(
 	session: InternalSession
 ) : Promise<Init> {
-	session.setCurrentStep("init")
-
 	session.state.finalized = true
 
 	const data = await session.realmIntegrationAPI.initialize(session.publicAPI)
@@ -21,7 +20,9 @@ export async function init(
 		productNames,
 
 		clean: async function() {
-			return await clean(session)
+			return await clean.runStep(session)
 		}
 	}
 }
+
+export default defineStep("init", executeStep)
