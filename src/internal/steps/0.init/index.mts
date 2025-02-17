@@ -5,6 +5,8 @@ import {clean} from "../1.clean/index.mts"
 export async function init(
 	session: InternalSession
 ) : Promise<Init> {
+	session.finalized = true
+
 	const data = await session.realmIntegrationAPI.initialize(session.publicAPI)
 
 	const productNames = data.products.map(product => {
