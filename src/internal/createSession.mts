@@ -21,7 +21,12 @@ export async function createSession(
 	options: Required<RawType<EnkoreNodeAPIOptions>>,
 	enableDebugPrint: boolean
 ) : Promise<InternalSession> {
-	const session : Omit<InternalSession, "publicAPI"> & {publicAPI: unknown} = {
+	const session : Omit<
+		InternalSession,
+		"publicAPI"
+	> & {
+		publicAPI: unknown
+	} = {
 		finalized: false,
 		filesToAutogenerate: new Map(),
 		projectRoot,
