@@ -27,7 +27,7 @@ const impl : API["enkore"] = async function(
 		// "error" event should relate to BUILD errors
 		// i.e. error events are dispatched and a flag is set
 		// to make enkore terminate with an error condition (it doesn't immediately terminate execution!!)
-	} = createEventEmitter<Events>(["message", "warning", "error"])
+	} = createEventEmitter<Events>(["message", "warning"])
 
 	const projectConfig = await readProjectConfigFile(projectRoot)
 	const core = await loadEnkoreCoreAPI(projectRoot)
