@@ -3,29 +3,7 @@ import {copy, writeAtomicFile} from "@aniojs/node-fs"
 import fs from "node:fs/promises"
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {EnkoreNodeAPIMessage} from "@enkore/spec"
-
-function isPreProcessable(fileName: string) {
-	const extensions = [
-		".mts",
-		".mjs",
-		".html",
-		".css",
-		".styl",
-		".c",
-		".h",
-		".txt",
-		".svg",
-		".vue"
-	]
-
-	for (const extension of extensions) {
-		if (fileName.endsWith(extension)) {
-			return true
-		}
-	}
-
-	return false
-}
+import {fileNameIndicatesPreprocessable} from "@enkore/common"
 
 export async function preprocessFiles(
 	session: InternalSession
@@ -72,7 +50,7 @@ export async function preprocessFiles(
 			file.relative_path
 		)
 
-		if (!isPreProcessable(file.name)) {
+		if (!fileNameIndicatesPreprocessable(file.name)) {
 			await copy(file.absolute_path, destFilePath)
 
 			continue
