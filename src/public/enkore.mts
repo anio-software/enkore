@@ -29,7 +29,7 @@ const impl : API["enkore"] = async function(
 		// "error" event should relate to BUILD errors
 		// i.e. error events are dispatched and a flag is set
 		// to make enkore terminate with an error condition (it doesn't immediately terminate execution!!)
-	} = createEventEmitter<Events>(["message", "warning"])
+	} = createEventEmitter<Events>(["message"])
 
 	const projectConfig = await readEnkoreConfigFile(projectRoot)
 	const core = await loadEnkoreCoreAPI(projectRoot)
@@ -42,9 +42,9 @@ const impl : API["enkore"] = async function(
 	)
 
 	if (stdIOLogs) {
-		on("warning", (e) => {
+		on("message", (e) => {
 			process.stderr.write(
-				`[warn] enkore: ${e.message}\n`
+				`[${e.severity}] enkore: ${e.message}\n`
 			)
 		})
 	}
