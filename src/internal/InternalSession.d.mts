@@ -6,6 +6,8 @@ import type {
 	EnkoreNodeAPIOptions
 } from "@enkore/spec"
 
+import type {NodeAPIMessage} from "@enkore/spec/primitives"
+
 import type {Events} from "./Events.d.mts"
 import type {Step} from "./Step.d.mts"
 import type {_EmitEventType} from "@aniojs/event-emitter"
@@ -16,6 +18,7 @@ export type InternalSession = {
 	state: InternalSessionState
 
 	setCurrentStep: (step: Step) => undefined
+	getAggregatedMessages: () => NodeAPIMessage[]
 
 	debugPrint: (message: string) => undefined
 

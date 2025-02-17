@@ -41,6 +41,9 @@ export async function createSession(
 			state.currentStep = nextStep
 			state.aggregatedMessages = []
 		},
+		getAggregatedMessages() {
+			return state.aggregatedMessages
+		},
 		projectRoot,
 		projectConfig,
 		realmIntegrationAPI,
