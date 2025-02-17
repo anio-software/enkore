@@ -16,7 +16,7 @@ export async function preprocessFiles(
 
 	const {preprocessSourceFile} = session.realmIntegrationAPI
 
-	async function preProcess(filePath: string, str: string) {
+	async function preprocess(filePath: string, str: string) {
 		let newStr = str
 
 		if (session.projectConfig.buildConstants) {
@@ -62,7 +62,7 @@ export async function preprocessFiles(
 
 		await writeAtomicFile(
 			destFilePath,
-			await preProcess(file.relative_path, sourceCode)
+			await preprocess(file.relative_path, sourceCode)
 		)
 	}
 
