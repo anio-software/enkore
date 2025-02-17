@@ -23,15 +23,23 @@ export async function createSession(
 	options: Required<RawType<EnkoreNodeAPIOptions>>,
 	enableDebugPrint: boolean
 ) : Promise<InternalSession> {
+	const state = {
+		currentStep: undefined,
+		aggregatedMessages: [],
+		filesToAutogenerate: new Map(),
+		finalized: false,
+		productNames: [],
+		projectDirectoryEntries: undefined
+	}
+
 	const session : Omit<
 		InternalSession,
-		"publicAPI" | "state"
+		"publicAPI"
 	> & {
 		publicAPI: unknown
-		state: InternalSessionState|undefined
 	} = {
 		setCurrentStep(nextStep) {
-			
+
 		},
 		projectRoot,
 		projectConfig,
@@ -46,16 +54,7 @@ export async function createSession(
 				`session debug: ${message}\n`
 			)
 		},
-		state: undefined
-	}
-
-	session.state = {
-		currentStep: undefined,
-		aggregatedMessages: [],
-		filesToAutogenerate: new Map(),
-		finalized: false,
-		productNames: [],
-		projectDirectoryEntries: undefined
+		state
 	}
 
 	function assertNotFinalized() {
