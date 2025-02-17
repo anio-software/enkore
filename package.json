@@ -31,6 +31,10 @@
     "prepare": "./node_modules/.bin/fourtune ."
   },
   "files": [
-    "./dist/"
-  ]
+    "./dist/",
+    "./cli.mjs"
+  ],
+  "bin": {
+    "enkore": "./cli.mjs"
+  }
 }
