@@ -8,13 +8,16 @@ import type {
 
 import type {NodeAPIMessage} from "@enkore/spec/primitives"
 import type {_EmitEventType} from "@aniojs/event-emitter"
-
+import type {Step} from "./Step.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
 	state: InternalSessionState
 
 	getAggregatedMessages: () => NodeAPIMessage[]
+
+	onStepStarted: (step: Step) => Promise<undefined>
+	onStepFinished: (step: Step) => Promise<undefined>
 
 	debugPrint: (message: string) => undefined
 

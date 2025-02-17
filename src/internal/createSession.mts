@@ -52,7 +52,13 @@ export async function createSession(
 				`session debug: ${message}\n`
 			)
 		},
-		state
+		state,
+		async onStepStarted(step) {
+			console.log("%%%%%%%%%%%% starting step", step)
+		},
+		async onStepFinished(step) {
+			console.log("###### stopping step", step)
+		}
 	}
 
 	const emitMessage : InternalSession["publicAPI"]["emitMessage"] = function(severity, id, message) {
