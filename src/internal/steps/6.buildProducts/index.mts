@@ -5,7 +5,7 @@ export async function buildProducts(
 	session: InternalSession,
 	productNames: string[]|null
 ) : Promise<BuildProducts> {
-	session.debugPrint(`stage:buildProducts`)
+	session.setCurrentStep("buildProducts")
 
 	const productNamesToBuild = productNames === null ? session.productNames : productNames
 

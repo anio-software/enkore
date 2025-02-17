@@ -6,7 +6,7 @@ import {buildProducts} from "../6.buildProducts/index.mts"
 export async function compile(
 	session: InternalSession
 ) : Promise<Compile> {
-	session.debugPrint(`stage:compile`)
+	session.setCurrentStep("compile")
 
 	await createObjectFiles(session)
 
