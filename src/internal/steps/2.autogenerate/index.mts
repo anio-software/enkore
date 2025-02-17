@@ -60,6 +60,6 @@ export async function autogenerate(
 		preprocess: async function() {
 			return await preprocess(session)
 		},
-		messages: []
+		messages: session.getAggregatedMessages()
 	}
 }

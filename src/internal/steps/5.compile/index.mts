@@ -14,6 +14,6 @@ export async function compile(
 		buildProducts: async function(productNames: string[]|null) {
 			return await buildProducts(session, productNames)
 		},
-		messages: []
+		messages: session.getAggregatedMessages()
 	}
 }

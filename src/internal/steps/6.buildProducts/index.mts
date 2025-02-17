@@ -18,6 +18,6 @@ export async function buildProducts(
 	}
 
 	return {
-		messages: []
+		messages: session.getAggregatedMessages()
 	}
 }

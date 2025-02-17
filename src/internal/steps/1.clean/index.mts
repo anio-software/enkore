@@ -24,6 +24,6 @@ export async function clean(
 		autogenerate: async function() {
 			return await autogenerate(session)
 		},
-		messages: []
+		messages: session.getAggregatedMessages()
 	}
 }

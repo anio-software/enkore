@@ -17,6 +17,6 @@ export async function preprocess(
 		lint: async function() {
 			return await lint(session)
 		},
-		messages: []
+		messages: session.getAggregatedMessages()
 	}
 }

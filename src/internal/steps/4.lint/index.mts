@@ -11,6 +11,6 @@ export async function lint(
 		compile: async function() {
 			return await compile(session)
 		},
-		messages: []
+		messages: session.getAggregatedMessages()
 	}
 }
