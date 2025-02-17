@@ -38,6 +38,12 @@ const {project} = await enkore(
 	})
 )
 
-await project.build()
+const {messages} = await project.build()
+
+for (const message of messages) {
+	process.stderr.write(
+		`${message.severity}: ${message.message}\n`
+	)
+}
 
 export const index = 1
