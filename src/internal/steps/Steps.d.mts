@@ -1,8 +1,11 @@
 import type {API} from "#~src/API.d.mts"
+import type {NodeAPIMessage} from "@enkore/spec/primitives"
 
 type R<T extends (...args: any[]) => any> = Awaited<ReturnType<T>>
 
-type Step<T> = Omit<T, "messages">
+type Step<T> = T extends {
+	messages: NodeAPIMessage[]
+} ? Omit<T, "messages"> : never
 
 export type Init = Step<R<R<API["enkore"]>["project"]["init"]>>
 export type Clean = Step<R<Init["clean"]>>
