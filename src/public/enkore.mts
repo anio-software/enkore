@@ -5,8 +5,6 @@ import {readProjectConfigFile} from "#~src/internal/readProjectConfigFile.mts"
 import {createEventEmitter} from "@aniojs/event-emitter"
 import {loadEnkoreCoreAPI} from "#~src/internal/loadEnkoreCoreAPI.mts"
 import {createSession} from "#~src/internal/createSession.mts"
-import {compile} from "#~src/internal/compile/index.mts"
-import {init} from "#~src/internal/init/index.mts"
 
 import type {EnkoreCoreRealmDependency} from "@enkore/spec"
 
@@ -97,18 +95,15 @@ const impl : API["enkore"] = async function(
 	}
 
 	return {
-		on,
-		removeEventListener,
+		project: {
+			on,
+			removeEventListener,
+			async init() {
+				return {} as any
+			},
 
-		async init() {
-			internalSession.finalized = true
-
-			await init(internalSession)
-
-			return {
-				compile: async () => {
-					return await compile(internalSession)
-				}
+			async build() {
+				return {} as any
 			}
 		},
 

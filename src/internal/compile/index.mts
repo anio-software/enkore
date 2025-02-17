@@ -1,3 +1,4 @@
+/*
 import type {InternalSession} from "../InternalSession.d.mts"
 import type {Product} from "../Product.d.mts"
 import type {Message} from "../Message.d.mts"
@@ -87,3 +88,4 @@ export async function compile(
 		products
 	}
 }
+*/

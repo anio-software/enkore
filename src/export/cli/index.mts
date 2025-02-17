@@ -37,7 +37,7 @@ const project = await enkore(
 		isCIEnvironment
 	})
 )
-
+/*
 const {compile} = await project.init()
 
 const {products} = await compile()
@@ -45,5 +45,5 @@ const {products} = await compile()
 for (const product of products) {
 	await product.build()
 }
-
+*/
 export const index = 1

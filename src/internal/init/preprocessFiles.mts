@@ -29,6 +29,7 @@ function isPreProcessable(fileName: string) {
 export async function preprocessFiles(
 	session: InternalSession
 ) {
+	/*
 	const files = session.projectDirectoryEntries!.filter(e => {
 		return e.type === "regularFile"
 	})
@@ -77,4 +78,5 @@ export async function preprocessFiles(
 			await preProcess(file.relative_path, sourceCode)
 		)
 	}
+	*/
 }
