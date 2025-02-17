@@ -12,6 +12,9 @@ export function defineStep<T extends Fn>(stepName: Step, stepFn: T) {
 			const session = args[0]
 
 			try {
+				session.state.currentStep = stepName
+				session.state.aggregatedMessages = []
+
 				return await stepFn(session, ...args.slice(1))
 			} finally {
 
