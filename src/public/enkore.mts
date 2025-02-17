@@ -1,7 +1,7 @@
 import type {API} from "#~src/API.d.mts"
 import type {Events} from "#~src/internal/Events.d.mts"
 
-import {readProjectConfigFile} from "#~src/internal/readProjectConfigFile.mts"
+import {readEnkoreConfigFile} from "@enkore/common"
 import {createEventEmitter} from "@aniojs/event-emitter"
 import {loadEnkoreCoreAPI} from "#~src/internal/loadEnkoreCoreAPI.mts"
 import {createSession} from "#~src/internal/createSession.mts"
@@ -29,7 +29,7 @@ const impl : API["enkore"] = async function(
 		// to make enkore terminate with an error condition (it doesn't immediately terminate execution!!)
 	} = createEventEmitter<Events>(["message", "warning"])
 
-	const projectConfig = await readProjectConfigFile(projectRoot)
+	const projectConfig = await readEnkoreConfigFile(projectRoot)
 	const core = await loadEnkoreCoreAPI(projectRoot)
 
 	const realmIntegrationAPI = await core.initializeProject(
