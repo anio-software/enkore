@@ -37,10 +37,6 @@ export async function createSession(
 	> & {
 		publicAPI: unknown
 	} = {
-		setCurrentStep(nextStep) {
-			state.currentStep = nextStep
-			state.aggregatedMessages = []
-		},
 		getAggregatedMessages() {
 			return state.aggregatedMessages
 		},
