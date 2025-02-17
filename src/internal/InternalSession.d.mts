@@ -12,6 +12,8 @@ import type {_EmitEventType} from "@aniojs/event-emitter"
 import type {ScandirEntry} from "@aniojs/node-fs"
 
 export type InternalSession = {
+	debugPrint: (message: string) => undefined
+
 	// prevent addition of files
 	// changes in config
 	// after we initialized

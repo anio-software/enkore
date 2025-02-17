@@ -18,7 +18,8 @@ export async function createSession(
 	realmIntegrationAPI: EnkoreRealmIntegrationAPI,
 	realmDependencies: Map<string, EnkoreCoreRealmDependency>,
 	emitEvent: _EmitEventType<Events>,
-	options: Required<RawType<EnkoreNodeAPIOptions>>
+	options: Required<RawType<EnkoreNodeAPIOptions>>,
+	enableDebugPrint: boolean
 ) : Promise<InternalSession> {
 	const session : Omit<InternalSession, "publicAPI"> & {publicAPI: unknown} = {
 		finalized: false,
@@ -30,7 +31,14 @@ export async function createSession(
 		projectDirectoryEntries: undefined,
 		publicAPI: null,
 		options,
-		productNames: []
+		productNames: [],
+		debugPrint(message) {
+			if (!enableDebugPrint) return
+
+			process.stderr.write(
+				`session debug: ${message}\n`
+			)
+		}
 	}
 
 	function assertNotFinalized() {
