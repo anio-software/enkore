@@ -7,13 +7,15 @@ import {loadEnkoreCoreAPI} from "#~src/internal/loadEnkoreCoreAPI.mts"
 import {createSession} from "#~src/internal/createSession.mts"
 import {init} from "#~src/internal/steps/0.init/index.mts"
 import {build} from "#~src/internal/steps/build.mts"
+import {realpath} from "node:fs/promises"
 
 import type {EnkoreCoreRealmDependency} from "@enkore/spec"
 
 const impl : API["enkore"] = async function(
-	projectRoot,
+	unresolvedProjectRoot,
 	options?
 ) {
+	const projectRoot = await realpath(unresolvedProjectRoot)
 	const stdIOLogs = options?.stdIOLogs === true
 	const isCIEnvironment = options?.isCIEnvironment === true
 	const npmBinaryPath = options?.npmBinaryPath || "npm"
