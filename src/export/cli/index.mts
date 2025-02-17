@@ -29,7 +29,7 @@ function defineOptions(options: RawType<EnkoreNodeAPIOptions>) {
 	return createEntity("EnkoreNodeAPIOptions", 0, 0, options)
 }
 
-const project = await enkore(
+const {project} = await enkore(
 	projectRoot, defineOptions({
 		stdIOLogs: true,
 		force,
@@ -37,13 +37,7 @@ const project = await enkore(
 		isCIEnvironment
 	})
 )
-/*
-const {compile} = await project.init()
 
-const {products} = await compile()
+await project.build()
 
-for (const product of products) {
-	await product.build()
-}
-*/
 export const index = 1
