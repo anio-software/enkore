@@ -8,7 +8,6 @@ import {
 } from "@enkore/spec"
 
 import type {Events} from "./Events.d.mts"
-import type {Step} from "./Step.d.mts"
 import type {_EmitEventType} from "@aniojs/event-emitter"
 import type {InternalSession} from "./InternalSession.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
@@ -23,7 +22,7 @@ export async function createSession(
 	options: Required<RawType<EnkoreNodeAPIOptions>>,
 	enableDebugPrint: boolean
 ) : Promise<InternalSession> {
-	const state = {
+	const state : InternalSessionState = {
 		currentStep: undefined,
 		aggregatedMessages: [],
 		filesToAutogenerate: new Map(),
@@ -39,7 +38,8 @@ export async function createSession(
 		publicAPI: unknown
 	} = {
 		setCurrentStep(nextStep) {
-
+			state.currentStep = nextStep
+			state.aggregatedMessages = []
 		},
 		projectRoot,
 		projectConfig,
