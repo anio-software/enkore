@@ -8,6 +8,7 @@ import {
 } from "@enkore/spec"
 
 import type {Events} from "./Events.d.mts"
+import type {Step} from "./Step.d.mts"
 import type {_EmitEventType} from "@aniojs/event-emitter"
 import type {InternalSession} from "./InternalSession.d.mts"
 import path from "node:path"
@@ -21,12 +22,20 @@ export async function createSession(
 	options: Required<RawType<EnkoreNodeAPIOptions>>,
 	enableDebugPrint: boolean
 ) : Promise<InternalSession> {
+	let currentStep: Step|undefined = undefined
+
 	const session : Omit<
 		InternalSession,
 		"publicAPI"
 	> & {
 		publicAPI: unknown
 	} = {
+		getCurrentStep() {
+			return currentStep
+		},
+		setCurrentStep(nextStep) {
+			currentStep = nextStep
+		},
 		finalized: false,
 		filesToAutogenerate: new Map(),
 		projectRoot,

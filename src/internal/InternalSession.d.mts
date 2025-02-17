@@ -8,10 +8,14 @@ import type {
 } from "@enkore/spec"
 
 import type {Events} from "./Events.d.mts"
+import type {Step} from "./Step.d.mts"
 import type {_EmitEventType} from "@aniojs/event-emitter"
 import type {ScandirEntry} from "@aniojs/node-fs"
 
 export type InternalSession = {
+	getCurrentStep: () => Step|undefined
+	setCurrentStep: (step: Step) => undefined
+
 	debugPrint: (message: string) => undefined
 
 	// prevent addition of files
