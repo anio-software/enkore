@@ -5,7 +5,7 @@ import {readProjectConfigFile} from "#~src/internal/readProjectConfigFile.mts"
 import {createEventEmitter} from "@aniojs/event-emitter"
 import {loadEnkoreCoreAPI} from "#~src/internal/loadEnkoreCoreAPI.mts"
 import {createSession} from "#~src/internal/createSession.mts"
-import {init} from "#~src/internal/steps/init/index.mts"
+import {init} from "#~src/internal/steps/0.init/index.mts"
 import {build} from "#~src/internal/steps/build.mts"
 
 import type {EnkoreCoreRealmDependency} from "@enkore/spec"

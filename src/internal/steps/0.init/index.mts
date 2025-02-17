@@ -1,6 +1,6 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {Init} from "../Steps.d.mts"
-import {clean} from "../clean/index.mts"
+import {clean} from "../1.clean/index.mts"
 
 export async function init(
 	session: InternalSession

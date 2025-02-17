@@ -1,6 +1,6 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {Autogenerate} from "../Steps.d.mts"
-import {preprocess} from "../preprocess/index.mts"
+import {preprocess} from "../3.preprocess/index.mts"
 
 export async function autogenerate(
 	session: InternalSession

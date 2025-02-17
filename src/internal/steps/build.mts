@@ -1,7 +1,7 @@
 import type {InternalSession} from "../InternalSession.d.mts"
 import type {EnkoreNodeAPIMessage} from "@enkore/spec"
 
-import {init} from "./init/index.mts"
+import {init} from "./0.init/index.mts"
 
 export async function build(
 	session: InternalSession
