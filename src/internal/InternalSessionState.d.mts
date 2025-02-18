@@ -6,8 +6,6 @@ import type {ScandirEntry} from "@aniojs/node-fs"
 import type {Step} from "./Step.d.mts"
 
 export type InternalSessionState = {
-	currentStep: Step|undefined
-
 	// prevent addition of files
 	// changes in config
 	// after we initialized

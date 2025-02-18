@@ -22,8 +22,6 @@ export function defineStep<
 			let eventListenerId: number|null = null
 
 			try {
-				session.state.currentStep = stepName
-
 				eventListenerId = session.events.on("message", e => {
 					aggregatedMessages.push(e)
 				})
@@ -36,8 +34,6 @@ export function defineStep<
 				if (eventListenerId !== null) {
 					session.events.removeListener(eventListenerId)
 				}
-
-				session.state.currentStep = undefined
 			}
 		}
 	}

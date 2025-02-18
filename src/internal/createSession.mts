@@ -25,7 +25,6 @@ export async function createSession(
 	enableDebugPrint: boolean
 ) : Promise<InternalSession> {
 	const state : InternalSessionState = {
-		currentStep: undefined,
 		filesToAutogenerate: new Map(),
 		finalized: false,
 		productNames: [],
