@@ -52,6 +52,7 @@ export async function createSession(
 		},
 		state,
 		events: {
+			emit: emitEvent,
 			on: onEvent
 		},
 		async onStepStarted(step) {

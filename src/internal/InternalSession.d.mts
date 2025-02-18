@@ -7,7 +7,7 @@ import type {
 } from "@enkore/spec"
 
 import type {Events} from "./Events.d.mts"
-import type {OnType} from "@aniojs/event-emitter"
+import type {_EmitEventType, OnType} from "@aniojs/event-emitter"
 import type {Step} from "./Step.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
@@ -15,6 +15,7 @@ export type InternalSession = {
 	state: InternalSessionState
 
 	events: {
+		emit: _EmitEventType<Events>
 		on: OnType<Events>
 	}
 
