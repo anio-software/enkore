@@ -15,16 +15,25 @@ export function defineStep<T extends Fn>(stepName: Step, stepFn: T) {
 			}
 		> {
 			const session = args[0]
+			let aggregatedMessages: NodeAPIMessage[] = []
+			let eventListenerId: number|null = null
 
 			try {
 				session.state.currentStep = stepName
-				session.state.aggregatedMessages = []
+
+				eventListenerId = session.events.on("message", e => {
+					aggregatedMessages.push(e)
+				})
 
 				return {
 					...await stepFn(session, ...args.slice(1)),
-					messages: session.state.aggregatedMessages
+					messages: aggregatedMessages
 				}
 			} finally {
+				if (eventListenerId !== null) {
+					session.events.removeListener(eventListenerId)
+				}
+
 				session.state.currentStep = undefined
 			}
 		}

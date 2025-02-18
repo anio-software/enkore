@@ -26,7 +26,6 @@ export async function createSession(
 ) : Promise<InternalSession> {
 	const state : InternalSessionState = {
 		currentStep: undefined,
-		aggregatedMessages: [],
 		filesToAutogenerate: new Map(),
 		finalized: false,
 		productNames: [],
