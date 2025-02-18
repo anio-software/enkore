@@ -18,7 +18,7 @@ export function defineStep<
 			messages: NodeAPIMessage[]
 		}> {
 			const session = args[0]
-			let aggregatedMessages: NodeAPIMessage[] = []
+			const aggregatedMessages: NodeAPIMessage[] = []
 			let eventListenerId: number|null = null
 
 			try {
