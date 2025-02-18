@@ -76,6 +76,7 @@ const impl : API["enkore"] = async function(
 		realmDependencies,
 		_emitEvent,
 		on,
+		removeEventListener,
 		{
 			force,
 			isCIEnvironment,
