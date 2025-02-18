@@ -8,7 +8,7 @@ import {
 } from "@enkore/spec"
 
 import type {Events} from "./Events.d.mts"
-import type {_EmitEventType} from "@aniojs/event-emitter"
+import type {_EmitEventType, OnType} from "@aniojs/event-emitter"
 import type {InternalSession} from "./InternalSession.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import path from "node:path"
@@ -19,6 +19,7 @@ export async function createSession(
 	realmIntegrationAPI: EnkoreRealmIntegrationAPI,
 	realmDependencies: Map<string, EnkoreCoreRealmDependency>,
 	emitEvent: _EmitEventType<Events>,
+	onEvent: OnType<Events>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>,
 	enableDebugPrint: boolean
 ) : Promise<InternalSession> {
@@ -50,6 +51,7 @@ export async function createSession(
 			)
 		},
 		state,
+		onEvent,
 		async onStepStarted(step) {
 			console.log("%%%%%%%%%%%% starting step", step)
 		},

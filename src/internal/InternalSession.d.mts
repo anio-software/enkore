@@ -6,12 +6,15 @@ import type {
 	EnkoreNodeAPIOptions
 } from "@enkore/spec"
 
-import type {_EmitEventType} from "@aniojs/event-emitter"
+import type {Events} from "./Events.d.mts"
+import type {OnType} from "@aniojs/event-emitter"
 import type {Step} from "./Step.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
 	state: InternalSessionState
+
+	onEvent: OnType<Events>
 
 	onStepStarted: (step: Step) => Promise<undefined>
 	onStepFinished: (step: Step) => Promise<undefined>
