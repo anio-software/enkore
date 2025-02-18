@@ -8,15 +8,15 @@ export function defineStep<
 	stepName: Step,
 	stepFn: StepFn
 ) {
+	type StepFnReturn = Awaited<ReturnType<StepFn>>
+
 	return {
 		name: stepName,
 		runStep: async function(
 			...args: Parameters<StepFn>
-		) : Promise<
-			Awaited<ReturnType<StepFn>> & {
-				messages: NodeAPIMessage[]
-			}
-		> {
+		) : Promise<StepFnReturn & {
+			messages: NodeAPIMessage[]
+		}> {
 			const session = args[0]
 			let aggregatedMessages: NodeAPIMessage[] = []
 			let eventListenerId: number|null = null
