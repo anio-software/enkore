@@ -2,15 +2,18 @@ import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {Step} from "#~src/internal/Step.d.mts"
 import type {NodeAPIMessage} from "@enkore/spec/primitives"
 
-type Fn = (session: InternalSession, ...args: any[]) => any
-
-export function defineStep<T extends Fn>(stepName: Step, stepFn: T) {
+export function defineStep<
+	StepFn extends (session: InternalSession, ...args: any[]) => any
+>(
+	stepName: Step,
+	stepFn: StepFn
+) {
 	return {
 		name: stepName,
 		runStep: async function(
-			...args: Parameters<T>
+			...args: Parameters<StepFn>
 		) : Promise<
-			Awaited<ReturnType<T>> & {
+			Awaited<ReturnType<StepFn>> & {
 				messages: NodeAPIMessage[]
 			}
 		> {
