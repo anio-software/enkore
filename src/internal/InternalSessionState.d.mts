@@ -3,7 +3,6 @@ import type {
 } from "@enkore/spec"
 
 import type {ScandirEntry} from "@aniojs/node-fs"
-import type {Step} from "./Step.d.mts"
 
 export type InternalSessionState = {
 	// prevent addition of files
