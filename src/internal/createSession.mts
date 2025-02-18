@@ -51,7 +51,9 @@ export async function createSession(
 			)
 		},
 		state,
-		onEvent,
+		events: {
+			on: onEvent
+		},
 		async onStepStarted(step) {
 			console.log("%%%%%%%%%%%% starting step", step)
 		},

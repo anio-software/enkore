@@ -14,7 +14,9 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 export type InternalSession = {
 	state: InternalSessionState
 
-	onEvent: OnType<Events>
+	events: {
+		on: OnType<Events>
+	}
 
 	onStepStarted: (step: Step) => Promise<undefined>
 	onStepFinished: (step: Step) => Promise<undefined>
