@@ -26,6 +26,8 @@ export function defineStep<
 					aggregatedMessages.push(e)
 				})
 
+				await session.onStepStarted(stepName)
+
 				return {
 					...await stepFn(session, ...args.slice(1)),
 					messages: aggregatedMessages
@@ -34,6 +36,8 @@ export function defineStep<
 				if (eventListenerId !== null) {
 					session.events.removeListener(eventListenerId)
 				}
+
+				await session.onStepFinished(stepName)
 			}
 		}
 	}
