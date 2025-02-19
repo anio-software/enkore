@@ -1,6 +1,8 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {Step} from "#~src/internal/Step.d.mts"
 import type {NodeAPIMessage} from "@enkore/spec/primitives"
+import {onStepStarted} from "#~src/internal/session/onStepStarted.mts"
+import {onStepFinished} from "#~src/internal/session/onStepFinished.mts"
 
 export function defineStep<
 	StepFn extends (session: InternalSession, ...args: any[]) => any
@@ -26,7 +28,7 @@ export function defineStep<
 					aggregatedMessages.push(e)
 				})
 
-				await session.onStepStarted(stepName)
+				await onStepStarted(session, stepName)
 
 				return {
 					...await stepFn(session, ...args.slice(1)),
@@ -37,7 +39,7 @@ export function defineStep<
 					session.events.removeListener(eventListenerId)
 				}
 
-				await session.onStepFinished(stepName)
+				await onStepFinished(session, stepName)
 			}
 		}
 	}

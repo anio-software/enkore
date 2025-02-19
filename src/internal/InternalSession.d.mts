@@ -8,22 +8,17 @@ import type {
 
 import type {Events} from "./Events.d.mts"
 import type {_EmitEventType, OnType, RemoveEventListenerType} from "@aniojs/event-emitter"
-import type {Step} from "./Step.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
 	state: InternalSessionState
+	enableDebugPrint: boolean
 
 	events: {
 		emit: _EmitEventType<Events>
 		on: OnType<Events>
 		removeListener: RemoveEventListenerType<Events>
 	}
-
-	onStepStarted: (step: Step) => Promise<undefined>
-	onStepFinished: (step: Step) => Promise<undefined>
-
-	debugPrint: (message: string) => undefined
 
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 	projectRoot: string

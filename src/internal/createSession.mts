@@ -37,29 +37,17 @@ export async function createSession(
 	> & {
 		publicAPI: unknown
 	} = {
+		enableDebugPrint,
 		projectRoot,
 		projectConfig,
 		realmIntegrationAPI,
 		publicAPI: null,
 		options,
-		debugPrint(message) {
-			if (!enableDebugPrint) return
-
-			process.stderr.write(
-				`session debug: ${message}\n`
-			)
-		},
 		state,
 		events: {
 			emit: emitEvent,
 			on: onEvent,
 			removeListener: removeEventListener
-		},
-		async onStepStarted(step) {
-			console.log("%%%%%%%%%%%% starting step", step)
-		},
-		async onStepFinished(step) {
-			console.log("###### stopping step", step)
 		}
 	}
 
