@@ -85,8 +85,7 @@ const impl : API["enkore"] = async function(
 			stdIOLogs,
 			npmBinaryPath,
 			onlyInitializeProject
-		},
-		core.getDebugMode()
+		}
 	)
 
 	return {

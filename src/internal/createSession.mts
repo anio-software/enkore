@@ -21,8 +21,7 @@ export async function createSession(
 	emitEvent: _EmitEventType<Events>,
 	onEvent: OnType<Events>,
 	removeEventListener: RemoveEventListenerType<Events>,
-	options: Required<RawType<EnkoreNodeAPIOptions>>,
-	enableDebugPrint: boolean
+	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
 	const state : InternalSessionState = {
 		filesToAutogenerate: new Map(),
