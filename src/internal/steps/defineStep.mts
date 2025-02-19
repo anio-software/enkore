@@ -28,6 +28,8 @@ export function defineStep<
 					aggregatedMessages.push(e)
 				})
 
+				session.state.currentStep = stepName
+
 				await onStepStarted(session, stepName)
 
 				return {
@@ -40,6 +42,8 @@ export function defineStep<
 				}
 
 				await onStepFinished(session, stepName)
+
+				session.state.currentStep = undefined
 			}
 		}
 	}

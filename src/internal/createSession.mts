@@ -24,6 +24,7 @@ export async function createSession(
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
 	const state : InternalSessionState = {
+		currentStep: undefined,
 		filesToAutogenerate: new Map(),
 		finalized: false,
 		productNames: [],
