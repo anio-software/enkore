@@ -36,7 +36,7 @@ export async function preprocessFiles(
 	for (const file of files) {
 		const destFilePath = path.join(
 			session.projectRoot,
-			".build",
+			"build",
 			file.relative_path
 		)
 

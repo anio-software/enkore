@@ -12,7 +12,7 @@ export async function createObjectFiles(
 
 		const contents = (await fs.readFile(
 			path.join(
-				session.projectRoot, ".build", entry.relative_path
+				session.projectRoot, "build", entry.relative_path
 			)
 		)).toString()
 
@@ -30,7 +30,7 @@ export async function createObjectFiles(
 			await writeAtomicFile(
 				path.join(
 					session.projectRoot,
-					".objects",
+					"objects",
 					entry.relative_path
 				),
 				contents
@@ -54,7 +54,7 @@ export async function createObjectFiles(
 			}
 
 			await writeAtomicFile(
-				path.join(session.projectRoot, ".objects", destinationPath),
+				path.join(session.projectRoot, "objects", destinationPath),
 				objectFile.contents
 			)
 		}

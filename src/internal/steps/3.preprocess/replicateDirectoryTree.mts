@@ -11,11 +11,11 @@ export async function replicateDirectoryTree(
 
 	for (const dir of dirs) {
 		await mkdirp(
-			path.join(session.projectRoot, ".build", dir.relative_path)
+			path.join(session.projectRoot, "build", dir.relative_path)
 		)
 
 		await mkdirp(
-			path.join(session.projectRoot, ".objects", dir.relative_path)
+			path.join(session.projectRoot, "objects", dir.relative_path)
 		)
 	}
 }
