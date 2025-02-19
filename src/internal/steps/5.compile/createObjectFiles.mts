@@ -22,7 +22,7 @@ export async function createObjectFiles(
 
 		if (ret === "ignore") {
 			session.publicAPI.emitMessage(
-				"warning", undefined, `Ignoring unsupported file '${entry.name}'`
+				"warning", `Ignoring unsupported file '${entry.name}'`
 			)
 
 			continue
