@@ -45,7 +45,6 @@ export async function createSession(
 	> & {
 		publicAPI: unknown
 	} = {
-		enableDebugPrint,
 		emitMessage,
 		projectRoot,
 		projectConfig,

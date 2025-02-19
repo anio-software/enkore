@@ -12,7 +12,6 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
 	state: InternalSessionState
-	enableDebugPrint: boolean
 	emitMessage: EnkoreSessionAPI["emitMessage"]
 
 	events: {
