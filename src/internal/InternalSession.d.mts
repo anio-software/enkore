@@ -12,7 +12,7 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
 	state: InternalSessionState
-	emitMessage: EnkoreSessionAPI["emitMessage"]
+	emitMessage: EnkoreSessionAPI["enkore"]["emitMessage"]
 
 	events: {
 		emit: _EmitEventType<Events>
