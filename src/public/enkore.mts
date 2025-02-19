@@ -43,6 +43,8 @@ const impl : API["enkore"] = async function(
 
 	if (stdIOLogs) {
 		on("message", (e) => {
+			if (e.severity === "debug" && !core.getDebugMode()) return
+
 			process.stderr.write(
 				`[${e.severity}] enkore: ${e.message}\n`
 			)
