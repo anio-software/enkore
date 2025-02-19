@@ -6,7 +6,17 @@ import {defineStep} from "../defineStep.mts"
 async function executeStep(
 	session: InternalSession
 ) : Promise<Init> {
+	const data = await session.realmIntegrationAPI.initialize(session.publicAPI)
+
+	const productNames = data.products.map(product => {
+		return product.name
+	})
+
+	session.state.productNames = productNames
+
 	return {
+		productNames,
+
 		lint: async function() {
 			return await lint.runStep(session)
 		}
