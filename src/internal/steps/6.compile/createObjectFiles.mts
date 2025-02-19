@@ -21,7 +21,7 @@ export async function createObjectFiles(
 		)
 
 		if (ret === "ignore") {
-			session.publicAPI.emitMessage(
+			session.emitMessage(
 				"warning", `Ignoring unsupported file '${entry.name}'`
 			)
 

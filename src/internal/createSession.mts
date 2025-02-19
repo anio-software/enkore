@@ -31,6 +31,14 @@ export async function createSession(
 		projectDirectoryEntries: undefined
 	}
 
+	const emitMessage : InternalSession["publicAPI"]["emitMessage"] = function(severity, arg1, arg2?) {
+		if (arguments.length === 2) {
+			emitEvent("message", {severity, id: undefined, message: arg1 as string})
+		} else {
+			emitEvent("message", {severity, id: arg1     , message: arg2 as string})
+		}
+	}
+
 	const session : Omit<
 		InternalSession,
 		"publicAPI"
@@ -38,6 +46,7 @@ export async function createSession(
 		publicAPI: unknown
 	} = {
 		enableDebugPrint,
+		emitMessage,
 		projectRoot,
 		projectConfig,
 		realmIntegrationAPI,
@@ -48,14 +57,6 @@ export async function createSession(
 			emit: emitEvent,
 			on: onEvent,
 			removeListener: removeEventListener
-		}
-	}
-
-	const emitMessage : InternalSession["publicAPI"]["emitMessage"] = function(severity, arg1, arg2?) {
-		if (arguments.length === 2) {
-			emitEvent("message", {severity, id: undefined, message: arg1 as string})
-		} else {
-			emitEvent("message", {severity, id: arg1     , message: arg2 as string})
 		}
 	}
 
