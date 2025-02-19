@@ -2,7 +2,7 @@ import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {Preprocess} from "../Steps.d.mts"
 import {replicateDirectoryTree} from "./replicateDirectoryTree.mts"
 import {preprocessFiles} from "./preprocessFiles.mts"
-import lint from "../4.lint/index.mts"
+import init from "../4.init/index.mts"
 import {defineStep} from "../defineStep.mts"
 
 async function executeStep(
@@ -13,8 +13,8 @@ async function executeStep(
 	await preprocessFiles(session)
 
 	return {
-		lint: async function() {
-			return await lint.runStep(session)
+		init: async function() {
+			return await init.runStep(session)
 		}
 	}
 }

@@ -1,7 +1,7 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {Compile} from "../Steps.d.mts"
 import {createObjectFiles} from "./createObjectFiles.mts"
-import buildProducts from "../6.buildProducts/index.mts"
+import buildProducts from "../7.buildProducts/index.mts"
 import {defineStep} from "../defineStep.mts"
 
 async function executeStep(
