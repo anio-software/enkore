@@ -42,7 +42,7 @@ const {messages} = await project.build()
 
 for (const message of messages) {
 	process.stderr.write(
-		`${message.severity}: ${message.message}\n`
+		`${message.step}: ${message.severity}: ${message.message}\n`
 	)
 }
 
