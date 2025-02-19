@@ -51,8 +51,12 @@ export async function createSession(
 		}
 	}
 
-	const emitMessage : InternalSession["publicAPI"]["emitMessage"] = function(severity, id, message) {
-		emitEvent("message", {severity, id, message})
+	const emitMessage : InternalSession["publicAPI"]["emitMessage"] = function(severity, arg1, arg2?) {
+		if (arguments.length === 2) {
+			emitEvent("message", {severity, id: undefined, message: arg1 as string})
+		} else {
+			emitEvent("message", {severity, id: arg1     , message: arg2 as string})
+		}
 	}
 
 	function assertNotFinalized() {
