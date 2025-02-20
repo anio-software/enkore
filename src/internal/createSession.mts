@@ -72,7 +72,8 @@ export async function createSession(
 		filesToAutogenerate: new Map(),
 		finalized: false,
 		productNames: [],
-		projectDirectoryEntries: undefined
+		projectDirectoryEntries: undefined,
+		internalRealmData: new Map()
 	}
 
 	const emitMessage : InternalSession["publicAPI"]["enkore"]["emitMessage"] = function(severity, arg1, arg2?) {
@@ -147,6 +148,18 @@ export async function createSession(
 
 				getDependencyPackageJSON(dependencyName) {
 					return getRealmDependency(dependencyName).dependencyPackageJSON
+				},
+
+				getInternalData(key) {
+					return state.internalRealmData.get(key)
+				},
+
+				setInternalData(key, value) {
+					state.internalRealmData.set(key, value)
+				},
+
+				hasInternalData(key) {
+					return state.internalRealmData.has(key)
 				}
 			},
 
