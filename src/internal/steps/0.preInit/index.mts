@@ -2,16 +2,17 @@ import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {PreInit} from "../Steps.d.mts"
 import {defineStep} from "../defineStep.mts"
 import clean from "../1.clean/index.mts"
+import {runHook} from "#~src/internal/session/runHook.mts"
 
 async function executeStep(
 	session: InternalSession
 ) : Promise<PreInit> {
-	const {realmIntegrationAPI, projectConfig} = session
+	const {projectConfig} = session
 
 	//
 	// give realm a chance to register auto files
 	//
-	realmIntegrationAPI.preInitialize(session.publicAPI)
+	runHook(session, "preInitialize")
 
 	//
 	// add auto files from config to session

@@ -16,7 +16,7 @@ export async function createObjectFiles(
 			)
 		)).toString()
 
-		const ret = await session.realmIntegrationAPI.generateObjectFile(
+		const ret = await session.realmIntegrationAPI.compile(
 			session.publicAPI, entry.relative_path, contents
 		)
 
