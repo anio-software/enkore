@@ -24,7 +24,7 @@
     "@enkore/common": "^0.0.18",
     "@enkore/spec": "^0.47.0",
     "@fourtune/core": "^0.1101.0",
-    "@fourtune/realm-js": "^0.31010.0",
+    "@fourtune/realm-js": "^1.0.0",
     "fourtune": "^0.30000.1"
   },
   "scripts": {
