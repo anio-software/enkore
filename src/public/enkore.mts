@@ -21,7 +21,7 @@ const impl : API["enkore"] = async function(
 	const npmBinaryPath = options?.npmBinaryPath || "npm"
 	const force = options?.force === true
 	const onlyInitializeProject = options?.onlyInitializeProject === true
-	const partialBuild = options?.partialBuild === true
+	const _partialBuild = options?._partialBuild === true
 
 	const {
 		on,
@@ -86,7 +86,7 @@ const impl : API["enkore"] = async function(
 			stdIOLogs,
 			npmBinaryPath,
 			onlyInitializeProject,
-			partialBuild
+			_partialBuild
 		}
 	)
 
