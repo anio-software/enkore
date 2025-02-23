@@ -4,6 +4,7 @@ import {defineStep} from "../defineStep.mts"
 import clean from "../1.clean/index.mts"
 import {runHook} from "#~src/internal/session/runHook.mts"
 import {writeBoilerplateFiles} from "./writeBoilerplateFiles.mts"
+import {writeGitIgnoreFile} from "./writeGitIgnoreFile.mts"
 
 async function executeStep(
 	session: InternalSession
@@ -11,6 +12,7 @@ async function executeStep(
 	const {projectConfig} = session
 
 	await writeBoilerplateFiles(session)
+	await writeGitIgnoreFile(session)
 
 	//
 	// give realm a chance to register auto files
