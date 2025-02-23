@@ -11,7 +11,13 @@ async function handleBoilerplateFile(
 
 	const absolutePath = path.join(session.projectRoot, file.path)
 
-	if (isFileSync(absolutePath) && !overwrite) return
+	if (isFileSync(absolutePath) && !overwrite) {
+		session.emitMessage("info", `skip writing '${file.path}', already exists`)
+
+		return
+	}
+
+	session.emitMessage("info", `writing '${file.path}'`)
 
 	await writeAtomicFile(
 		absolutePath, file.content, {
