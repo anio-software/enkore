@@ -164,6 +164,9 @@ export async function createSession(
 			},
 
 			enkore: {
+				getOptions() {
+					return createEntity("EnkoreNodeAPIOptions", 0, 0, session.options)
+				},
 				emitMessage,
 				getCurrentStep() {
 					return session.state.currentStep
