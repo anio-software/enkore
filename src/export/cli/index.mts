@@ -7,6 +7,7 @@ const args = process.argv.slice(2)
 let isCIEnvironment = false
 let force = false
 let onlyInitializeProject = false
+let partialBuild = false
 let projectRoot : string|null = null
 
 for (const arg of args) {
@@ -16,6 +17,8 @@ for (const arg of args) {
 		isCIEnvironment = true
 	} else if (arg === "-init") {
 		onlyInitializeProject = true
+	} else if(arg === "-debugPartialBuild") {
+		partialBuild = true
 	} else {
 		projectRoot = arg
 	}
@@ -34,7 +37,8 @@ const {project} = await enkore(
 		stdIOLogs: true,
 		force,
 		onlyInitializeProject,
-		isCIEnvironment
+		isCIEnvironment,
+		partialBuild
 	})
 )
 
