@@ -20,8 +20,6 @@ export function getBoilerplateFiles() : EnkoreBoilerplateFile[] {
 		)
 	}
 
-	addFile(".gitignore", getAsset("text://boilerplate/gitignore") as string, false)
-
 	addFile(".editorconfig", getAsset("text://boilerplate/editorconfig") as string, true)
 
 	addFile(".github/CODEOWNERS", getAsset("text://boilerplate/github/CODEOWNERS") as string, true)
