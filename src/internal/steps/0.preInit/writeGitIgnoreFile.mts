@@ -25,7 +25,7 @@ async function getAutoSection(
 
 	let section = ``
 
-	section += `# -- ${gitIgnoreMarkerUUID} -- DO NOT ADD ENTRIES AFTER THIS LINE!\n`
+	section += `# Section managed by enkore ; DO NOT ADD ENTRIES AFTER THIS LINE! (${gitIgnoreMarkerUUID})\n`
 	section += gitIgnoreFiles.join("\n")
 
 	return section
