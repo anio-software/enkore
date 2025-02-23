@@ -3,11 +3,14 @@ import type {PreInit} from "../Steps.d.mts"
 import {defineStep} from "../defineStep.mts"
 import clean from "../1.clean/index.mts"
 import {runHook} from "#~src/internal/session/runHook.mts"
+import {writeBoilerplateFiles} from "./writeBoilerplateFiles.mts"
 
 async function executeStep(
 	session: InternalSession
 ) : Promise<PreInit> {
 	const {projectConfig} = session
+
+	await writeBoilerplateFiles(session)
 
 	//
 	// give realm a chance to register auto files
