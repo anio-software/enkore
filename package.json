@@ -21,8 +21,8 @@
   "devDependencies": {
     "@aniojs/event-emitter": "^0.0.10",
     "@aniojs/node-fs": "^0.4.0",
-    "@enkore/common": "^0.0.21",
-    "@enkore/spec": "^0.51.0",
+    "@enkore/common": "^0.0.22",
+    "@enkore/spec": "^0.55.0",
     "@fourtune/core": "^0.1101.0",
     "@fourtune/realm-js": "^1.0.0",
     "fourtune": "^0.30000.1"
