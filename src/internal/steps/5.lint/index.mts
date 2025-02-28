@@ -14,18 +14,15 @@ async function executeStep(
 	const {lint} = session.realmIntegrationAPI
 
 	if (typeof lint === "function") {
-		for (const entry of session.state.projectDirectoryEntries!) {
-			if (entry.type !== "regularFile") continue
-			if (entry.name.startsWith(".")) continue
-
+		for (const projectFile of session.state.allProjectFiles!) {
 			const code = await readFileString(
 				path.join(
-					session.projectRoot, "build", entry.relative_path
+					session.projectRoot, "build", projectFile.relativePath
 				)
 			)
 
 			const lintMessages = await lint(
-				session.publicAPI, entry.relative_path, code
+				session.publicAPI, projectFile, code
 			)
 
 			// this is unclean, should i return

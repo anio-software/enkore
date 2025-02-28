@@ -3,17 +3,14 @@ import {copy, writeAtomicFile} from "@aniojs/node-fs"
 import fs from "node:fs/promises"
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import {fileNameIndicatesPreprocessable} from "@enkore/common"
+import type {EnkoreProjectFile} from "@enkore/spec"
 
 export async function preprocessFiles(
 	session: InternalSession
 ) {
-	const files = session.state.projectDirectoryEntries!.filter(e => {
-		return e.type === "regularFile"
-	})
-
 	const {preprocess} = session.realmIntegrationAPI
 
-	async function preprocessFile(filePath: string, str: string) {
+	async function preprocessFile(projectFile: EnkoreProjectFile, str: string) {
 		let newStr = str
 
 		if (session.projectConfig.buildConstants) {
@@ -26,33 +23,33 @@ export async function preprocessFiles(
 
 		if (typeof preprocess === "function") {
 			newStr = await preprocess(
-				session.publicAPI, filePath, newStr
+				session.publicAPI, projectFile, newStr
 			)
 		}
 
 		return newStr
 	}
 
-	for (const file of files) {
+	for (const projectFile of session.state.allProjectFiles!) {
 		const destFilePath = path.join(
 			session.projectRoot,
 			"build",
-			file.relative_path
+			projectFile.relativePath
 		)
 
-		if (!fileNameIndicatesPreprocessable(file.name)) {
-			await copy(file.absolute_path, destFilePath)
+		if (!fileNameIndicatesPreprocessable(projectFile.fileName)) {
+			await copy(projectFile.absolutePath, destFilePath)
 
 			continue
 		}
 
 		const sourceCode = (await fs.readFile(
-			file.absolute_path
+			projectFile.absolutePath
 		)).toString()
 
 		await writeAtomicFile(
 			destFilePath,
-			await preprocessFile(file.relative_path, sourceCode)
+			await preprocessFile(projectFile, sourceCode)
 		)
 	}
 }

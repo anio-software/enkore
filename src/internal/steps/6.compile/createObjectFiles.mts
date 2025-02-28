@@ -6,23 +6,20 @@ import path from "node:path"
 export async function createObjectFiles(
 	session: InternalSession
 ) {
-	for (const entry of session.state.projectDirectoryEntries!) {
-		if (entry.type !== "regularFile") continue
-		if (entry.name.startsWith(".")) continue
-
+	for (const projectFile of session.state.allProjectFiles!) {
 		const contents = (await fs.readFile(
 			path.join(
-				session.projectRoot, "build", entry.relative_path
+				session.projectRoot, "build", projectFile.relativePath
 			)
 		)).toString()
 
 		const ret = await session.realmIntegrationAPI.compile(
-			session.publicAPI, entry.relative_path, contents
+			session.publicAPI, projectFile, contents
 		)
 
 		if (ret === "ignore") {
 			session.emitMessage(
-				"warning", `Ignoring unsupported file '${entry.name}'`
+				"warning", `Ignoring unsupported file '${projectFile.fileName}'`
 			)
 
 			continue
@@ -31,7 +28,7 @@ export async function createObjectFiles(
 				path.join(
 					session.projectRoot,
 					"objects",
-					entry.relative_path
+					projectFile.relativePath
 				),
 				contents
 			)
@@ -46,7 +43,7 @@ export async function createObjectFiles(
 
 			if ("name" in objectFile) {
 				destinationPath = path.join(
-					path.dirname(entry.relative_path),
+					path.dirname(projectFile.relativePath),
 					objectFile.name
 				)
 			} else {
