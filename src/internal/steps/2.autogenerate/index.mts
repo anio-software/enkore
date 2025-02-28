@@ -83,6 +83,12 @@ async function executeStep(
 
 	const scandirEntryToEntity = scandirEntryToEntityFactory(session.state)
 	const allProjectFiles = projectDirectoryEntries.filter(entry => {
+		//
+		// ignore project root .gitignore file
+		// because we are maintaining it from this package here
+		//
+		if (entry.relative_path === ".gitignore") return false
+
 		return entry.type === "regularFile"
 	}).map(scandirEntryToEntity)
 
