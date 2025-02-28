@@ -13,7 +13,7 @@ export type InternalSessionState = {
 
 	currentStep: Step|undefined
 
-	projectDirectoryEntries?: ScandirEntry[]
+	projectDirectoryEntries: ScandirEntry[]|undefined
 
 	productNames: string[]
 
