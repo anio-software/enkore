@@ -13,6 +13,7 @@ import type {_EmitEventType, OnType, RemoveEventListenerType} from "@aniojs/even
 import type {InternalSession} from "./InternalSession.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import path from "node:path"
+import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
 
 export async function createSession(
 	projectRoot: string,
@@ -149,14 +150,18 @@ export async function createSession(
 						return []
 					}
 
-					return []
+					return getProjectFilesGeneric(
+						relativeBaseDir, session.state.filteredProjectFiles!
+					)
 				},
 				getAllProjectFiles(relativeBaseDir) {
 					if (!checkAccessUninitializedStateVariable("allProjectFiles")) {
 						return []
 					}
 
-					return []
+					return getProjectFilesGeneric(
+						relativeBaseDir, session.state.allProjectFiles!
+					)
 				},
 			},
 
