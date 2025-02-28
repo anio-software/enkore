@@ -88,6 +88,16 @@ async function executeStep(
 
 	let filteredProjectFiles : EnkoreProjectFile[]  = []
 
+	function markProjectFileAsFiltered(filePath: string) {
+		for (const projectFile of allProjectFiles) {
+			if (projectFile.absolutePath === filePath) {
+				projectFile.wasFiltered = true
+
+				return
+			}
+		}
+	}
+
 	if (typeof session.realmIntegrationAPI.projectSourceFileFilter === "function") {
 		const filter = session.realmIntegrationAPI.projectSourceFileFilter
 		const tmp : EnkoreProjectFile[]  = []
@@ -95,7 +105,14 @@ async function executeStep(
 		for (const projectFile of allProjectFiles) {
 			const keep = await filter(session.publicAPI, projectFile)
 
-			if (!keep) continue
+			if (!keep) {
+				// i might have to change this in the future
+				// dependening on the performance
+
+				markProjectFileAsFiltered(projectFile.absolutePath)
+
+				continue
+			}
 
 			tmp.push(projectFile)
 		}
