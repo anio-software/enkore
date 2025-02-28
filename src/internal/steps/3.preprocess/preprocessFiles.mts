@@ -1,6 +1,5 @@
 import path from "node:path"
-import {copy, writeAtomicFile} from "@aniojs/node-fs"
-import fs from "node:fs/promises"
+import {copy, writeAtomicFile, readFileString} from "@aniojs/node-fs"
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import {fileNameIndicatesPreprocessable} from "@enkore/common"
 import type {EnkoreProjectFile} from "@enkore/spec"
@@ -43,9 +42,7 @@ export async function preprocessFiles(
 			continue
 		}
 
-		const sourceCode = (await fs.readFile(
-			projectFile.absolutePath
-		)).toString()
+		const sourceCode = await readFileString(projectFile.absolutePath)
 
 		await writeAtomicFile(
 			destFilePath,

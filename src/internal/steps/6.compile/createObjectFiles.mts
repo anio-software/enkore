@@ -1,17 +1,16 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import {writeAtomicFile} from "@aniojs/node-fs"
-import fs from "node:fs/promises"
+import {writeAtomicFile, readFileString} from "@aniojs/node-fs"
 import path from "node:path"
 
 export async function createObjectFiles(
 	session: InternalSession
 ) {
 	for (const projectFile of session.state.allProjectFiles!) {
-		const contents = (await fs.readFile(
+		const contents = await readFileString(
 			path.join(
 				session.projectRoot, "build", projectFile.relativePath
 			)
-		)).toString()
+		)
 
 		const ret = await session.realmIntegrationAPI.compile(
 			session.publicAPI, projectFile, contents
