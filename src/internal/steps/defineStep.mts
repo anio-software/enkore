@@ -4,6 +4,8 @@ import type {NodeAPIMessage} from "@enkore/spec/primitives"
 import {onStepStarted} from "#~src/internal/session/onStepStarted.mts"
 import {onStepFinished} from "#~src/internal/session/onStepFinished.mts"
 
+// todo: add some kind of logic that prevents
+// progression of steps if an error occurred
 export function defineStep<
 	StepFn extends (session: InternalSession, ...args: any[]) => any
 >(
