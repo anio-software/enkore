@@ -27,5 +27,5 @@ export type InternalSessionState = {
 		outputHash: string|undefined
 	}>
 
-	internalRealmData: Map<string, unknown>
+	internalRealmData: object
 }

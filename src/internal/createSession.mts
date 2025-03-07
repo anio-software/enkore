@@ -25,6 +25,16 @@ export async function createSession(
 	removeEventListener: RemoveEventListenerType<Events>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
+	async function getInitialRealmData() {
+		const {getInitialInternalData} = realmIntegrationAPI
+
+		if (typeof getInitialInternalData === "function") {
+			return await getInitialInternalData()
+		}
+
+		return {}
+	}
+
 	const state : InternalSessionState = {
 		currentStep: undefined,
 		filesToAutogenerate: new Map(),
@@ -33,7 +43,7 @@ export async function createSession(
 		projectDirectoryEntries: undefined,
 		allProjectFiles: undefined,
 		filteredProjectFiles: undefined,
-		internalRealmData: new Map()
+		internalRealmData: await getInitialRealmData()
 	}
 
 	const emitMessage : InternalSession["publicAPI"]["enkore"]["emitMessage"] = function(severity, arg1, arg2?) {
@@ -124,16 +134,8 @@ export async function createSession(
 					return getRealmDependency(dependencyName).dependencyPackageJSON
 				},
 
-				getInternalData(key) {
-					return state.internalRealmData.get(key)
-				},
-
-				setInternalData(key, value) {
-					state.internalRealmData.set(key, value)
-				},
-
-				hasInternalData(key) {
-					return state.internalRealmData.has(key)
+				getInternalData() {
+					return state.internalRealmData
 				}
 			},
 
