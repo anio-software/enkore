@@ -18,7 +18,7 @@ export async function createObjectFiles(
 
 		if (ret === "ignore") {
 			session.emitMessage(
-				"warning", `Ignoring unsupported file '${projectFile.fileName}'`
+				"warning", `Ignoring unsupported file '${projectFile.relativePath}'`
 			)
 
 			continue
