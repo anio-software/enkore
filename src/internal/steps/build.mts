@@ -16,7 +16,6 @@ export async function build(
 	const {clean} = await preInit.runStep(session)
 
 	const {messages: cleanMessages, autogenerate} = await clean()
-
 	const {messages: autogenerateMessages, preprocess} = await autogenerate()
 	const {messages: preprocessMessages, init} = await preprocess()
 	const {messages: initMessages, lint} = await init()
