@@ -34,8 +34,10 @@ export function defineStep<
 
 				await onStepStarted(session, stepName)
 
+				const fnResult = await stepFn(session, ...args.slice(1))
+
 				return {
-					...await stepFn(session, ...args.slice(1)),
+					...fnResult,
 					messages: aggregatedMessages
 				}
 			} finally {
