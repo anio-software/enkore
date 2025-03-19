@@ -32,7 +32,7 @@ function buildRunStep(step) {
 	}
 
 	code += `\n`
-	code += `\tif (hasErrors(${step}Messages)) {\n`
+	code += `\tif (hasErrors(${step}Messages) && shouldStop) {\n`
 	code += `\t\treturn stoppedBecauseOfError(session, "${step}", ${step}Messages)\n`
 	code +=  `\t}\n\n`
 
@@ -96,6 +96,8 @@ export async function runAllSteps(
 ): Promise<{
 	messages: ExtendedNodeAPIMessage[]
 }> {\n`
+
+	code += `\tconst shouldStop = session.options._forceBuild !== true\n`
 
 	for (const step of enkoreSteps) {
 		code += buildRunStep(step)

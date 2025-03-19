@@ -33,16 +33,24 @@ export function defineStep<
 			const aggregatedMessages: NodeAPIMessage[] = []
 			let eventListenerId: number|null = null
 
-			if (session.state.hasEncounteredError) {
-				throw new Error(
-					`Refusing to run next step after an error occurred in the previous one.`
-				)
-			}
-
 			try {
 				eventListenerId = session.events.on("message", e => {
 					aggregatedMessages.push(e)
 				})
+
+				if (session.state.hasEncounteredError) {
+					if (session.options._forceBuild !== true) {
+						throw new Error(
+							`Refusing to run next step after an error occurred in the previous one.`
+						)
+					} else {
+						session.emitMessage(
+							"warning",
+							"continueOnError",
+							`continuing even though errors occurred earlier.`
+						)
+					}
+				}
 
 				session.state.currentStep = stepName
 

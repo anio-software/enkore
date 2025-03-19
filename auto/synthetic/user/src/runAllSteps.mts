@@ -54,51 +54,52 @@ export async function runAllSteps(
 ): Promise<{
 	messages: ExtendedNodeAPIMessage[]
 }> {
+	const shouldStop = session.options._forceBuild !== true
 	const {messages: preInitMessages, clean} = await preInit.runStep(session)
 
-	if (hasErrors(preInitMessages)) {
+	if (hasErrors(preInitMessages) && shouldStop) {
 		return stoppedBecauseOfError(session, "preInit", preInitMessages)
 	}
 
 	const {messages: cleanMessages, autogenerate} = await clean()
 
-	if (hasErrors(cleanMessages)) {
+	if (hasErrors(cleanMessages) && shouldStop) {
 		return stoppedBecauseOfError(session, "clean", cleanMessages)
 	}
 
 	const {messages: autogenerateMessages, preprocess} = await autogenerate()
 
-	if (hasErrors(autogenerateMessages)) {
+	if (hasErrors(autogenerateMessages) && shouldStop) {
 		return stoppedBecauseOfError(session, "autogenerate", autogenerateMessages)
 	}
 
 	const {messages: preprocessMessages, init} = await preprocess()
 
-	if (hasErrors(preprocessMessages)) {
+	if (hasErrors(preprocessMessages) && shouldStop) {
 		return stoppedBecauseOfError(session, "preprocess", preprocessMessages)
 	}
 
 	const {messages: initMessages, lint} = await init()
 
-	if (hasErrors(initMessages)) {
+	if (hasErrors(initMessages) && shouldStop) {
 		return stoppedBecauseOfError(session, "init", initMessages)
 	}
 
 	const {messages: lintMessages, compile} = await lint()
 
-	if (hasErrors(lintMessages)) {
+	if (hasErrors(lintMessages) && shouldStop) {
 		return stoppedBecauseOfError(session, "lint", lintMessages)
 	}
 
 	const {messages: compileMessages, buildProducts} = await compile()
 
-	if (hasErrors(compileMessages)) {
+	if (hasErrors(compileMessages) && shouldStop) {
 		return stoppedBecauseOfError(session, "compile", compileMessages)
 	}
 
 	const {messages: buildProductsMessages} = await buildProducts(null)
 
-	if (hasErrors(buildProductsMessages)) {
+	if (hasErrors(buildProductsMessages) && shouldStop) {
 		return stoppedBecauseOfError(session, "buildProducts", buildProductsMessages)
 	}
 

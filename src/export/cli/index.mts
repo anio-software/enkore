@@ -8,6 +8,7 @@ let isCIEnvironment = false
 let force = false
 let onlyInitializeProject = false
 let _partialBuild = false
+let _forceBuild = false
 let projectRoot : string|null = null
 
 for (const arg of args) {
@@ -19,6 +20,8 @@ for (const arg of args) {
 		onlyInitializeProject = true
 	} else if(arg === "-debugPartialBuild") {
 		_partialBuild = true
+	} else if (arg === "-debugForceBuild") {
+		_forceBuild = true
 	} else {
 		projectRoot = arg
 	}
@@ -38,7 +41,8 @@ const {project} = await enkore(
 		force,
 		onlyInitializeProject,
 		isCIEnvironment,
-		_partialBuild
+		_partialBuild,
+		_forceBuild
 	})
 )
 
