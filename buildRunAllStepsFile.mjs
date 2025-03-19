@@ -31,6 +31,11 @@ function buildRunStep(step) {
 		code += `\tconst {messages: ${step}Messages} = await ${executeStep}\n`
 	}
 
+	code += `\n`
+	code += `\tif (hasErrors(${step}Messages)) {\n`
+	code += `\t\treturn stoppedBecauseOfError(session, "${step}", ${step}Messages)\n`
+	code +=  `\t}\n\n`
+
 	return code
 }
 
@@ -45,6 +50,56 @@ type ExtendedNodeAPIMessage = NodeAPIMessage & {
 
 import preInit from "#~src/internal/steps/0.preInit/index.mts"
 
+function hasErrors(messages: NodeAPIMessage[]) {
+	for (const msg of messages) {
+		if (msg.severity === "error") {
+			return true
+		}
+	}
+
+	return false
+}
+
+function stoppedBecauseOfError(
+	session: InternalSession,
+	step: Step,
+	stepMessages: NodeAPIMessage[]
+): {
+	messages: ExtendedNodeAPIMessage[]
+} {
+	const stoppedBecauseOfErrorMessage: ExtendedNodeAPIMessage = {
+		step,
+		id: "stoppedBecauseOfError",
+		severity: "error",
+		message: "Stopped execution because of previous errors."
+	}
+
+	session.emitMessage(
+		stoppedBecauseOfErrorMessage.severity,
+		stoppedBecauseOfErrorMessage.id,
+		stoppedBecauseOfErrorMessage.message
+	)
+
+	return {
+		messages: [
+			...stepMessages.map(msg => {
+				return {
+					...msg,
+					step
+				}
+			}),
+
+			//
+			// While a step is running its emitted messages
+			// are automatically collected. However, this won't happen here
+			// for 'stoppedBecauseOfErrorMessage' because the step has already 
+			// finished execution.
+			//
+			stoppedBecauseOfErrorMessage
+		]
+	}
+}
+
 export async function runAllSteps(
 	session: InternalSession
 ): Promise<{
@@ -55,8 +110,7 @@ export async function runAllSteps(
 		code += buildRunStep(step)
 	}
 
-	code += `
-	function map(step: Step, messages: NodeAPIMessage[]) {
+	code += `\tfunction map(step: Step, messages: NodeAPIMessage[]) {
 		return messages.map(x => {
 			return {...x, step}
 		})
