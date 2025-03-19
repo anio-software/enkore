@@ -7,16 +7,7 @@ type ExtendedNodeAPIMessage = NodeAPIMessage & {
 }
 
 import preInit from "#~src/internal/steps/0.preInit/index.mts"
-
-function hasErrors(messages: NodeAPIMessage[]) {
-	for (const msg of messages) {
-		if (msg.severity === "error") {
-			return true
-		}
-	}
-
-	return false
-}
+import {hasErrors} from "#~src/internal/steps/defineStep.mts"
 
 function stoppedBecauseOfError(
 	session: InternalSession,
