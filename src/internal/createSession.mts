@@ -114,8 +114,14 @@ export async function createSession(
 			},
 
 			realm: {
-				getConfig() {
-					return projectConfig.realm.config
+				getConfig(realm) {
+					if (projectConfig.realm.config._realm !== realm) {
+						throw new Error(
+							`getOptions() realm mismatch.`
+						)
+					}
+
+					return projectConfig.realm.config as any
 				},
 
 				getDependency(dependencyName) {
