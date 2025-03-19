@@ -4,8 +4,16 @@ import type {NodeAPIMessage} from "@enkore/spec/primitives"
 import {onStepStarted} from "#~src/internal/session/onStepStarted.mts"
 import {onStepFinished} from "#~src/internal/session/onStepFinished.mts"
 
-// todo: add some kind of logic that prevents
-// progression of steps if an error occurred
+export function hasErrors(messages: NodeAPIMessage[]) {
+	for (const msg of messages) {
+		if (msg.severity === "error") {
+			return true
+		}
+	}
+
+	return false
+}
+
 export function defineStep<
 	StepFn extends (session: InternalSession, ...args: any[]) => any
 >(
@@ -25,6 +33,12 @@ export function defineStep<
 			const aggregatedMessages: NodeAPIMessage[] = []
 			let eventListenerId: number|null = null
 
+			if (session.state.hasEncounteredError) {
+				throw new Error(
+					`Refusing to run next step after an error occurred in the previous one.`
+				)
+			}
+
 			try {
 				eventListenerId = session.events.on("message", e => {
 					aggregatedMessages.push(e)
@@ -35,6 +49,10 @@ export function defineStep<
 				await onStepStarted(session, stepName)
 
 				const fnResult = await stepFn(session, ...args.slice(1))
+
+				if (hasErrors(aggregatedMessages)) {
+					session.state.hasEncounteredError = true
+				}
 
 				return {
 					...fnResult,

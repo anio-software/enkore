@@ -36,6 +36,7 @@ export async function createSession(
 	}
 
 	const state : InternalSessionState = {
+		hasEncounteredError: false,
 		currentStep: undefined,
 		filesToAutogenerate: new Map(),
 		finalized: false,
