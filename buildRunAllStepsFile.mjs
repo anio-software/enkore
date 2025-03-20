@@ -40,7 +40,7 @@ type ExtendedNodeAPIMessage = NodeAPIMessage & {
 }
 
 import preInit from "#~src/internal/steps/0.preInit/index.mts"
-import {hasErrors} from "#~src/internal/steps/defineStep.mts"
+import {hasErrors} from "#~src/internal/steps/defineStepChecked.mts"
 
 function stoppedBecauseOfError(
 	session: InternalSession,

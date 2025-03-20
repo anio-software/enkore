@@ -15,6 +15,16 @@ type Ret<StepName extends Step> = {
 	}>
 }
 
+export function hasErrors(messages: NodeAPIMessage[]) {
+	for (const msg of messages) {
+		if (msg.severity === "error") {
+			return true
+		}
+	}
+
+	return false
+}
+
 export function defineStepChecked<StepName extends Step>(
 	stepName: StepName,
 	executeStep: (
