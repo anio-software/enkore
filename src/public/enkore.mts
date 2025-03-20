@@ -102,7 +102,15 @@ const impl : API["enkore"] = async function(
 			},
 
 			build: async function() {
-				return await build(internalSession)
+				return await build(internalSession, false, false)
+			},
+
+			buildAndTest: async function() {
+				return await build(internalSession, true, false)
+			},
+
+			buildAndPublish: async function(skipTests) {
+				return await build(internalSession, skipTests !== true, true)
 			}
 		},
 
