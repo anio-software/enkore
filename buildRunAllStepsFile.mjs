@@ -10,9 +10,9 @@ function buildRunStep(step) {
 		} else if (step === "buildProducts") {
 			return `buildProducts(null)`
 		} else if (step === "testProducts") {
-			return `testProducts(null)`
+			return `testProducts(runTests === true ? null : false)`
 		} else if (step === "publishProducts") {
-			return `publishProducts(null)`
+			return `publishProducts(runPublish === true ? null : false)`
 		}
 
 		return `${step}()`

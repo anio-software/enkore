@@ -93,13 +93,13 @@ export async function runAllSteps(
 		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "buildProducts")]};
 	}
 
-	const {messages: testProductsMessages, publishProducts} = await testProducts(null)
+	const {messages: testProductsMessages, publishProducts} = await testProducts(runTests === true ? null : false)
 	aggregatedMessages = [...aggregatedMessages, ...map("testProducts", testProductsMessages)]
 	if (hasErrors(testProductsMessages) && shouldStop) {
 		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "testProducts")]};
 	}
 
-	const {messages: publishProductsMessages} = await publishProducts(null)
+	const {messages: publishProductsMessages} = await publishProducts(runPublish === true ? null : false)
 	aggregatedMessages = [...aggregatedMessages, ...map("publishProducts", publishProductsMessages)]
 	if (hasErrors(publishProductsMessages) && shouldStop) {
 		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "publishProducts")]};
