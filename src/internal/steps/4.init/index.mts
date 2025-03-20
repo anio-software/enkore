@@ -1,10 +1,9 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {Init} from "../Steps.d.mts"
+import type {Init} from "#~synthetic/user/Steps.d.mts"
 import lint from "../5.lint/index.mts"
-import {defineStep} from "../defineStep.mts"
+import {defineStepChecked} from "../defineStepChecked.mts"
 import type {NodeAPIMessage} from "@enkore/spec/primitives"
 
-function mockReturn() : Init {
+async function mockReturn() : ReturnType<Init> {
 	const messages : NodeAPIMessage[] = [{
 		severity: "info",
 		id: "stepSkipped",
@@ -31,9 +30,7 @@ function mockReturn() : Init {
 	}
 }
 
-async function executeStep(
-	session: InternalSession
-) : Promise<Init> {
+const executeStep: Init = async function(session) {
 	const data = await session.realmIntegrationAPI.initialize(session.publicAPI)
 
 	const productNames = data.products.map(product => {
@@ -55,4 +52,4 @@ async function executeStep(
 	}
 }
 
-export default defineStep("init", executeStep)
+export default defineStepChecked("init", executeStep)
