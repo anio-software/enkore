@@ -6,7 +6,7 @@ async function executeStep(
 	session: InternalSession,
 	productNames: string[]|null
 ) : Promise<BuildProducts> {
-	const productNamesToBuild = productNames === null ? session.state.productNames : productNames
+	const productNamesToBuild = productNames ?? session.state.productNames
 
 	for (const productName of productNamesToBuild) {
 		session.emitMessage(
