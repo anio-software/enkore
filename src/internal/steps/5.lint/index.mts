@@ -1,14 +1,11 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {Lint} from "../Steps.d.mts"
+import type {Lint} from "#~synthetic/user/Steps.d.mts"
 import compile from "../6.compile/index.mts"
-import {defineStep} from "../defineStep.mts"
+import {defineStepChecked} from "../defineStepChecked.mts"
 import {runHook} from "#~src/internal/session/runHook.mts"
 import path from "node:path"
 import {readFileString} from "@aniojs/node-fs"
 
-async function executeStep(
-	session: InternalSession
-) : Promise<Lint> {
+const executeStep: Lint = async function (session) {
 	await runHook(session, "preLint")
 
 	const {lint} = session.realmIntegrationAPI
@@ -44,4 +41,4 @@ async function executeStep(
 	}
 }
 
-export default defineStep("lint", executeStep)
+export default defineStepChecked("lint", executeStep)
