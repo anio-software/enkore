@@ -7,9 +7,11 @@ type ExtendedNodeAPIMessage = NodeAPIMessage & {
 }
 
 export async function build(
-	session: InternalSession
+	session: InternalSession,
+	runTests: boolean,
+	runPublish: boolean
 ) : Promise<{
 	messages: ExtendedNodeAPIMessage[]
 }> {
-	return await runAllSteps(session)
+	return await runAllSteps(session, runTests, runPublish)
 }

@@ -50,7 +50,9 @@ function stoppedBecauseOfError(
 }
 
 export async function runAllSteps(
-	session: InternalSession
+	session: InternalSession,
+	runTests: boolean,
+	runPublish: boolean
 ): Promise<{
 	messages: ExtendedNodeAPIMessage[]
 }> {
