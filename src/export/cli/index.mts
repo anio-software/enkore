@@ -10,6 +10,8 @@ let onlyInitializeProject = false
 let _partialBuild = false
 let _forceBuild = false
 let projectRoot : string|null = null
+let runTests = false
+let runPublish = false
 
 for (const arg of args) {
 	if (arg === "-force") {
@@ -22,6 +24,10 @@ for (const arg of args) {
 		_partialBuild = true
 	} else if (arg === "-debugForceBuild") {
 		_forceBuild = true
+	} else if (arg === "-test") {
+		runTests = true
+	} else if (arg === "-publish") {
+		runPublish = true
 	} else {
 		projectRoot = arg
 	}
@@ -46,7 +52,13 @@ const {project} = await enkore(
 	})
 )
 
-const {messages} = await project.build()
+if (runTests && runPublish) {
+	const {messages} = await project.buildAndPublish()
+} else if (runTests) {
+	const {messages} = await project.buildAndTest()
+} else {
+	const {messages} = await project.build()
+}
 
 //for (const message of messages) {
 //	process.stderr.write(
