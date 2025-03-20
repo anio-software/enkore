@@ -8,6 +8,7 @@ import {
 	createAPI,
 	createEntity
 } from "@enkore/spec"
+import type {NodePackageJSON} from "@enkore/spec/primitives"
 
 import type {Events} from "./Events.d.mts"
 import type {_EmitEventType, OnType, RemoveEventListenerType} from "@aniojs/event-emitter"
@@ -15,6 +16,7 @@ import type {InternalSession} from "./InternalSession.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import path from "node:path"
 import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
+import {readFileJSON} from "@aniojs/node-fs"
 
 export async function createSession(
 	projectRoot: string,
@@ -110,11 +112,16 @@ export async function createSession(
 		return realmDependencies.get(dependencyName)!
 	}
 
+	const projectPackageJSON = await readFileJSON(
+		path.join(projectRoot, "package.json")
+	) as NodePackageJSON
+
 	session.publicAPI = createAPI(
 		"EnkoreSessionAPI", 0, 0, {
 			project: {
 				root: projectRoot,
 				config: projectConfig,
+				packageJSON: projectPackageJSON
 			},
 
 			realm: {
