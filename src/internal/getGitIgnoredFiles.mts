@@ -5,6 +5,6 @@ export function getGitIgnoredFiles() : string[] {
 		"/.enkore/",
 		"/build/",
 		"/objects/",
-		"/dist/"
+		"/products/"
 	]
 }

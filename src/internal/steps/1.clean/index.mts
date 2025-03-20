@@ -17,7 +17,7 @@ async function executeStep(
 	await remove(path.join(session.projectRoot, "objects"))
 	await mkdirp(path.join(session.projectRoot, "objects"))
 
-	await remove(path.join(session.projectRoot, "dist"))
+	await remove(path.join(session.projectRoot, "products"))
 
 	return {
 		autogenerate: async function() {
