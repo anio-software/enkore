@@ -9,13 +9,10 @@ type ExtendedNodeAPIMessage = NodeAPIMessage & {
 import preInit from "#~src/internal/steps/0.preInit/index.mts"
 import {hasErrors} from "#~src/internal/steps/defineStepChecked.mts"
 
-function stoppedBecauseOfError(
+function emitStoppedBecauseOfError(
 	session: InternalSession,
-	step: Step,
-	stepMessages: NodeAPIMessage[]
-): {
-	messages: ExtendedNodeAPIMessage[]
-} {
+	step: Step
+): ExtendedNodeAPIMessage {
 	const stoppedBecauseOfErrorMessage: ExtendedNodeAPIMessage = {
 		step,
 		id: "stoppedBecauseOfError",
@@ -29,24 +26,13 @@ function stoppedBecauseOfError(
 		stoppedBecauseOfErrorMessage.message
 	)
 
-	return {
-		messages: [
-			...stepMessages.map(msg => {
-				return {
-					...msg,
-					step
-				}
-			}),
-
-			//
-			// While a step is running its emitted messages
-			// are automatically collected. However, this won't happen here
-			// for 'stoppedBecauseOfErrorMessage' because the step has already 
-			// finished execution.
-			//
-			stoppedBecauseOfErrorMessage
-		]
-	}
+	//
+	// While a step is running its emitted messages
+	// are automatically collected. However, this won't happen here
+	// for 'stoppedBecauseOfErrorMessage' because the step has already
+	// finished execution.
+	//
+	return stoppedBecauseOfErrorMessage
 }
 
 export async function runAllSteps(
@@ -57,64 +43,66 @@ export async function runAllSteps(
 	messages: ExtendedNodeAPIMessage[]
 }> {
 	const shouldStop = session.options._forceBuild !== true
-	const {messages: preInitMessages, clean} = await preInit.runStep(session)
+	let aggregatedMessages: ExtendedNodeAPIMessage[] = []
 
+	const {messages: preInitMessages, clean} = await preInit.runStep(session)
+	aggregatedMessages = [...aggregatedMessages, ...map("preInit", preInitMessages)]
 	if (hasErrors(preInitMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "preInit", preInitMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "preInit")]};
 	}
 
 	const {messages: cleanMessages, autogenerate} = await clean()
-
+	aggregatedMessages = [...aggregatedMessages, ...map("clean", cleanMessages)]
 	if (hasErrors(cleanMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "clean", cleanMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "clean")]};
 	}
 
 	const {messages: autogenerateMessages, preprocess} = await autogenerate()
-
+	aggregatedMessages = [...aggregatedMessages, ...map("autogenerate", autogenerateMessages)]
 	if (hasErrors(autogenerateMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "autogenerate", autogenerateMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "autogenerate")]};
 	}
 
 	const {messages: preprocessMessages, init} = await preprocess()
-
+	aggregatedMessages = [...aggregatedMessages, ...map("preprocess", preprocessMessages)]
 	if (hasErrors(preprocessMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "preprocess", preprocessMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "preprocess")]};
 	}
 
 	const {messages: initMessages, lint} = await init()
-
+	aggregatedMessages = [...aggregatedMessages, ...map("init", initMessages)]
 	if (hasErrors(initMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "init", initMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "init")]};
 	}
 
 	const {messages: lintMessages, compile} = await lint()
-
+	aggregatedMessages = [...aggregatedMessages, ...map("lint", lintMessages)]
 	if (hasErrors(lintMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "lint", lintMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "lint")]};
 	}
 
 	const {messages: compileMessages, buildProducts} = await compile()
-
+	aggregatedMessages = [...aggregatedMessages, ...map("compile", compileMessages)]
 	if (hasErrors(compileMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "compile", compileMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "compile")]};
 	}
 
 	const {messages: buildProductsMessages, testProducts} = await buildProducts(null)
-
+	aggregatedMessages = [...aggregatedMessages, ...map("buildProducts", buildProductsMessages)]
 	if (hasErrors(buildProductsMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "buildProducts", buildProductsMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "buildProducts")]};
 	}
 
 	const {messages: testProductsMessages, publishProducts} = await testProducts(null)
-
+	aggregatedMessages = [...aggregatedMessages, ...map("testProducts", testProductsMessages)]
 	if (hasErrors(testProductsMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "testProducts", testProductsMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "testProducts")]};
 	}
 
 	const {messages: publishProductsMessages} = await publishProducts(null)
-
+	aggregatedMessages = [...aggregatedMessages, ...map("publishProducts", publishProductsMessages)]
 	if (hasErrors(publishProductsMessages) && shouldStop) {
-		return stoppedBecauseOfError(session, "publishProducts", publishProductsMessages)
+		return {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "publishProducts")]};
 	}
 
 	function map(step: Step, messages: NodeAPIMessage[]) {
@@ -124,17 +112,6 @@ export async function runAllSteps(
 	}
 
 	return {
-		messages: [
-			...map("preInit", preInitMessages),
-			...map("clean", cleanMessages),
-			...map("autogenerate", autogenerateMessages),
-			...map("preprocess", preprocessMessages),
-			...map("init", initMessages),
-			...map("lint", lintMessages),
-			...map("compile", compileMessages),
-			...map("buildProducts", buildProductsMessages),
-			...map("testProducts", testProductsMessages),
-			...map("publishProducts", publishProductsMessages)
-		]
+		messages: aggregatedMessages
 	}
 }

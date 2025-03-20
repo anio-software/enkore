@@ -26,10 +26,13 @@ function buildRunStep(step) {
 		code += `\tconst {messages: ${step}Messages} = await ${executeStep}\n`
 	}
 
-	code += `\n`
+	code += `\taggregatedMessages = [...aggregatedMessages, ...map("${step}", ${step}Messages)]\n`
+
 	code += `\tif (hasErrors(${step}Messages) && shouldStop) {\n`
-	code += `\t\treturn stoppedBecauseOfError(session, "${step}", ${step}Messages)\n`
-	code +=  `\t}\n\n`
+	code += `\t\treturn {messages: [...aggregatedMessages, emitStoppedBecauseOfError(session, "${step}")]};\n`
+	code += `\t}\n`
+
+	code += `\n`
 
 	return code
 }
@@ -46,13 +49,10 @@ type ExtendedNodeAPIMessage = NodeAPIMessage & {
 import preInit from "#~src/internal/steps/0.preInit/index.mts"
 import {hasErrors} from "#~src/internal/steps/defineStepChecked.mts"
 
-function stoppedBecauseOfError(
+function emitStoppedBecauseOfError(
 	session: InternalSession,
-	step: Step,
-	stepMessages: NodeAPIMessage[]
-): {
-	messages: ExtendedNodeAPIMessage[]
-} {
+	step: Step
+): ExtendedNodeAPIMessage {
 	const stoppedBecauseOfErrorMessage: ExtendedNodeAPIMessage = {
 		step,
 		id: "stoppedBecauseOfError",
@@ -66,24 +66,13 @@ function stoppedBecauseOfError(
 		stoppedBecauseOfErrorMessage.message
 	)
 
-	return {
-		messages: [
-			...stepMessages.map(msg => {
-				return {
-					...msg,
-					step
-				}
-			}),
-
-			//
-			// While a step is running its emitted messages
-			// are automatically collected. However, this won't happen here
-			// for 'stoppedBecauseOfErrorMessage' because the step has already 
-			// finished execution.
-			//
-			stoppedBecauseOfErrorMessage
-		]
-	}
+	//
+	// While a step is running its emitted messages
+	// are automatically collected. However, this won't happen here
+	// for 'stoppedBecauseOfErrorMessage' because the step has already
+	// finished execution.
+	//
+	return stoppedBecauseOfErrorMessage
 }
 
 export async function runAllSteps(
@@ -95,6 +84,7 @@ export async function runAllSteps(
 }> {\n`
 
 	code += `\tconst shouldStop = session.options._forceBuild !== true\n`
+	code += `\tlet aggregatedMessages: ExtendedNodeAPIMessage[] = []\n\n`
 
 	for (const step of enkoreSteps) {
 		code += buildRunStep(step)
@@ -107,17 +97,7 @@ export async function runAllSteps(
 	}
 
 	return {
-		messages: [
-${(() => {
-	let code = ``
-
-	for (const step of enkoreSteps) {
-		code += `\t\t\t...map("${step}", ${step}Messages),\n`
-	}
-
-	return code.slice(0, -2)
-})()}
-		]
+		messages: aggregatedMessages
 	}
 `
 
