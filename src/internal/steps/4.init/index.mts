@@ -20,7 +20,17 @@ async function mockReturn() : ReturnType<Init> {
 						messages,
 						async buildProducts() {
 							return {
-								messages
+								messages,
+								async testProducts() {
+									return {
+										messages,
+										async publishProducts() {
+											return {
+												messages
+											}
+										}
+									}
+								}
 							}
 						}
 					}

@@ -9,6 +9,10 @@ function buildRunStep(step) {
 			return `preInit.runStep(session)`
 		} else if (step === "buildProducts") {
 			return `buildProducts(null)`
+		} else if (step === "testProducts") {
+			return `testProducts(null)`
+		} else if (step === "publishProducts") {
+			return `publishProducts(null)`
 		}
 
 		return `${step}()`

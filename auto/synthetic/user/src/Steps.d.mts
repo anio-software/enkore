@@ -15,6 +15,8 @@ export type Init = DefineStep<R<Preprocess>["init"]>;
 export type Lint = DefineStep<R<Init>["lint"]>;
 export type Compile = DefineStep<R<Lint>["compile"]>;
 export type BuildProducts = DefineStep<R<Compile>["buildProducts"]>;
+export type TestProducts = DefineStep<R<BuildProducts>["testProducts"]>;
+export type PublishProducts = DefineStep<R<TestProducts>["publishProducts"]>;
 
 export type StepsMap = {
 	"preInit": PreInit,
@@ -25,6 +27,8 @@ export type StepsMap = {
 	"lint": Lint,
 	"compile": Compile,
 	"buildProducts": BuildProducts,
+	"testProducts": TestProducts,
+	"publishProducts": PublishProducts,
 }
 
 export type Step = keyof StepsMap

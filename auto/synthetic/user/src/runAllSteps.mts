@@ -97,10 +97,22 @@ export async function runAllSteps(
 		return stoppedBecauseOfError(session, "compile", compileMessages)
 	}
 
-	const {messages: buildProductsMessages} = await buildProducts(null)
+	const {messages: buildProductsMessages, testProducts} = await buildProducts(null)
 
 	if (hasErrors(buildProductsMessages) && shouldStop) {
 		return stoppedBecauseOfError(session, "buildProducts", buildProductsMessages)
+	}
+
+	const {messages: testProductsMessages, publishProducts} = await testProducts(null)
+
+	if (hasErrors(testProductsMessages) && shouldStop) {
+		return stoppedBecauseOfError(session, "testProducts", testProductsMessages)
+	}
+
+	const {messages: publishProductsMessages} = await publishProducts(null)
+
+	if (hasErrors(publishProductsMessages) && shouldStop) {
+		return stoppedBecauseOfError(session, "publishProducts", publishProductsMessages)
 	}
 
 	function map(step: Step, messages: NodeAPIMessage[]) {
@@ -118,7 +130,9 @@ export async function runAllSteps(
 			...map("init", initMessages),
 			...map("lint", lintMessages),
 			...map("compile", compileMessages),
-			...map("buildProducts", buildProductsMessages)
+			...map("buildProducts", buildProductsMessages),
+			...map("testProducts", testProductsMessages),
+			...map("publishProducts", publishProductsMessages)
 		]
 	}
 }

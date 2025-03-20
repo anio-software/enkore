@@ -2,6 +2,7 @@ import fs from "node:fs/promises"
 import path from "node:path"
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {BuildProducts} from "#~synthetic/user/Steps.d.mts"
+import testProducts from "../8.testProducts/index.mts"
 import {defineStepChecked} from "../defineStepChecked.mts"
 import {remove} from "@aniojs/node-fs"
 
@@ -43,7 +44,11 @@ const executeStep: BuildProducts = async function(session, productNames) {
 		await buildProduct(session, productName)
 	}
 
-	return {}
+	return {
+		async testProducts(productNames) {
+			return await testProducts.runStep(session, productNames)
+		}
+	}
 }
 
 export default defineStepChecked("buildProducts", executeStep)

@@ -6,5 +6,7 @@ export const enkoreSteps = [
 	"init",
 	"lint",
 	"compile",
-	"buildProducts"
+	"buildProducts",
+	"testProducts",
+	"publishProducts"
 ]
