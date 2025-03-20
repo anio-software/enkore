@@ -1,13 +1,10 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {Preprocess} from "../Steps.d.mts"
+import type {Preprocess} from "#~synthetic/user/Steps.d.mts"
 import {replicateDirectoryTree} from "./replicateDirectoryTree.mts"
 import {preprocessFiles} from "./preprocessFiles.mts"
 import init from "../4.init/index.mts"
-import {defineStep} from "../defineStep.mts"
+import {defineStepChecked} from "../defineStepChecked.mts"
 
-async function executeStep(
-	session: InternalSession
-) : Promise<Preprocess> {
+const executeStep: Preprocess = async function(session) {
 	await replicateDirectoryTree(session)
 
 	await preprocessFiles(session)
@@ -19,4 +16,4 @@ async function executeStep(
 	}
 }
 
-export default defineStep("preprocess", executeStep)
+export default defineStepChecked("preprocess", executeStep)
