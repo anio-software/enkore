@@ -1,13 +1,10 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {Compile} from "../Steps.d.mts"
+import type {Compile} from "#~synthetic/user/Steps.d.mts"
 import {createObjectFiles} from "./createObjectFiles.mts"
 import buildProducts from "../7.buildProducts/index.mts"
-import {defineStep} from "../defineStep.mts"
+import {defineStepChecked} from "../defineStepChecked.mts"
 import {runHook} from "#~src/internal/session/runHook.mts"
 
-async function executeStep(
-	session: InternalSession
-) : Promise<Compile> {
+const executeStep: Compile = async function(session) {
 	await runHook(session, "preCompile")
 	await createObjectFiles(session)
 
@@ -18,4 +15,4 @@ async function executeStep(
 	}
 }
 
-export default defineStep("compile", executeStep)
+export default defineStepChecked("compile", executeStep)
