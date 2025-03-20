@@ -3,6 +3,8 @@ import type {
 	StepsMap
 } from "#~synthetic/user/Steps.d.mts"
 import type {NodeAPIMessage} from "@enkore/spec/primitives"
+import {onStepStarted} from "#~src/internal/session/onStepStarted.mts"
+import {onStepFinished} from "#~src/internal/session/onStepFinished.mts"
 
 export type * from "#~synthetic/user/Steps.d.mts"
 
@@ -34,15 +36,37 @@ export function defineStepChecked<StepName extends Step>(
 	return {
 		stepName,
 		async runStep(...args) {
-			const stepResult = await executeStep(...args)
+			const session = args[0]
+			const aggregatedMessages: NodeAPIMessage[] = []
+			let eventListenerId: number|null = null
 
-			return {
-				...stepResult,
-				messages: [{
-					id: "test",
-					severity: "error",
-					message: "hoiiiii"
-				}]
+			try {
+				eventListenerId = session.events.on("message", e => {
+					aggregatedMessages.push(e)
+				})
+
+				session.state.currentStep = stepName
+
+				await onStepStarted(session, stepName)
+
+				const fnResult = await executeStep(...args)
+
+				if (hasErrors(aggregatedMessages)) {
+					session.state.hasEncounteredError = true
+				}
+
+				return {
+					...fnResult,
+					messages: aggregatedMessages
+				}
+			} finally {
+				if (eventListenerId !== null) {
+					session.events.removeListener(eventListenerId)
+				}
+
+				await onStepFinished(session, stepName)
+
+				session.state.currentStep = undefined
 			}
 		}
 	}
