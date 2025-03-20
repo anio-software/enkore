@@ -14,7 +14,7 @@ export function buildStepsTypeFile() {
 	//
 	code += `type DefineStep<T extends (...args: any[]) => any> = (\n`
 	code += `	session: InternalSession,\n`
-	code += `	...args: Parameters<T>[]\n`
+	code += `	...args: Parameters<T>\n`
 	code += `) => Promise<Omit<Awaited<ReturnType<T>>, "messages">>\n`
 	code += `\n`
 

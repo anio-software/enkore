@@ -4,7 +4,7 @@ import type {API} from "#~src/API.d.mts"
 type R<T extends (...args: any[]) => any> = Awaited<ReturnType<T>>
 type DefineStep<T extends (...args: any[]) => any> = (
 	session: InternalSession,
-	...args: Parameters<T>[]
+	...args: Parameters<T>
 ) => Promise<Omit<Awaited<ReturnType<T>>, "messages">>
 
 export type PreInit = DefineStep<R<API["enkore"]>["project"]["preInit"]>;
