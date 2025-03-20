@@ -1,14 +1,11 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {PreInit} from "../Steps.d.mts"
-import {defineStep} from "../defineStep.mts"
+import type {PreInit} from "#~synthetic/user/Steps.d.mts"
+import {defineStepChecked} from "../defineStepChecked.mts"
 import clean from "../1.clean/index.mts"
 import {runHook} from "#~src/internal/session/runHook.mts"
 import {writeBoilerplateFiles} from "./writeBoilerplateFiles.mts"
 import {writeGitIgnoreFile} from "./writeGitIgnoreFile.mts"
 
-async function executeStep(
-	session: InternalSession
-) : Promise<PreInit> {
+const executeStep: PreInit = async function(session) {
 	const {projectConfig} = session
 
 	await writeBoilerplateFiles(session)
@@ -37,4 +34,4 @@ async function executeStep(
 	}
 }
 
-export default defineStep("preInit", executeStep)
+export default defineStepChecked("preInit", executeStep)
