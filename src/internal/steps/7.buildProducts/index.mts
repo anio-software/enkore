@@ -1,8 +1,8 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {BuildProducts} from "../Steps.d.mts"
-import {defineStep} from "../defineStep.mts"
+import type {BuildProducts} from "#~synthetic/user/Steps.d.mts"
+import {defineStepChecked} from "../defineStepChecked.mts"
 import {remove} from "@aniojs/node-fs"
 
 async function buildProduct(
@@ -31,10 +31,7 @@ async function buildProduct(
 	}
 }
 
-async function executeStep(
-	session: InternalSession,
-	productNames: string[]|null
-) : Promise<BuildProducts> {
+const executeStep: BuildProducts = async function(session, productNames) {
 	const productNamesToBuild = productNames ?? session.state.productNames
 
 	for (const productName of productNamesToBuild) {
@@ -49,4 +46,4 @@ async function executeStep(
 	return {}
 }
 
-export default defineStep("buildProducts", executeStep)
+export default defineStepChecked("buildProducts", executeStep)
