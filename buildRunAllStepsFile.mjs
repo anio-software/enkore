@@ -1,13 +1,4 @@
-const enkoreSteps = [
-	"preInit",
-	"clean",
-	"autogenerate",
-	"preprocess",
-	"init",
-	"lint",
-	"compile",
-	"buildProducts"
-]
+import {enkoreSteps} from "./enkoreSteps.mjs"
 
 function buildRunStep(step) {
 	const stepIndex = enkoreSteps.indexOf(step)
