@@ -76,6 +76,7 @@ const impl : API["enkore"] = async function(
 	const internalSession = await createSession(
 		projectRoot,
 		projectConfig,
+		core,
 		realmIntegrationAPI,
 		realmDependencies,
 		_emitEvent,

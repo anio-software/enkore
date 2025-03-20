@@ -1,5 +1,6 @@
 import {
 	type EnkoreConfig,
+	type EnkoreCoreAPI,
 	type EnkoreRealmIntegrationAPI,
 	type EnkoreCoreRealmDependency,
 	type EnkoreNodeAPIOptions,
@@ -18,6 +19,7 @@ import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
 export async function createSession(
 	projectRoot: string,
 	projectConfig: EnkoreConfig,
+	core: EnkoreCoreAPI,
 	realmIntegrationAPI: EnkoreRealmIntegrationAPI,
 	realmDependencies: Map<string, EnkoreCoreRealmDependency>,
 	emitEvent: _EmitEventType<Events>,
@@ -61,6 +63,7 @@ export async function createSession(
 	> & {
 		publicAPI: unknown
 	} = {
+		core,
 		emitMessage,
 		projectRoot,
 		projectConfig,

@@ -1,4 +1,5 @@
 import type {
+	EnkoreCoreAPI,
 	EnkoreRealmIntegrationAPI,
 	EnkoreSessionAPI,
 	EnkoreConfig,
@@ -11,6 +12,7 @@ import type {_EmitEventType, OnType, RemoveEventListenerType} from "@aniojs/even
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
+	core: EnkoreCoreAPI
 	state: InternalSessionState
 	emitMessage: EnkoreSessionAPI["enkore"]["emitMessage"]
 
