@@ -1,5 +1,5 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {Step} from "#~src/internal/Step.d.mts"
+import type {Step} from "#~synthetic/user/Steps.d.mts"
 import type {NodeAPIMessage} from "@enkore/spec/primitives"
 import {onStepStarted} from "#~src/internal/session/onStepStarted.mts"
 import {onStepFinished} from "#~src/internal/session/onStepFinished.mts"

@@ -3,7 +3,7 @@ import type {
 	EnkoreProjectFile
 } from "@enkore/spec"
 
-import type {Step} from "#~src/internal/Step.d.mts"
+import type {Step} from "#~synthetic/user/Steps.d.mts"
 import type {ScandirEntry} from "@aniojs/node-fs"
 
 export type InternalSessionState = {
