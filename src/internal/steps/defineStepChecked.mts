@@ -2,6 +2,7 @@ import type {
 	Step,
 	StepsMap
 } from "#~synthetic/user/Steps.d.mts"
+import type {InternalSession} from "../InternalSession.d.mts"
 import type {NodeAPIMessage} from "@enkore/spec/primitives"
 import {onStepStarted} from "#~src/internal/session/onStepStarted.mts"
 import {onStepFinished} from "#~src/internal/session/onStepFinished.mts"
@@ -27,6 +28,22 @@ export function hasErrors(messages: NodeAPIMessage[]) {
 	return false
 }
 
+function checkHasEncounteredError(session: InternalSession) {
+	if (session.state.hasEncounteredError) {
+		if (session.options._forceBuild !== true) {
+			throw new Error(
+				`Refusing to run next step after an error occurred in the previous one.`
+			)
+		}
+
+		session.emitMessage(
+			"warning",
+			"continueOnError",
+			`continuing even though errors occurred earlier.`
+		)
+	}
+}
+
 export function defineStepChecked<StepName extends Step>(
 	stepName: StepName,
 	executeStep: (
@@ -44,6 +61,8 @@ export function defineStepChecked<StepName extends Step>(
 				eventListenerId = session.events.on("message", e => {
 					aggregatedMessages.push(e)
 				})
+
+				checkHasEncounteredError(session)
 
 				session.state.currentStep = stepName
 
