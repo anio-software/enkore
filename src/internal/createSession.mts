@@ -11,7 +11,7 @@ import {
 import type {NodePackageJSON} from "@enkore/spec/primitives"
 
 import type {Events} from "./Events.d.mts"
-import type {_EmitEventType, OnType, RemoveEventListenerType} from "@aniojs/event-emitter"
+import type {EventEmitter} from "@aniojs/event-emitter"
 import type {InternalSession} from "./InternalSession.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import path from "node:path"
@@ -24,9 +24,7 @@ export async function createSession(
 	core: EnkoreCoreAPI,
 	realmIntegrationAPI: EnkoreRealmIntegrationAPI,
 	realmDependencies: Map<string, EnkoreCoreRealmDependency>,
-	emitEvent: _EmitEventType<Events>,
-	onEvent: OnType<Events>,
-	removeEventListener: RemoveEventListenerType<Events>,
+	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
 	async function getInitialRealmData() {
@@ -53,9 +51,9 @@ export async function createSession(
 
 	const emitMessage : InternalSession["publicAPI"]["enkore"]["emitMessage"] = function(severity, arg1, arg2?) {
 		if (arguments.length === 2) {
-			emitEvent("message", {severity, id: undefined, message: arg1 as string})
+			events._emitEvent("message", {severity, id: undefined, message: arg1 as string})
 		} else {
-			emitEvent("message", {severity, id: arg1     , message: arg2 as string})
+			events._emitEvent("message", {severity, id: arg1     , message: arg2 as string})
 		}
 	}
 
@@ -73,11 +71,7 @@ export async function createSession(
 		publicAPI: null,
 		options,
 		state,
-		events: {
-			emit: emitEvent,
-			on: onEvent,
-			removeListener: removeEventListener
-		}
+		events
 	}
 
 	function assertNotFinalized() {

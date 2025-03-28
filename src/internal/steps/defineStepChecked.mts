@@ -6,6 +6,7 @@ import type {InternalSession} from "../InternalSession.d.mts"
 import type {NodeAPIMessage} from "@enkore/spec/primitives"
 import {onStepStarted} from "#~src/internal/session/onStepStarted.mts"
 import {onStepFinished} from "#~src/internal/session/onStepFinished.mts"
+import type {EventListener} from "@aniojs/event-emitter"
 
 export type * from "#~synthetic/user/Steps.d.mts"
 
@@ -55,7 +56,7 @@ export function defineStepChecked<StepName extends Step>(
 		async runStep(...args) {
 			const session = args[0]
 			const aggregatedMessages: NodeAPIMessage[] = []
-			let eventListenerId: number|null = null
+			let eventListenerId: EventListener|false = false
 
 			try {
 				eventListenerId = session.events.on("message", e => {
@@ -79,8 +80,8 @@ export function defineStepChecked<StepName extends Step>(
 					messages: aggregatedMessages
 				}
 			} finally {
-				if (eventListenerId !== null) {
-					session.events.removeListener(eventListenerId)
+				if (eventListenerId) {
+					session.events.removeEventListener(eventListenerId)
 				}
 
 				await onStepFinished(session, stepName)

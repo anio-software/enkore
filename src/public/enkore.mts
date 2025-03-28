@@ -24,14 +24,10 @@ const impl : API["enkore"] = async function(
 	const _partialBuild = options?._partialBuild === true
 	const _forceBuild = options?._forceBuild === true
 
-	const {
-		on,
-		_emitEvent,
-		removeEventListener
-		// "error" event should relate to BUILD errors
-		// i.e. error events are dispatched and a flag is set
-		// to make enkore terminate with an error condition (it doesn't immediately terminate execution!!)
-	} = createEventEmitter<Events>(["message"])
+	// "error" event should relate to BUILD errors
+	// i.e. error events are dispatched and a flag is set
+	// to make enkore terminate with an error condition (it doesn't immediately terminate execution!!)
+	const events = createEventEmitter<Events>(["message"])
 
 	const projectConfig = await readEnkoreConfigFile(projectRoot)
 	const core = await loadEnkoreCoreAPI(projectRoot)
@@ -44,7 +40,7 @@ const impl : API["enkore"] = async function(
 	)
 
 	if (stdIOLogs) {
-		on("message", (e) => {
+		events.on("message", (e) => {
 			if (e.severity === "debug" && !core.getDebugMode()) return
 
 			process.stderr.write(
@@ -79,9 +75,7 @@ const impl : API["enkore"] = async function(
 		core,
 		realmIntegrationAPI,
 		realmDependencies,
-		_emitEvent,
-		on,
-		removeEventListener,
+		events,
 		{
 			force,
 			isCIEnvironment,
@@ -95,8 +89,8 @@ const impl : API["enkore"] = async function(
 
 	return {
 		project: {
-			on,
-			removeEventListener,
+			on: events.on,
+			removeEventListener: events.removeEventListener,
 			preInit: async function() {
 				return await preInit.runStep(internalSession)
 			},

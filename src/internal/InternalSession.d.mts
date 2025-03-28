@@ -8,7 +8,7 @@ import type {
 } from "@enkore/spec"
 
 import type {Events} from "./Events.d.mts"
-import type {_EmitEventType, OnType, RemoveEventListenerType} from "@aniojs/event-emitter"
+import type {EventEmitter} from "@aniojs/event-emitter"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
@@ -16,11 +16,7 @@ export type InternalSession = {
 	state: InternalSessionState
 	emitMessage: EnkoreSessionAPI["enkore"]["emitMessage"]
 
-	events: {
-		emit: _EmitEventType<Events>
-		on: OnType<Events>
-		removeListener: RemoveEventListenerType<Events>
-	}
+	events: EventEmitter<Events, true>
 
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 	projectRoot: string
