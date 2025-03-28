@@ -14,7 +14,7 @@ const executeStep: PreInit = async function(session) {
 	//
 	// give realm a chance to register auto files
 	//
-	runHook(session, "preInitialize")
+	await runHook(session, "preInitialize")
 
 	//
 	// add auto files from config to session
