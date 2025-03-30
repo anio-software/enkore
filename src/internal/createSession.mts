@@ -190,6 +190,12 @@ export async function createSession(
 					)
 				}
 
+				if (!normalizedDestinationPath.startsWith("project/")) {
+					throw new Error(
+						`destinationPath must start with 'project/'.`
+					)
+				}
+
 				if (session.state!.filesToAutogenerate.has(normalizedDestinationPath)) {
 					emitMessage(
 						"warning",
