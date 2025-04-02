@@ -11,6 +11,15 @@
     },
     "./package.json": {
       "default": "./package.json"
+    },
+    "./spec": {
+      "types": "./dist/spec/index.d.mts"
+    },
+    "./spec/uuid": {
+      "types": "./dist/spec.uuid/index.d.mts"
+    },
+    "./spec/primitives": {
+      "types": "./dist/spec.primitives/index.d.mts"
     }
   },
   "repository": {
