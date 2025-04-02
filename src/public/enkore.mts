@@ -32,7 +32,7 @@ const impl : API["enkore"] = async function(
 	const projectConfig = await readEnkoreConfigFile(projectRoot)
 	const core = await loadEnkoreCoreAPI(projectRoot)
 
-	const realmIntegrationAPI = await core.initializeProject(
+	const targetIntegrationAPI = await core.initializeProject(
 		projectRoot, isCIEnvironment, {
 			npmBinaryPath,
 			force
@@ -50,16 +50,16 @@ const impl : API["enkore"] = async function(
 	}
 
 	//
-	// preload all realm dependencies
+	// preload all target dependencies
 	//
-	const realmDependencyNames = await core.getInstalledTargetDependencyNames(
+	const targetDependencyNames = await core.getInstalledTargetDependencyNames(
 		projectRoot, projectConfig.target._targetIdentifier
 	)
 
-	const realmDependencies : Map<string, EnkoreCoreTargetDependency> = new Map()
+	const targetDependencies : Map<string, EnkoreCoreTargetDependency> = new Map()
 
-	for (const dependencyName of realmDependencyNames) {
-		realmDependencies.set(
+	for (const dependencyName of targetDependencyNames) {
+		targetDependencies.set(
 			dependencyName,
 			await core.loadTargetDependency(
 				projectRoot,
@@ -73,8 +73,8 @@ const impl : API["enkore"] = async function(
 		projectRoot,
 		projectConfig,
 		core,
-		realmIntegrationAPI,
-		realmDependencies,
+		targetIntegrationAPI,
+		targetDependencies,
 		events,
 		{
 			force,
