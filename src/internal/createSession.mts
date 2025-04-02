@@ -1,7 +1,7 @@
 import {
 	type EnkoreConfig,
 	type EnkoreCoreAPI,
-	type EnkoreRealmIntegrationAPI,
+	type EnkoreTargetIntegrationAPI,
 	type EnkoreCoreRealmDependency,
 	type EnkoreNodeAPIOptions,
 	type RawType,
@@ -22,7 +22,7 @@ export async function createSession(
 	projectRoot: string,
 	projectConfig: EnkoreConfig,
 	core: EnkoreCoreAPI,
-	realmIntegrationAPI: EnkoreRealmIntegrationAPI,
+	realmIntegrationAPI: EnkoreTargetIntegrationAPI,
 	realmDependencies: Map<string, EnkoreCoreRealmDependency>,
 	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
@@ -118,15 +118,15 @@ export async function createSession(
 				packageJSON: projectPackageJSON
 			},
 
-			realm: {
-				getConfig(realm) {
-					if (projectConfig.realm.config._realm !== realm) {
+			target: {
+				getConfig(targetIdentifier) {
+					if (projectConfig.target._targetIdentifier !== targetIdentifier) {
 						throw new Error(
-							`getOptions() realm mismatch.`
+							`getOptions() targetIdentifier mismatch.`
 						)
 					}
 
-					return projectConfig.realm.config as any
+					return projectConfig.target.config as any
 				},
 
 				getDependency(dependencyName) {

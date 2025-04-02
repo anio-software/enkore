@@ -1,6 +1,6 @@
 import type {
 	EnkoreCoreAPI,
-	EnkoreRealmIntegrationAPI,
+	EnkoreTargetIntegrationAPI,
 	EnkoreSessionAPI,
 	EnkoreConfig,
 	RawType,
@@ -21,6 +21,6 @@ export type InternalSession = {
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 	projectRoot: string
 	projectConfig: EnkoreConfig
-	realmIntegrationAPI: EnkoreRealmIntegrationAPI
+	realmIntegrationAPI: EnkoreTargetIntegrationAPI
 	publicAPI: EnkoreSessionAPI
 }

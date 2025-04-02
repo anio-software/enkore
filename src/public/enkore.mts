@@ -53,7 +53,7 @@ const impl : API["enkore"] = async function(
 	// preload all realm dependencies
 	//
 	const realmDependencyNames = await core.getInstalledRealmDependencyNames(
-		projectRoot, projectConfig.realm.name
+		projectRoot, projectConfig.target._targetIdentifier
 	)
 
 	const realmDependencies : Map<string, EnkoreCoreRealmDependency> = new Map()
@@ -63,7 +63,7 @@ const impl : API["enkore"] = async function(
 			dependencyName,
 			await core.loadRealmDependency(
 				projectRoot,
-				projectConfig.realm.name,
+				projectConfig.target._targetIdentifier,
 				dependencyName
 			)
 		)
