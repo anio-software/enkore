@@ -9,7 +9,7 @@ import preInit from "#~src/internal/steps/0.preInit/index.mts"
 import {build} from "#~src/internal/steps/build.mts"
 import {realpath} from "node:fs/promises"
 
-import type {EnkoreCoreRealmDependency} from "@enkore/spec"
+import type {EnkoreCoreTargetDependency} from "@enkore/spec"
 
 const impl : API["enkore"] = async function(
 	unresolvedProjectRoot,
@@ -52,16 +52,16 @@ const impl : API["enkore"] = async function(
 	//
 	// preload all realm dependencies
 	//
-	const realmDependencyNames = await core.getInstalledRealmDependencyNames(
+	const realmDependencyNames = await core.getInstalledTargetDependencyNames(
 		projectRoot, projectConfig.target._targetIdentifier
 	)
 
-	const realmDependencies : Map<string, EnkoreCoreRealmDependency> = new Map()
+	const realmDependencies : Map<string, EnkoreCoreTargetDependency> = new Map()
 
 	for (const dependencyName of realmDependencyNames) {
 		realmDependencies.set(
 			dependencyName,
-			await core.loadRealmDependency(
+			await core.loadTargetDependency(
 				projectRoot,
 				projectConfig.target._targetIdentifier,
 				dependencyName

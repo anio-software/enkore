@@ -2,7 +2,7 @@ import {
 	type EnkoreConfig,
 	type EnkoreCoreAPI,
 	type EnkoreTargetIntegrationAPI,
-	type EnkoreCoreRealmDependency,
+	type EnkoreCoreTargetDependency,
 	type EnkoreNodeAPIOptions,
 	type RawType,
 	createAPI,
@@ -23,7 +23,7 @@ export async function createSession(
 	projectConfig: EnkoreConfig,
 	core: EnkoreCoreAPI,
 	realmIntegrationAPI: EnkoreTargetIntegrationAPI,
-	realmDependencies: Map<string, EnkoreCoreRealmDependency>,
+	realmDependencies: Map<string, EnkoreCoreTargetDependency>,
 	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
