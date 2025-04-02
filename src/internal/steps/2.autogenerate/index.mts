@@ -70,8 +70,6 @@ const executeStep: Autogenerate = async function(session) {
 	} else {
 		await updateGitIgnoreFile(session)
 		await updateLockFile(session)
-
-		session.emitMessage("info", "update enkore-lock.json file")
 	}
 
 	const projectDirectoryEntries = await scandir(
