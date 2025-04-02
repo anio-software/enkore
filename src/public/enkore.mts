@@ -32,7 +32,7 @@ const impl : API["enkore"] = async function(
 	const projectConfig = await readEnkoreConfigFile(projectRoot)
 	const core = await loadEnkoreCoreAPI(projectRoot)
 
-	const targetIntegrationAPI = await core.initializeProject(
+	const coreInstance = await core.initializeProject(
 		projectRoot, isCIEnvironment, {
 			npmBinaryPath,
 			force
@@ -73,7 +73,7 @@ const impl : API["enkore"] = async function(
 		projectRoot,
 		projectConfig,
 		core,
-		targetIntegrationAPI,
+		coreInstance,
 		targetDependencies,
 		events,
 		{

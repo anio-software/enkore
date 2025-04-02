@@ -13,6 +13,8 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
 	core: EnkoreCoreAPI
+	coreInstance: Awaited<ReturnType<EnkoreCoreAPI["initializeProject"]>>
+
 	state: InternalSessionState
 	emitMessage: EnkoreSessionAPI["enkore"]["emitMessage"]
 

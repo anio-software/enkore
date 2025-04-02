@@ -22,13 +22,13 @@ export async function createSession(
 	projectRoot: string,
 	projectConfig: EnkoreConfig,
 	core: EnkoreCoreAPI,
-	targetIntegrationAPI: EnkoreTargetIntegrationAPI,
+	coreInstance: InternalSession["coreInstance"],
 	targetDependencies: Map<string, EnkoreCoreTargetDependency>,
 	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
 	async function getInitialTargetData() {
-		const {getInitialInternalData} = targetIntegrationAPI
+		const {getInitialInternalData} = coreInstance.targetIntegrationAPI
 
 		if (typeof getInitialInternalData === "function") {
 			return await getInitialInternalData()
@@ -64,10 +64,11 @@ export async function createSession(
 		publicAPI: unknown
 	} = {
 		core,
+		coreInstance,
 		emitMessage,
 		projectRoot,
 		projectConfig,
-		targetIntegrationAPI,
+		targetIntegrationAPI: coreInstance.targetIntegrationAPI,
 		publicAPI: null,
 		options,
 		state,
