@@ -126,7 +126,7 @@ export async function createSession(
 						)
 					}
 
-					return projectConfig.target.config as any
+					return projectConfig.target as any
 				},
 
 				getDependency(dependencyName) {
