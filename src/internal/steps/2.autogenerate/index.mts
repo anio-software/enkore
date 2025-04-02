@@ -102,8 +102,8 @@ const executeStep: Autogenerate = async function(session) {
 		}
 	}
 
-	if (typeof session.realmIntegrationAPI.projectSourceFileFilter === "function") {
-		const filter = session.realmIntegrationAPI.projectSourceFileFilter
+	if (typeof session.targetIntegrationAPI.projectSourceFileFilter === "function") {
+		const filter = session.targetIntegrationAPI.projectSourceFileFilter
 		const tmp : EnkoreProjectFile[]  = []
 
 		for (const projectFile of allProjectFiles) {

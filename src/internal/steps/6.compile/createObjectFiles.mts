@@ -12,7 +12,7 @@ export async function createObjectFiles(
 			)
 		)
 
-		const ret = await session.realmIntegrationAPI.compile(
+		const ret = await session.targetIntegrationAPI.compile(
 			session.publicAPI, projectFile, contents
 		)
 

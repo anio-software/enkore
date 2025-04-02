@@ -22,13 +22,13 @@ export async function createSession(
 	projectRoot: string,
 	projectConfig: EnkoreConfig,
 	core: EnkoreCoreAPI,
-	realmIntegrationAPI: EnkoreTargetIntegrationAPI,
+	targetIntegrationAPI: EnkoreTargetIntegrationAPI,
 	realmDependencies: Map<string, EnkoreCoreTargetDependency>,
 	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
 	async function getInitialRealmData() {
-		const {getInitialInternalData} = realmIntegrationAPI
+		const {getInitialInternalData} = targetIntegrationAPI
 
 		if (typeof getInitialInternalData === "function") {
 			return await getInitialInternalData()
@@ -67,7 +67,7 @@ export async function createSession(
 		emitMessage,
 		projectRoot,
 		projectConfig,
-		realmIntegrationAPI,
+		targetIntegrationAPI,
 		publicAPI: null,
 		options,
 		state,

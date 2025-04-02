@@ -14,7 +14,7 @@ const executeStep: PublishProducts = async function(session, productNames) {
 					path.join(session.projectRoot, "products", productName)
 				)
 
-				await session.realmIntegrationAPI.publishProduct(
+				await session.targetIntegrationAPI.publishProduct(
 					session.publicAPI, productName
 				)
 			} finally {

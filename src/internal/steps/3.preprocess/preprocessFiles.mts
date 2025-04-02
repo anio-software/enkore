@@ -7,7 +7,7 @@ import type {EnkoreProjectFile} from "@enkore/spec"
 export async function preprocessFiles(
 	session: InternalSession
 ) {
-	const {preprocess} = session.realmIntegrationAPI
+	const {preprocess} = session.targetIntegrationAPI
 
 	async function preprocessFile(projectFile: EnkoreProjectFile, str: string) {
 		let newStr = str

@@ -7,7 +7,7 @@ const executeStep: TestProducts = async function(session, productNames) {
 		const productNamesToTest = productNames ?? session.state.productNames
 
 		for (const productName of productNamesToTest) {
-			await session.realmIntegrationAPI.testProduct(
+			await session.targetIntegrationAPI.testProduct(
 				session.publicAPI, productName
 			)
 		}

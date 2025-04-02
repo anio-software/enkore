@@ -21,7 +21,7 @@ async function buildProduct(
 	process.chdir(productTmpPath)
 
 	try {
-		await session.realmIntegrationAPI.generateProduct(
+		await session.targetIntegrationAPI.generateProduct(
 			session.publicAPI, productName
 		)
 

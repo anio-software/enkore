@@ -8,7 +8,7 @@ import {readFileString} from "@aniojs/node-fs"
 const executeStep: Lint = async function (session) {
 	await runHook(session, "preLint")
 
-	const {lint} = session.realmIntegrationAPI
+	const {lint} = session.targetIntegrationAPI
 
 	if (typeof lint === "function") {
 		for (const projectFile of session.state.allProjectFiles!) {

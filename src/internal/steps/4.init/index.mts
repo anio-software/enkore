@@ -41,7 +41,7 @@ async function mockReturn() : ReturnType<Init> {
 }
 
 const executeStep: Init = async function(session) {
-	const data = await session.realmIntegrationAPI.initialize(session.publicAPI)
+	const data = await session.targetIntegrationAPI.initialize(session.publicAPI)
 
 	const productNames = data.products.map(product => {
 		return product.name

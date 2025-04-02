@@ -5,7 +5,7 @@ export async function runHook(
 	session: InternalSession,
 	hookName: keyof EnkoreTargetIntegrationAPI["hook"]
 ) {
-	const hook = session.realmIntegrationAPI.hook[hookName]
+	const hook = session.targetIntegrationAPI.hook[hookName]
 
 	if (typeof hook !== "function") return
 

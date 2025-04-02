@@ -34,7 +34,7 @@ export async function writeBoilerplateFiles(
 		...getBoilerplateFiles()
 	]
 
-	const getRealmBoilerplateFiles = session.realmIntegrationAPI.getBoilerplateFiles
+	const getRealmBoilerplateFiles = session.targetIntegrationAPI.getBoilerplateFiles
 
 	if (typeof getRealmBoilerplateFiles === "function") {
 		boilerplateFiles = [
