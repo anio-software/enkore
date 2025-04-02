@@ -23,11 +23,11 @@ export async function createSession(
 	projectConfig: EnkoreConfig,
 	core: EnkoreCoreAPI,
 	targetIntegrationAPI: EnkoreTargetIntegrationAPI,
-	realmDependencies: Map<string, EnkoreCoreTargetDependency>,
+	targetDependencies: Map<string, EnkoreCoreTargetDependency>,
 	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
-	async function getInitialRealmData() {
+	async function getInitialTargetData() {
 		const {getInitialInternalData} = targetIntegrationAPI
 
 		if (typeof getInitialInternalData === "function") {
@@ -46,7 +46,7 @@ export async function createSession(
 		projectDirectoryEntries: undefined,
 		allProjectFiles: undefined,
 		filteredProjectFiles: undefined,
-		internalTargetData: await getInitialRealmData()
+		internalTargetData: await getInitialTargetData()
 	}
 
 	const emitMessage : InternalSession["publicAPI"]["enkore"]["emitMessage"] = function(severity, arg1, arg2?) {
@@ -96,14 +96,14 @@ export async function createSession(
 		return true
 	}
 
-	function getRealmDependency(dependencyName: string) {
-		if (!realmDependencies.has(dependencyName)) {
+	function getTargetDependency(dependencyName: string) {
+		if (!targetDependencies.has(dependencyName)) {
 			throw new Error(
-				`No such realm dependency '${dependencyName}'.`
+				`No such target dependency '${dependencyName}'.`
 			)
 		}
 
-		return realmDependencies.get(dependencyName)!
+		return targetDependencies.get(dependencyName)!
 	}
 
 	const projectPackageJSON = await readFileJSON(
@@ -130,19 +130,19 @@ export async function createSession(
 				},
 
 				getDependency(dependencyName) {
-					return getRealmDependency(dependencyName).importedDependencyObject
+					return getTargetDependency(dependencyName).importedDependencyObject
 				},
 
 				getDependencyVersion(dependencyName) {
-					return getRealmDependency(dependencyName).version
+					return getTargetDependency(dependencyName).version
 				},
 
 				getDependencyPath(dependencyName) {
-					return getRealmDependency(dependencyName).path
+					return getTargetDependency(dependencyName).path
 				},
 
 				getDependencyPackageJSON(dependencyName) {
-					return getRealmDependency(dependencyName).dependencyPackageJSON
+					return getTargetDependency(dependencyName).dependencyPackageJSON
 				},
 
 				getInternalData() {
