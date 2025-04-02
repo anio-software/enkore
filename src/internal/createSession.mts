@@ -46,7 +46,7 @@ export async function createSession(
 		projectDirectoryEntries: undefined,
 		allProjectFiles: undefined,
 		filteredProjectFiles: undefined,
-		internalRealmData: await getInitialRealmData()
+		internalTargetData: await getInitialRealmData()
 	}
 
 	const emitMessage : InternalSession["publicAPI"]["enkore"]["emitMessage"] = function(severity, arg1, arg2?) {
@@ -146,7 +146,7 @@ export async function createSession(
 				},
 
 				getInternalData() {
-					return state.internalRealmData
+					return state.internalTargetData
 				}
 			},
 
