@@ -7,15 +7,15 @@ import path from "node:path"
 async function getAutoSection(
 	session: InternalSession
 ) {
-	const getRealmGitIgnoredFiles = session.targetIntegrationAPI.getGitIgnoredFiles
+	const getTargetGitIgnoredFiles = session.targetIntegrationAPI.getGitIgnoredFiles
 	let gitIgnoreFiles = [
 		...getGitIgnoredFiles()
 	]
 
-	if (typeof getRealmGitIgnoredFiles === "function") {
+	if (typeof getTargetGitIgnoredFiles === "function") {
 		gitIgnoreFiles = [
 			...gitIgnoreFiles,
-			...await getRealmGitIgnoredFiles(session.publicAPI)
+			...await getTargetGitIgnoredFiles(session.publicAPI)
 		]
 	}
 

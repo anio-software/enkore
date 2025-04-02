@@ -34,12 +34,12 @@ export async function writeBoilerplateFiles(
 		...getBoilerplateFiles()
 	]
 
-	const getRealmBoilerplateFiles = session.targetIntegrationAPI.getBoilerplateFiles
+	const getTargetBoilerplateFiles = session.targetIntegrationAPI.getBoilerplateFiles
 
-	if (typeof getRealmBoilerplateFiles === "function") {
+	if (typeof getTargetBoilerplateFiles === "function") {
 		boilerplateFiles = [
 			...boilerplateFiles,
-			...await getRealmBoilerplateFiles(session.publicAPI)
+			...await getTargetBoilerplateFiles(session.publicAPI)
 		]
 	}
 

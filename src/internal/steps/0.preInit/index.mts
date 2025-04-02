@@ -12,7 +12,7 @@ const executeStep: PreInit = async function(session) {
 	await writeGitIgnoreFile(session)
 
 	//
-	// give realm a chance to register auto files
+	// give target a chance to register auto files
 	//
 	await runHook(session, "preInitialize")
 
