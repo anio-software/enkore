@@ -21,7 +21,7 @@ import {readFileJSON} from "@aniojs/node-fs"
 export async function createSession(
 	projectRoot: string,
 	projectConfig: EnkoreConfig,
-	core: EnkoreCoreAPI,
+	coreAPI: EnkoreCoreAPI,
 	coreInstance: InternalSession["coreInstance"],
 	targetDependencies: Map<string, EnkoreCoreTargetDependency>,
 	events: EventEmitter<Events, true>,
@@ -63,7 +63,7 @@ export async function createSession(
 	> & {
 		publicAPI: unknown
 	} = {
-		core,
+		coreAPI,
 		coreInstance,
 		emitMessage,
 		projectRoot,

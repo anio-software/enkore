@@ -11,7 +11,7 @@ async function buildProduct(
 	productName: string
 ) {
 	const savedCWD = process.cwd()
-	const productTmpPath = await session.core.createTemporaryDirectory(
+	const productTmpPath = await session.coreAPI.createTemporaryDirectory(
 		session.projectRoot
 	)
 	const productDestPath = path.join(

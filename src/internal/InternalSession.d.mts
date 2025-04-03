@@ -12,7 +12,7 @@ import type {EventEmitter} from "@aniojs/event-emitter"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
-	core: EnkoreCoreAPI
+	coreAPI: EnkoreCoreAPI
 	coreInstance: Awaited<ReturnType<EnkoreCoreAPI["initializeProject"]>>
 
 	state: InternalSessionState
