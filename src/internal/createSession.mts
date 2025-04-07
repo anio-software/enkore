@@ -120,14 +120,14 @@ export async function createSession(
 			},
 
 			target: {
-				getConfig(targetIdentifier) {
-					if (projectConfig.target._targetIdentifier !== targetIdentifier) {
+				getOptions(targetIdentifier) {
+					if (projectConfig.target.name !== targetIdentifier) {
 						throw new Error(
 							`getOptions() targetIdentifier mismatch.`
 						)
 					}
 
-					return projectConfig.target as any
+					return projectConfig.target.options as any
 				},
 
 				getDependency(dependencyName) {

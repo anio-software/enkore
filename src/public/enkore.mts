@@ -53,7 +53,7 @@ const impl : API["enkore"] = async function(
 	// preload all target dependencies
 	//
 	const targetDependencyNames = await core.getInstalledTargetDependencyNames(
-		projectRoot, projectConfig.target._targetIdentifier
+		projectRoot, projectConfig.target.name
 	)
 
 	const targetDependencies : Map<string, EnkoreCoreTargetDependency> = new Map()
@@ -63,7 +63,7 @@ const impl : API["enkore"] = async function(
 			dependencyName,
 			await core.loadTargetDependency(
 				projectRoot,
-				projectConfig.target._targetIdentifier,
+				projectConfig.target.name,
 				dependencyName
 			)
 		)
