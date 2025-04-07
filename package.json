@@ -20,6 +20,10 @@
     },
     "./spec/primitives": {
       "types": "./dist/spec.primitives/index.d.mts"
+    },
+    "./spec/factory": {
+      "types": "./dist/spec.factory/index.d.mts",
+      "default": "./dist/spec.factory/index.mjs"
     }
   },
   "repository": {
