@@ -16,9 +16,15 @@ export async function createObjectFiles(
 			session.publicAPI, projectFile, contents
 		)
 
-		if (ret === "ignore") {
+		if (ret === "unsupported") {
 			session.emitMessage(
 				"warning", `Ignoring unsupported file '${projectFile.relativePath}'`
+			)
+
+			continue
+		} else if (ret === "skip") {
+			session.emitMessage(
+				"info", `Skipping file '${projectFile.relativePath}'`
 			)
 
 			continue
