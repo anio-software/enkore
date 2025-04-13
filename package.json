@@ -7,7 +7,7 @@
   "exports": {
     ".": {
       "types": "./dist/default/index.d.mts",
-      "import": "./dist/default/index.mjs"
+      "default": "./dist/default/index.mjs"
     },
     "./package.json": {
       "default": "./package.json"
