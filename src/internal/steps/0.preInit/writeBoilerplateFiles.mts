@@ -3,11 +3,42 @@ import type {EnkoreBoilerplateFile} from "@enkore/spec"
 import {getBoilerplateFiles} from "#~src/internal/getBoilerplateFiles.mts"
 import path from "node:path"
 import {isFileSync, writeAtomicFile} from "@aniojs/node-fs"
+import {
+	enkoreBoilerplateFileMarkerUUID,
+	targetBoilerplateFileMarkerUUID
+} from "@enkore/spec/uuid"
 
 async function handleBoilerplateFile(
 	session: InternalSession, file: EnkoreBoilerplateFile
 ) {
 	const overwrite = file.overwrite === true
+
+	//
+	// enkore embeds metadata strings within auto-generated files
+	// to track their origin and evaluate their freshness status.
+	// "Freshness" indicates whether a file remains valid or has become stale.
+	// enkore performs automated cleanup of stale generated files
+	// based on this metadata.
+	// this code ensures that this metadata is included in the file's content
+	// for files that are always (i.e. managed) created by enkore.
+	//
+	if (overwrite && file.scope === "enkore") {
+		if (!file.content.includes(enkoreBoilerplateFileMarkerUUID)) {
+			session.emitMessage(
+				`error`,
+				undefined, // tbd
+				`file '${file.path}' is missing enkore boilerplate file marker UUID.`
+			)
+		}
+	} else if (overwrite && file.scope === "target") {
+		if (!file.content.includes(targetBoilerplateFileMarkerUUID)) {
+			session.emitMessage(
+				`error`,
+				undefined, // tbd
+				`file '${file.path}' is missing target boilerplate file marker UUID.`
+			)
+		}
+	}
 
 	const absolutePath = path.join(session.projectRoot, file.path)
 
