@@ -9,13 +9,13 @@ import {getAsset} from "@fourtune/realm-js/v0/assets"
 export function getBoilerplateFiles() : EnkoreBoilerplateFile[] {
 	const files : EnkoreBoilerplateFile[] = []
 
-	function addFile(path: string, content: string, overwrite?: boolean, executable?: boolean) {
+	function addFile(path: string, content: string, fullyManagedByEnkore?: boolean, executable?: boolean) {
 		files.push(
 			createEntity("EnkoreBoilerplateFile", 0, 0, {
-				scope: "enkore",
+				requestedBy: "enkore",
 				path,
 				content,
-				overwrite,
+				fullyManagedByEnkore,
 				fileIsExecutable: executable
 			})
 		)

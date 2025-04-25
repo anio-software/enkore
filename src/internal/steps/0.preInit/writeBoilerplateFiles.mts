@@ -11,7 +11,7 @@ import {
 async function handleBoilerplateFile(
 	session: InternalSession, file: EnkoreBoilerplateFile
 ) {
-	const overwrite = file.overwrite === true
+	const fullyManagedByEnkore = file.fullyManagedByEnkore === true
 
 	//
 	// enkore embeds metadata strings within auto-generated files
@@ -22,7 +22,7 @@ async function handleBoilerplateFile(
 	// this code ensures that this metadata is included in the file's content
 	// for files that are always (i.e. managed) created by enkore.
 	//
-	if (overwrite && file.scope === "enkore") {
+	if (fullyManagedByEnkore && file.requestedBy === "enkore") {
 		if (!file.content.includes(enkoreBoilerplateFileMarkerUUID)) {
 			session.emitMessage(
 				`error`,
@@ -30,7 +30,7 @@ async function handleBoilerplateFile(
 				`file '${file.path}' is missing enkore boilerplate file marker UUID.`
 			)
 		}
-	} else if (overwrite && file.scope === "target") {
+	} else if (fullyManagedByEnkore && file.requestedBy === "target") {
 		if (!file.content.includes(targetBoilerplateFileMarkerUUID)) {
 			session.emitMessage(
 				`error`,
@@ -42,7 +42,7 @@ async function handleBoilerplateFile(
 
 	const absolutePath = path.join(session.projectRoot, file.path)
 
-	if (isFileSync(absolutePath) && !overwrite) {
+	if (isFileSync(absolutePath) && !fullyManagedByEnkore) {
 		session.emitMessage("info", `skip writing '${file.path}', already exists`)
 
 		return
