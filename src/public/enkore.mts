@@ -21,6 +21,13 @@ const impl : API["enkore"] = async function(
 	const npmBinaryPath = options?.npmBinaryPath || "npm"
 	const force = options?.force === true
 	const onlyInitializeProject = options?.onlyInitializeProject === true
+	const allowErrorsInEnkoreConfigFile = (() => {
+		if (isCIEnvironment) {
+			return false
+		}
+
+		return options?.allowErrorsInEnkoreConfigFile === true
+	})()
 	const _partialBuild = options?._partialBuild === true
 	const _forceBuild = options?._forceBuild === true
 
@@ -82,6 +89,7 @@ const impl : API["enkore"] = async function(
 			stdIOLogs,
 			npmBinaryPath,
 			onlyInitializeProject,
+			allowErrorsInEnkoreConfigFile,
 			_partialBuild,
 			_forceBuild
 		}
