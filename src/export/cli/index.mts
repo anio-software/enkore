@@ -8,7 +8,7 @@ const args = process.argv.slice(2)
 let isCIEnvironment = false
 let force = false
 let onlyInitializeProject = false
-let allowErrorsInEnkoreConfigFile = false
+let allowTypeErrorsInEnkoreConfigFile = false
 let _partialBuild = false
 let _forceBuild = false
 let projectRoot : string|null = null
@@ -30,8 +30,8 @@ for (const arg of args) {
 		runTests = true
 	} else if (arg === "-publish") {
 		runPublish = true
-	} else if (arg === "-allowErrorsInEnkoreConfigFile") {
-		allowErrorsInEnkoreConfigFile = true
+	} else if (arg === "-allowTypeErrorsInEnkoreConfigFile") {
+		allowTypeErrorsInEnkoreConfigFile = true
 	} else {
 		projectRoot = arg
 	}
@@ -51,7 +51,7 @@ const {project} = await enkore(
 		force,
 		onlyInitializeProject,
 		isCIEnvironment,
-		allowErrorsInEnkoreConfigFile,
+		allowTypeErrorsInEnkoreConfigFile,
 		_partialBuild,
 		_forceBuild
 	})
