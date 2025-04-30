@@ -120,6 +120,10 @@ export async function createSession(
 					return projectConfig.target.options as any
 				},
 
+				_getToolchain(expectedToolchainID) {
+					return {} as any
+				},
+
 				getInternalData() {
 					return state.internalTargetData
 				}
