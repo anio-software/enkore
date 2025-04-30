@@ -97,16 +97,6 @@ export async function createSession(
 		return true
 	}
 
-	function getTargetDependency(dependencyName: string) {
-		if (!targetDependencies.has(dependencyName)) {
-			throw new Error(
-				`No such target dependency '${dependencyName}'.`
-			)
-		}
-
-		return targetDependencies.get(dependencyName)!
-	}
-
 	const projectPackageJSON = await readFileJSON(
 		path.join(projectRoot, "package.json")
 	) as NodePackageJSON
@@ -128,22 +118,6 @@ export async function createSession(
 					}
 
 					return projectConfig.target.options as any
-				},
-
-				getDependency(dependencyName) {
-					return getTargetDependency(dependencyName).importedDependencyObject
-				},
-
-				getDependencyVersion(dependencyName) {
-					return getTargetDependency(dependencyName).version
-				},
-
-				getDependencyPath(dependencyName) {
-					return getTargetDependency(dependencyName).path
-				},
-
-				getDependencyPackageJSON(dependencyName) {
-					return getTargetDependency(dependencyName).dependencyPackageJSON
 				},
 
 				getInternalData() {
