@@ -4,6 +4,8 @@ import {
 	type EnkoreNodeAPIOptions,
 	type RawType,
 	type Toolchains,
+	type ToolchainIDs,
+	type ToolchainByID,
 	createAPI,
 	createEntity
 } from "@enkore/spec"
@@ -16,6 +18,15 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import path from "node:path"
 import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
 import {readFileJSON} from "@aniojs/node-fs"
+
+// dunno why exactly, but this is needed for _getToolchain to work properly
+// without using a type assertion
+function isToolchainOfID<ID extends ToolchainIDs>(
+	toolchain: Toolchains,
+	id: ID
+): toolchain is ToolchainByID<ID> {
+	return toolchain.toolchainID === id
+}
 
 export async function createSession(
 	projectRoot: string,
@@ -120,7 +131,13 @@ export async function createSession(
 				},
 
 				_getToolchain(expectedToolchainID) {
-					return {} as any
+					if (isToolchainOfID(toolchain, expectedToolchainID)) {
+						return toolchain
+					}
+
+					throw new Error(
+						`Failed to get requested toolchain '${expectedToolchainID}'.`
+					)
 				},
 
 				getInternalData() {
