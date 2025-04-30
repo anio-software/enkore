@@ -1,7 +1,6 @@
 import {
 	type EnkoreConfig,
 	type EnkoreCoreAPI,
-	type EnkoreTargetIntegrationAPI,
 	type EnkoreNodeAPIOptions,
 	type RawType,
 	createAPI,
