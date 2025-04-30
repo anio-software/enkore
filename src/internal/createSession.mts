@@ -3,6 +3,7 @@ import {
 	type EnkoreCoreAPI,
 	type EnkoreNodeAPIOptions,
 	type RawType,
+	type Toolchains,
 	createAPI,
 	createEntity
 } from "@enkore/spec"
@@ -21,6 +22,7 @@ export async function createSession(
 	projectConfig: EnkoreConfig,
 	coreAPI: EnkoreCoreAPI,
 	coreInstance: InternalSession["coreInstance"],
+	toolchain: Toolchains,
 	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {

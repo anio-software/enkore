@@ -55,11 +55,14 @@ const impl : API["enkore"] = async function(
 		})
 	}
 
+	const toolchain = await core.loadToolchain(projectRoot)
+
 	const internalSession = await createSession(
 		projectRoot,
 		projectConfig,
 		core,
 		coreInstance,
+		toolchain,
 		events,
 		{
 			force,
