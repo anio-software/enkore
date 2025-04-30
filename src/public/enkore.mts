@@ -9,8 +9,6 @@ import preInit from "#~src/internal/steps/0.preInit/index.mts"
 import {build} from "#~src/internal/steps/build.mts"
 import {realpath} from "node:fs/promises"
 
-import type {EnkoreCoreTargetDependency} from "@enkore/spec"
-
 const impl : API["enkore"] = async function(
 	unresolvedProjectRoot,
 	options?
@@ -56,32 +54,11 @@ const impl : API["enkore"] = async function(
 		})
 	}
 
-	//
-	// preload all target dependencies
-	//
-	const targetDependencyNames = await core.getInstalledTargetDependencyNames(
-		projectRoot, projectConfig.target.name
-	)
-
-	const targetDependencies : Map<string, EnkoreCoreTargetDependency> = new Map()
-
-	for (const dependencyName of targetDependencyNames) {
-		targetDependencies.set(
-			dependencyName,
-			await core.loadTargetDependency(
-				projectRoot,
-				projectConfig.target.name,
-				dependencyName
-			)
-		)
-	}
-
 	const internalSession = await createSession(
 		projectRoot,
 		projectConfig,
 		core,
 		coreInstance,
-		targetDependencies,
 		events,
 		{
 			force,
