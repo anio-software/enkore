@@ -40,7 +40,8 @@ const impl : API["enkore"] = async function(
 	const coreInstance = await core.initializeProject(
 		projectRoot, isCIEnvironment, {
 			npmBinaryPath,
-			force
+			force,
+			forceToolchain: false
 		}
 	)
 
@@ -68,7 +69,8 @@ const impl : API["enkore"] = async function(
 			onlyInitializeProject,
 			allowTypeErrorsInEnkoreConfigFile,
 			_partialBuild,
-			_forceBuild
+			_forceBuild,
+			_forceToolchain: false
 		}
 	)
 
