@@ -8,6 +8,7 @@ import {createSession} from "#~src/internal/createSession.mts"
 import preInit from "#~src/internal/steps/0.preInit/index.mts"
 import {build} from "#~src/internal/steps/build.mts"
 import {realpath} from "node:fs/promises"
+import {log as debugLog} from "@enkore/debug"
 
 const impl : API["enkore"] = async function(
 	unresolvedProjectRoot,
@@ -45,15 +46,19 @@ const impl : API["enkore"] = async function(
 		}
 	)
 
-	if (stdIOLogs) {
-		events.on("message", (e) => {
-			if (e.severity === "debug" && !core.getDebugMode()) return
+	events.on("message", (e) => {
+		if (e.severity === "debug") {
+			debugLog(e.message)
 
-			process.stderr.write(
-				`[${e.severity}] enkore: ${e.message}\n`
-			)
-		})
-	}
+			return
+		}
+
+		if (!stdIOLogs) return
+
+		process.stderr.write(
+			`[${e.severity}] enkore: ${e.message}\n`
+		)
+	})
 
 	const toolchain = await core.loadToolchain(projectRoot)
 
