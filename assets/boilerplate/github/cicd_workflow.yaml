@@ -1,4 +1,4 @@
-# This is CI/CD version 0.9.0
+# This is CI/CD version 0.10.0
 #
 # Changelog
 #
@@ -21,6 +21,10 @@
 # v0.9.0 - 20.03.2025 (by eXory2024)
 # Bump node version to v23
 #
+# v0.10.0 - 12.05.2025 (by eXory2024)
+# Default to publish npm packages to private npm registry.
+# Tags starting with 'vpX.X.X' publish to the public npm registry.
+#
 
 name: CI/CD
 
@@ -36,7 +40,7 @@ jobs:
       matrix:
         node-version: [23.x]
     env:
-      ANIO_CICD: "v0.9.0"
+      ANIO_CICD: "v0.10.0"
       ANIO_CICD_REPO: "${{ github.repository }}"
     steps:
       - uses: actions/checkout@v3
@@ -60,7 +64,7 @@ jobs:
     permissions:
       id-token: write
     env:
-      ANIO_CICD: "v0.9.0"
+      ANIO_CICD: "v0.10.0"
       ANIO_CICD_REPO: "${{ github.repository }}"
     steps:
       - uses: actions/checkout@v3
@@ -73,20 +77,62 @@ jobs:
       - name: "Install node modules (if present)"
         run: bash -c 'if [ -f package.json ]; then npm ci ; fi'
 
+      # Place private key and certificate in order to have
+      # access to npm-registry.anio.software
+      - name: "Setup runner private key and certificate"
+        env:
+          ANIO_NPM_REGISTRY_GITHUB_CICD_CERT: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_CERT }}
+          ANIO_NPM_REGISTRY_GITHUB_CICD_PKEY: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_PKEY }}
+        run: |
+          touch ./.cicd/client.cert
+          touch ./.cicd/client.pkey
+          chmod 0600 ./.cicd/client.cert ./.cicd/client.pkey
+          printf "%s" "$ANIO_NPM_REGISTRY_GITHUB_CICD_CERT" > ./.cicd/client.cert
+          printf "%s" "$ANIO_NPM_REGISTRY_GITHUB_CICD_PKEY" > ./.cicd/client.pkey
+          openssl x509 -in ./.cicd/client.cert -noout -text
+
+      - name: "Setup npmrc file"
+        run: |
+          printf "" > ./.npmrc
+
+          if [[ "${{ github.ref_name }}" == vp* ]]; then
+            printf "%s\n" "registry=https://registry.npmjs.org" >> ./.npmrc
+            printf "%s\n" "//registry.npmjs.org/:_authToken=${{ secrets.ANIO_NPM_TOKEN }}" >> ./.npmrc
+          else
+            printf "%s\n" "registry=https://npm-registry.anio.software" >> ./.npmrc
+            printf "%s\n" "//npm-registry.anio.software/:keyfile=./.cicd/client.pkey" >> ./.npmrc
+            printf "%s\n" "//npm-registry.anio.software/:certfile=./.cicd/client.cert" >> ./.npmrc
+            printf "%s\n" "//npm-registry.anio.software/:_authToken=${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_TOKEN }}" >> ./.npmrc
+          fi
+
       #
       # Make sure package.json's version field and
       # tag name are consistent.
       #
       - name: "Validate package.json version (if present)"
-        run: bash -c 'if [ -f package.json ]; then clean_ver="$(printf "%s" "${{ github.ref_name }}" | cut -c2-)" ; grep -q "\"$clean_ver\"" package.json ; fi'
+        run: |
+          if [[ "${{ github.ref_name }}" == vp* ]]; then
+            CLEAN_VERSION="$(printf "%s" "${{ github.ref_name }}" | cut -c3-)"
+          else
+            CLEAN_VERSION="$(printf "%s" "${{ github.ref_name }}" | cut -c2-)"
+          fi
+
+          printf "Clean Version is \"%s\"\n" "$CLEAN_VERSION"
+
+          if [ ! -f package.json ]; then
+            printf "Skipping version check\n"
+            exit 0
+          fi
+
+          if ! grep -q "\"$CLEAN_VERSION\"" package.json; then
+            printf "Version number does not match what's inside package.json!\n" 1>&2
+            exit 1
+          fi
 
       - name: "Run .cicd/deploy.sh script"
         run: ./.cicd/deploy.sh
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
-
-          NODE_AUTH_TOKEN: ${{ secrets.ANIO_NPM_TOKEN }}
-          NPM_TOKEN: ${{ secrets.ANIO_NPM_TOKEN }}
 
           ANIO_SH_DEPLOY_URL: ${{ secrets.ANIO_SH_DEPLOY_URL }}
           ANIO_SH_DEPLOY_KEY: ${{ secrets.ANIO_SH_DEPLOY_KEY }}
