@@ -1,4 +1,4 @@
-# This is CI/CD version 0.10.0
+# This is CI/CD version 0.11.0
 #
 # Changelog
 #
@@ -25,6 +25,9 @@
 # Default to publish npm packages to private npm registry.
 # Tags starting with 'vpX.X.X' publish to the public npm registry.
 #
+# v0.11.0 - 16.05.2025 (by eXory2024)
+# Adjust path of npmrc file and adjust paths inside npmrc file.
+#
 
 name: CI/CD
 
@@ -40,7 +43,7 @@ jobs:
       matrix:
         node-version: [23.x]
     env:
-      ANIO_CICD: "v0.10.0"
+      ANIO_CICD: "v0.11.0"
       ANIO_CICD_REPO: "${{ github.repository }}"
     steps:
       - uses: actions/checkout@v3
@@ -64,7 +67,7 @@ jobs:
     permissions:
       id-token: write
     env:
-      ANIO_CICD: "v0.10.0"
+      ANIO_CICD: "v0.11.0"
       ANIO_CICD_REPO: "${{ github.repository }}"
     steps:
       - uses: actions/checkout@v3
@@ -93,16 +96,16 @@ jobs:
 
       - name: "Setup npmrc file"
         run: |
-          printf "" > ./.npmrc
+          printf "" > ./.cicd/npmrc
 
           if [[ "${{ github.ref_name }}" == vp* ]]; then
-            printf "%s\n" "registry=https://registry.npmjs.org" >> ./.npmrc
-            printf "%s\n" "//registry.npmjs.org/:_authToken=${{ secrets.ANIO_NPM_TOKEN }}" >> ./.npmrc
+            printf "%s\n" "registry=https://registry.npmjs.org" >> ./.cicd/npmrc
+            printf "%s\n" "//registry.npmjs.org/:_authToken=${{ secrets.ANIO_NPM_TOKEN }}" >> ./.cicd/npmrc
           else
-            printf "%s\n" "registry=https://npm-registry.anio.software" >> ./.npmrc
-            printf "%s\n" "//npm-registry.anio.software/:keyfile=./.cicd/client.pkey" >> ./.npmrc
-            printf "%s\n" "//npm-registry.anio.software/:certfile=./.cicd/client.cert" >> ./.npmrc
-            printf "%s\n" "//npm-registry.anio.software/:_authToken=${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_TOKEN }}" >> ./.npmrc
+            printf "%s\n" "registry=https://npm-registry.anio.software" >> ./.cicd/npmrc
+            printf "%s\n" "//npm-registry.anio.software/:keyfile=../../.cicd/client.pkey" >> ./.cicd/npmrc
+            printf "%s\n" "//npm-registry.anio.software/:certfile=../../.cicd/client.cert" >> ./.cicd/npmrc
+            printf "%s\n" "//npm-registry.anio.software/:_authToken=${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_TOKEN }}" >> ./.cicd/npmrc
           fi
 
       #
