@@ -140,6 +140,10 @@ export async function createSession(
 					)
 				},
 
+				__getInstalledToolchain() {
+					return toolchain
+				},
+
 				getInternalData() {
 					return state.internalTargetData
 				}
