@@ -1,1 +1,1 @@
-export type {EnkoreNodeAPI_V0_Rev0 as API} from "@enkore/spec"
+export type {EnkoreNodeAPI_V0_Rev0 as API} from "@asint/enkore__spec"

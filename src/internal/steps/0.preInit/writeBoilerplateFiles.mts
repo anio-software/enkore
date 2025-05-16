@@ -1,12 +1,12 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {EnkoreBoilerplateFile} from "@enkore/spec"
+import type {EnkoreBoilerplateFile} from "@asint/enkore__spec"
 import {getBoilerplateFiles} from "#~src/internal/getBoilerplateFiles.mts"
 import path from "node:path"
 import {isFileSync, writeAtomicFile} from "@aniojs/node-fs"
 import {
 	enkoreBoilerplateFileMarkerUUID,
 	targetBoilerplateFileMarkerUUID
-} from "@enkore/spec/uuid"
+} from "@asint/enkore__spec/uuid"
 
 async function handleBoilerplateFile(
 	session: InternalSession, file: EnkoreBoilerplateFile

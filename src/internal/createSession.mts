@@ -8,8 +8,8 @@ import {
 	type ToolchainByID,
 	createAPI,
 	createEntity
-} from "@enkore/spec"
-import type {NodePackageJSON} from "@enkore/spec/primitives"
+} from "@asint/enkore__spec"
+import type {NodePackageJSON} from "@asint/enkore__spec/primitives"
 
 import type {Events} from "./Events.d.mts"
 import type {EventEmitter} from "@aniojs/event-emitter"

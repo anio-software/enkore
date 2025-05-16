@@ -1,1 +1,1 @@
-export type * from "@enkore/spec"
+export type * from "@asint/enkore__spec"

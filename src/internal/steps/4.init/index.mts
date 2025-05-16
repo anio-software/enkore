@@ -1,7 +1,7 @@
 import type {Init} from "#~synthetic/user/Steps.d.mts"
 import lint from "../5.lint/index.mts"
 import {defineStepChecked} from "../defineStepChecked.mts"
-import type {NodeAPIMessage} from "@enkore/spec/primitives"
+import type {NodeAPIMessage} from "@asint/enkore__spec/primitives"
 
 async function mockReturn() : ReturnType<Init> {
 	const messages : NodeAPIMessage[] = [{

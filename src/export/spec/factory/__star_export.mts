@@ -1,1 +1,1 @@
-export * from "@enkore/spec/factory"
+export * from "@asint/enkore__spec/factory"

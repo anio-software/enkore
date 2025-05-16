@@ -1,6 +1,6 @@
 import path from "node:path"
 import {createRequire} from "node:module"
-import {type EnkoreCoreAPI, importAPI} from "@enkore/spec"
+import {type EnkoreCoreAPI, importAPI} from "@asint/enkore__spec"
 
 export async function loadEnkoreCoreAPI(
 	projectRoot: string
