@@ -41,7 +41,7 @@ export async function writeGitIgnoreFile(
 		session.emitMessage("info", "created .gitignore")
 
 		await writeAtomicFile(gitIgnorePath, `# This file is partially managed by enkore
-# Add your own files below this comment:
+# Add your own entries below this comment:
 
 
 
