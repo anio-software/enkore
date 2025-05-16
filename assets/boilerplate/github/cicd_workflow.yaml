@@ -1,4 +1,4 @@
-# This is CI/CD version 0.11.0
+# This is CI/CD version 0.12.0
 #
 # Changelog
 #
@@ -28,6 +28,11 @@
 # v0.11.0 - 16.05.2025 (by eXory2024)
 # Adjust path of npmrc file and adjust paths inside npmrc file.
 #
+# v0.12.0 - 16.05.2025 (by eXory2024)
+# - setup secrets in "test" job.
+# - deduplicate setup of worker (private key, cert, access tokens)
+# because it is needed in both "test" and "publish" jobs.
+#
 
 name: CI/CD
 
@@ -43,14 +48,22 @@ jobs:
       matrix:
         node-version: [23.x]
     env:
-      ANIO_CICD: "v0.11.0"
+      ANIO_CICD: "v0.12.0"
       ANIO_CICD_REPO: "${{ github.repository }}"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: "Setup private key, certificate and access tokens"
+        uses: ./.github/actions/setup
+        with:
+          anio-pkey: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_PKEY }}
+          anio-cert: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_CERT }}
+          anio-registry-token: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_TOKEN }}
+          npm-token: ${{ secrets.ANIO_NPM_TOKEN }}
 
       - name: "Install node modules (if present)"
         run: bash -c 'if [ -f package.json ]; then npm ci ; fi'
@@ -67,46 +80,26 @@ jobs:
     permissions:
       id-token: write
     env:
-      ANIO_CICD: "v0.11.0"
+      ANIO_CICD: "v0.12.0"
       ANIO_CICD_REPO: "${{ github.repository }}"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 23.x
           registry-url: "https://registry.npmjs.org"
 
+      - name: "Setup private key, certificate and access tokens"
+        uses: ./.github/actions/setup
+        with:
+          anio-pkey: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_PKEY }}
+          anio-cert: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_CERT }}
+          anio-registry-token: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_TOKEN }}
+          npm-token: ${{ secrets.ANIO_NPM_TOKEN }}
+
       - name: "Install node modules (if present)"
         run: bash -c 'if [ -f package.json ]; then npm ci ; fi'
-
-      # Place private key and certificate in order to have
-      # access to npm-registry.anio.software
-      - name: "Setup runner private key and certificate"
-        env:
-          ANIO_NPM_REGISTRY_GITHUB_CICD_CERT: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_CERT }}
-          ANIO_NPM_REGISTRY_GITHUB_CICD_PKEY: ${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_PKEY }}
-        run: |
-          touch ./.cicd/client.cert
-          touch ./.cicd/client.pkey
-          chmod 0600 ./.cicd/client.cert ./.cicd/client.pkey
-          printf "%s" "$ANIO_NPM_REGISTRY_GITHUB_CICD_CERT" > ./.cicd/client.cert
-          printf "%s" "$ANIO_NPM_REGISTRY_GITHUB_CICD_PKEY" > ./.cicd/client.pkey
-          openssl x509 -in ./.cicd/client.cert -noout -text
-
-      - name: "Setup npmrc file"
-        run: |
-          printf "" > ./.cicd/npmrc
-
-          if [[ "${{ github.ref_name }}" == vp* ]]; then
-            printf "%s\n" "registry=https://registry.npmjs.org" >> ./.cicd/npmrc
-            printf "%s\n" "//registry.npmjs.org/:_authToken=${{ secrets.ANIO_NPM_TOKEN }}" >> ./.cicd/npmrc
-          else
-            printf "%s\n" "registry=https://npm-registry.anio.software" >> ./.cicd/npmrc
-            printf "%s\n" "//npm-registry.anio.software/:keyfile=../../.cicd/client.pkey" >> ./.cicd/npmrc
-            printf "%s\n" "//npm-registry.anio.software/:certfile=../../.cicd/client.cert" >> ./.cicd/npmrc
-            printf "%s\n" "//npm-registry.anio.software/:_authToken=${{ secrets.ANIO_NPM_REGISTRY_GITHUB_CICD_TOKEN }}" >> ./.cicd/npmrc
-          fi
 
       #
       # Make sure package.json's version field and

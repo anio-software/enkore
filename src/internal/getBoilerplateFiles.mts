@@ -34,6 +34,7 @@ export function getBoilerplateFiles() : EnkoreBoilerplateFile[] {
 
 	addFile(".github/CODEOWNERS", header + getAsset("text://boilerplate/github/CODEOWNERS") as string, true)
 	addFile(".github/workflows/cicd.yaml", header + getAsset("text://boilerplate/github/cicd_workflow.yaml") as string, true)
+	addFile(".github/actions/setup/action.yaml", header + getAsset("text://boilerplate/github/cicd_setup_action.yaml") as string, true)
 
 	addFile(".cicd/test.sh", `#!/bin/bash -euf\n\n./node_modules/.bin/enkore . -ci -test\n`, false, true)
 	addFile(".cicd/deploy.sh", `#!/bin/bash -euf\n\n./node_modules/.bin/enkore . -ci -test -publish\n`, false, true)
