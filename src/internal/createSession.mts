@@ -41,7 +41,9 @@ export async function createSession(
 		const {getInitialInternalData} = coreInstance.targetIntegrationAPI
 
 		if (typeof getInitialInternalData === "function") {
-			return await getInitialInternalData()
+			return await getInitialInternalData(
+				projectRoot, projectConfig
+			)
 		}
 
 		return {}
