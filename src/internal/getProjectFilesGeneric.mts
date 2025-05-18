@@ -1,6 +1,6 @@
 import type {
 	EnkoreProjectFile
-} from "@asint/enkore__spec"
+} from "@anio-software/enkore.spec"
 import path from "node:path"
 
 export function getProjectFilesGeneric(

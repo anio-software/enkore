@@ -3,7 +3,7 @@ import type {
 	StepsMap
 } from "#~synthetic/user/Steps.d.mts"
 import type {InternalSession} from "../InternalSession.d.mts"
-import type {NodeAPIMessage} from "@asint/enkore__spec/primitives"
+import type {NodeAPIMessage} from "@anio-software/enkore.spec/primitives"
 import {onStepStarted} from "#~src/internal/session/onStepStarted.mts"
 import {onStepFinished} from "#~src/internal/session/onStepFinished.mts"
 import type {EventListener} from "@aniojs/event-emitter"

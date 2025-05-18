@@ -1,7 +1,7 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import {isFileSync, writeAtomicFile, readFileString} from "@aniojs/node-fs"
 import {getGitIgnoredFiles} from "#~src/internal/getGitIgnoredFiles.mts"
-import {gitIgnoreMarkerUUID} from "@asint/enkore__spec/uuid"
+import {gitIgnoreMarkerUUID} from "@anio-software/enkore.spec/uuid"
 import path from "node:path"
 
 async function getAutoSection(
