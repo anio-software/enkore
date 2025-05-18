@@ -32,10 +32,10 @@
   },
   "type": "module",
   "devDependencies": {
+    "@anio-software/enkore.common": "^0.0.123",
+    "@anio-software/enkore.spec": "^0.273.0",
     "@aniojs/event-emitter": "^0.1.0",
     "@aniojs/node-fs": "^0.4.0",
-    "@asint/enkore__common": "^0.0.122",
-    "@asint/enkore__spec": "^0.272.0",
     "@enkore/debug": "^0.0.4",
     "@fourtune/core": "^0.1101.0",
     "@fourtune/realm-js": "^1.0.5",
