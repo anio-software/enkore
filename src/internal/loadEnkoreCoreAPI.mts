@@ -10,9 +10,13 @@ export async function loadEnkoreCoreAPI(
 	let corePackagePath = ""
 
 	try {
-		corePackagePath = require.resolve("@asint/enkore__core")
+		corePackagePath = require.resolve("@anio-software/enkore.core")
 	} catch {
-		corePackagePath = require.resolve("@enkore/core")
+		try {
+			corePackagePath = require.resolve("@asint/enkore__core")
+		} catch {
+			corePackagePath = require.resolve("@enkore/core")
+		}
 	}
 
 	return await importAPI(corePackagePath, "EnkoreCoreAPI")
