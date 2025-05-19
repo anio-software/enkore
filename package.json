@@ -32,8 +32,8 @@
   },
   "type": "module",
   "devDependencies": {
-    "@anio-software/enkore.common": "^0.0.124",
-    "@anio-software/enkore.spec": "^0.273.0",
+    "@anio-software/enkore.common": "^0.0.126",
+    "@anio-software/enkore.spec": "^0.274.0",
     "@aniojs/event-emitter": "^0.1.0",
     "@aniojs/node-fs": "^0.4.0",
     "@enkore/debug": "^0.0.4",
