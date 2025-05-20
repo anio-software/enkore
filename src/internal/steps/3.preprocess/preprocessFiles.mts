@@ -1,8 +1,8 @@
 import path from "node:path"
 import {copy, writeAtomicFile, readFileString} from "@aniojs/node-fs"
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import {fileNameIndicatesPreprocessable} from "@anio-software/enkore.common"
-import type {EnkoreProjectFile} from "@anio-software/enkore.spec"
+import {fileNameIndicatesPreprocessable} from "@anio-software/enkore-private.common"
+import type {EnkoreProjectFile} from "@anio-software/enkore-private.spec"
 
 export async function preprocessFiles(
 	session: InternalSession

@@ -1,5 +1,5 @@
 import type {InternalSession} from "../InternalSession.d.mts"
-import type {NodeAPIMessage} from "@anio-software/enkore.spec/primitives"
+import type {NodeAPIMessage} from "@anio-software/enkore-private.spec/primitives"
 import {runAllSteps} from "#~synthetic/user/runAllSteps.mts"
 
 type ExtendedNodeAPIMessage = NodeAPIMessage & {

@@ -1,8 +1,8 @@
 import {
 	type EnkoreBoilerplateFile,
 	createEntity
-} from "@anio-software/enkore.spec"
-import {enkoreBoilerplateFileMarkerUUID} from "@anio-software/enkore.spec/uuid"
+} from "@anio-software/enkore-private.spec"
+import {enkoreBoilerplateFileMarkerUUID} from "@anio-software/enkore-private.spec/uuid"
 
 import {getAsset} from "@fourtune/realm-js/v0/assets"
 

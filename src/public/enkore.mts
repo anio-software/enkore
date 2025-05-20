@@ -1,7 +1,7 @@
 import type {API} from "#~src/API.d.mts"
 import type {Events} from "#~src/internal/Events.d.mts"
 
-import {readEnkoreConfigFile} from "@anio-software/enkore.common"
+import {readEnkoreConfigFile} from "@anio-software/enkore-private.common"
 import {createEventEmitter} from "@aniojs/event-emitter"
 import {loadEnkoreCoreAPI} from "#~src/internal/loadEnkoreCoreAPI.mts"
 import {createSession} from "#~src/internal/createSession.mts"

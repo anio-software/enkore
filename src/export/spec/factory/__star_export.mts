@@ -1,1 +1,1 @@
-export * from "@anio-software/enkore.spec/factory"
+export * from "@anio-software/enkore-private.spec/factory"

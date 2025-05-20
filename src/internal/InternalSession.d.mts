@@ -5,7 +5,7 @@ import type {
 	EnkoreConfig,
 	RawType,
 	EnkoreNodeAPIOptions
-} from "@anio-software/enkore.spec"
+} from "@anio-software/enkore-private.spec"
 
 import type {Events} from "./Events.d.mts"
 import type {EventEmitter} from "@aniojs/event-emitter"

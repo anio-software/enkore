@@ -1,1 +1,1 @@
-export type * from "@anio-software/enkore.spec/primitives"
+export type * from "@anio-software/enkore-private.spec/primitives"

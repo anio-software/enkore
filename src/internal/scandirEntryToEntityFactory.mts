@@ -1,6 +1,6 @@
 import type {ScandirEntry} from "@aniojs/node-fs"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
-import {createEntity} from "@anio-software/enkore.spec"
+import {createEntity} from "@anio-software/enkore-private.spec"
 
 export function scandirEntryToEntityFactory(state: InternalSessionState) {
 	return function(entry: ScandirEntry) {
