@@ -1,7 +1,6 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import {isFunction, isString} from "@anio-software/pkg.is"
+import {isPreprocessableFileName, isFunction, isString} from "@anio-software/pkg.is"
 import {readFileString, writeAtomicFile, copy} from "@aniojs/node-fs"
-import {fileNameIndicatesPreprocessable} from "@anio-software/enkore-private.common"
 import path from "node:path"
 
 function searchAndReplaceBuildConstants(
@@ -50,7 +49,7 @@ export async function preprocessFiles(
 		//
 		// don't preprocess file that aren't preprocessable, just copy them
 		//
-		if (!fileNameIndicatesPreprocessable(projectFile.fileName)) {
+		if (!isPreprocessableFileName(projectFile.fileName)) {
 			await copy(projectFile.absolutePath, defaultDestinationFilePath)
 
 			continue
