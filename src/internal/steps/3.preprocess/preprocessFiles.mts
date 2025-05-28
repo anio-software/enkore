@@ -1,4 +1,5 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
+import {isFunction} from "@anio-software/pkg.is"
 
 function searchAndReplaceBuildConstants(
 	session: InternalSession,
@@ -17,10 +18,20 @@ function searchAndReplaceBuildConstants(
 	return newCode
 }
 
+type Preprocess = NonNullable<
+	InternalSession["targetIntegrationAPI"]["preprocess"]
+>
+
 export async function preprocessFiles(
 	session: InternalSession
 ) {
-	const {preprocess} = session.targetIntegrationAPI
+	const preprocess: Preprocess = async (publicSession, file, code) => {
+		if (isFunction(session.targetIntegrationAPI.preprocess)) {
+			return await session.targetIntegrationAPI.preprocess(
+				publicSession, file, code
+			)
+		}
 
-
+		return code
+	}
 }
