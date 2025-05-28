@@ -26,6 +26,8 @@ export async function preprocessFiles(
 	session: InternalSession
 ) {
 	const preprocess: Preprocess = async (publicSession, file, code) => {
+		code = searchAndReplaceBuildConstants(session, code)
+
 		if (isFunction(session.targetIntegrationAPI.preprocess)) {
 			return await session.targetIntegrationAPI.preprocess(
 				publicSession, file, code
