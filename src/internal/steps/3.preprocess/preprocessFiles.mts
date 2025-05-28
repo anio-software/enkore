@@ -4,6 +4,23 @@ import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import {fileNameIndicatesPreprocessable} from "@anio-software/enkore-private.common"
 import type {EnkoreProjectFile} from "@anio-software/enkore-private.spec"
 
+function searchAndReplaceBuildConstants(
+	session: InternalSession,
+	code: string
+): string {
+	let newCode = code
+
+	if (session.projectConfig.buildConstants) {
+		for (const name in session.projectConfig.buildConstants) {
+			const replaceWith = session.projectConfig.buildConstants[name]
+
+			newCode = newCode.split(`%%${name}%%`).join(replaceWith)
+		}
+	}
+
+	return newCode
+}
+
 export async function preprocessFiles(
 	session: InternalSession
 ) {
