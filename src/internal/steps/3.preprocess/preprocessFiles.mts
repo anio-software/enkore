@@ -1,5 +1,8 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import {isFunction} from "@anio-software/pkg.is"
+import {isFunction, isString} from "@anio-software/pkg.is"
+import {readFileString, writeAtomicFile, copy} from "@aniojs/node-fs"
+import {fileNameIndicatesPreprocessable} from "@anio-software/enkore-private.common"
+import path from "node:path"
 
 function searchAndReplaceBuildConstants(
 	session: InternalSession,
@@ -35,5 +38,54 @@ export async function preprocessFiles(
 		}
 
 		return code
+	}
+
+	for (const projectFile of session.state.allProjectFiles!) {
+		const defaultDestinationFilePath = path.join(
+			session.projectRoot,
+			"build",
+			projectFile.relativePath
+		)
+
+		//
+		// don't preprocess file that aren't preprocessable, just copy them
+		//
+		if (!fileNameIndicatesPreprocessable(projectFile.fileName)) {
+			await copy(projectFile.absolutePath, defaultDestinationFilePath)
+
+			continue
+		}
+
+		const preprocessResult = await preprocess(
+			session.publicAPI,
+			projectFile,
+			await readFileString(projectFile.absolutePath)
+		)
+
+		if (isString(preprocessResult)) {
+			await writeAtomicFile(defaultDestinationFilePath, preprocessResult)
+		} else {
+			const files = Array.isArray(
+				preprocessResult
+			) ? preprocessResult : [preprocessResult]
+
+			for (const file of files) {
+				let destinationPath = ""
+
+				if ("name" in file) {
+					destinationPath = path.join(
+						path.dirname(projectFile.relativePath),
+						file.name
+					)
+				} else {
+					destinationPath = path.normalize(file.path)
+				}
+
+				await writeAtomicFile(
+					path.join(session.projectRoot, "build", destinationPath),
+					file.contents
+				)
+			}
+		}
 	}
 }
