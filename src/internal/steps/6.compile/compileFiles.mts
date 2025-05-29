@@ -70,4 +70,5 @@ async function createObjectFiles(
 
 export async function compileFiles(session: InternalSession) {
 	await createObjectFiles(session, session.state.allProjectFiles!)
+	await createObjectFiles(session, session.state._virtualProjectFiles)
 }
