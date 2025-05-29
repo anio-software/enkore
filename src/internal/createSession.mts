@@ -59,7 +59,7 @@ export async function createSession(
 		allProjectFiles: undefined,
 		filteredProjectFiles: undefined,
 		internalTargetData: await getInitialTargetData(),
-		additionalFilesToCompile: []
+		_virtualProjectFiles: []
 	}
 
 	const emitMessage : InternalSession["publicAPI"]["enkore"]["emitMessage"] = function(severity, arg1, arg2?) {
