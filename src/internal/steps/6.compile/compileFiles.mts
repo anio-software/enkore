@@ -46,7 +46,7 @@ async function createObjectFiles(
 		const objectFiles = Array.isArray(ret) ? ret : [ret]
 
 		for (const objectFile of objectFiles) {
-			let destinationPath : string = ""
+			let destinationPath = ""
 
 			if ("name" in objectFile) {
 				destinationPath = path.join(
