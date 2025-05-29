@@ -2,7 +2,7 @@ import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import {writeAtomicFile, readFileString} from "@aniojs/node-fs"
 import path from "node:path"
 
-export async function createObjectFiles(
+export async function compileFiles(
 	session: InternalSession
 ) {
 	for (const projectFile of session.state.allProjectFiles!) {
