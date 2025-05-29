@@ -1,5 +1,7 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import type {EnkoreProjectFile} from "@anio-software/enkore-private.spec"
+import {
+	type EnkoreProjectFile
+} from "@anio-software/enkore-private.spec"
 import {writeAtomicFile, readFileString} from "@aniojs/node-fs"
 import path from "node:path"
 
