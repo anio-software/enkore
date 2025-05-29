@@ -29,5 +29,7 @@ export type InternalSessionState = {
 		outputHash: string|undefined
 	}>
 
+	additionalFilesToCompile: string[]
+
 	internalTargetData: object
 }
