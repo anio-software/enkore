@@ -5,26 +5,26 @@ import path from "node:path"
 export async function compileFiles(
 	session: InternalSession
 ) {
-	for (const projectFile of session.state.allProjectFiles!) {
+	for (const file of session.state.allProjectFiles!) {
 		const contents = await readFileString(
 			path.join(
-				session.projectRoot, "build", projectFile.relativePath
+				session.projectRoot, "build", file.relativePath
 			)
 		)
 
 		const ret = await session.targetIntegrationAPI.compile(
-			session.publicAPI, projectFile, contents
+			session.publicAPI, file, contents
 		)
 
 		if (ret === "unsupported") {
 			session.emitMessage(
-				"warning", `Ignoring unsupported file '${projectFile.relativePath}'`
+				"warning", `Ignoring unsupported file '${file.relativePath}'`
 			)
 
 			continue
 		} else if (ret === "skip") {
 			session.emitMessage(
-				"info", `Skipping file '${projectFile.relativePath}'`
+				"info", `Skipping file '${file.relativePath}'`
 			)
 
 			continue
@@ -33,7 +33,7 @@ export async function compileFiles(
 				path.join(
 					session.projectRoot,
 					"objects",
-					projectFile.relativePath
+					file.relativePath
 				),
 				contents
 			)
@@ -48,7 +48,7 @@ export async function compileFiles(
 
 			if ("name" in objectFile) {
 				destinationPath = path.join(
-					path.dirname(projectFile.relativePath),
+					path.dirname(file.relativePath),
 					objectFile.name
 				)
 			} else {
