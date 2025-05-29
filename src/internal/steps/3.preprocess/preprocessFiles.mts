@@ -1,6 +1,7 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import {isPreprocessableFileName, isFunction, isString} from "@anio-software/pkg.is"
-import {readFileString, writeAtomicFile, copy} from "@aniojs/node-fs"
+import {readFileString, writeAtomicFile, copy, isFileSync} from "@aniojs/node-fs"
+import {createEntity} from "@anio-software/enkore-private.spec"
 import path from "node:path"
 
 function searchAndReplaceBuildConstants(
@@ -84,6 +85,27 @@ export async function preprocessFiles(
 					path.join(session.projectRoot, "build", destinationPath),
 					file.contents
 				)
+
+				//
+				// add to virtual project files if file doesn't reside within project/ folder.
+				// "virtual" because it didn't exist in the project source tree
+				// before the build process was started.
+				//
+				if (!isFileSync(
+					path.join(session.projectRoot, "project", destinationPath))
+				) {
+					session.state._virtualProjectFiles.push(
+						createEntity("EnkoreVirtualProjectFile", 0, 0, {
+							fileName: path.basename(destinationPath),
+							relativePath: destinationPath,
+							absolutePath: path.join(
+								session.projectRoot,
+								"build",
+								destinationPath
+							)
+						})
+					)
+				}
 			}
 		}
 	}
