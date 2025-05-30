@@ -18,6 +18,7 @@ export type InternalSessionState = {
 	projectDirectoryEntries: ScandirEntry[]|undefined
 	filteredProjectFiles: EnkoreProjectFile[]|undefined
 	allProjectFiles: EnkoreProjectFile[]|undefined
+	allBuildFiles: EnkoreBuildFile[]
 
 	productNames: string[]
 
@@ -29,8 +30,6 @@ export type InternalSessionState = {
 		output: string|undefined
 		outputHash: string|undefined
 	}>
-
-	allBuildFiles: EnkoreBuildFile[]
 
 	internalTargetData: object
 }

@@ -57,9 +57,9 @@ export async function createSession(
 		productNames: [],
 		projectDirectoryEntries: undefined,
 		allProjectFiles: undefined,
+		allBuildFiles: [],
 		filteredProjectFiles: undefined,
-		internalTargetData: await getInitialTargetData(),
-		allBuildFiles: []
+		internalTargetData: await getInitialTargetData()
 	}
 
 	const emitMessage : InternalSession["publicAPI"]["enkore"]["emitMessage"] = function(severity, arg1, arg2?) {
