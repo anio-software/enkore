@@ -1,7 +1,7 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {
 	EnkoreProjectFile,
-	EnkoreVirtualProjectFile
+	EnkoreBuildFile
 } from "@anio-software/enkore-private.spec"
 import {isFunction} from "@anio-software/pkg.is"
 import path from "node:path"
@@ -9,7 +9,7 @@ import {readFileString} from "@aniojs/node-fs"
 
 export async function lintFiles(
 	session: InternalSession,
-	files: EnkoreProjectFile[] | EnkoreVirtualProjectFile[]
+	files: EnkoreProjectFile[] | EnkoreBuildFile[]
 ) {
 	const {lint} = session.targetIntegrationAPI
 

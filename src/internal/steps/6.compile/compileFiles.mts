@@ -1,14 +1,14 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import {
 	type EnkoreProjectFile,
-	type EnkoreVirtualProjectFile
+	type EnkoreBuildFile
 } from "@anio-software/enkore-private.spec"
 import {writeAtomicFile, readFileString} from "@aniojs/node-fs"
 import path from "node:path"
 
 async function createObjectFiles(
 	session: InternalSession,
-	files: EnkoreProjectFile[] | EnkoreVirtualProjectFile[]
+	files: EnkoreProjectFile[] | EnkoreBuildFile[]
 ) {
 	for (const file of files) {
 		const contents = await readFileString(
