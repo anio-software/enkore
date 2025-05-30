@@ -87,9 +87,9 @@ export async function preprocessFiles(
 				)
 
 				//
-				// add to virtual project files if file doesn't reside within project/ folder.
-				// "virtual" because it didn't exist in the project source tree
-				// before the build process was started.
+				// if the destinationPath doesn't exist within project/
+				// we assume it resides within build/
+				// (that's also why they are called EnkoreBuildFile)
 				//
 				if (!isFileSync(
 					path.join(session.projectRoot, "project", destinationPath))
