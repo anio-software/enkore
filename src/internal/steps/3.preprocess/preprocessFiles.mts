@@ -94,7 +94,7 @@ export async function preprocessFiles(
 				if (!isFileSync(
 					path.join(session.projectRoot, "project", destinationPath))
 				) {
-					session.state._virtualProjectFiles.push(
+					session.state.allBuildFiles.push(
 						createEntity("EnkoreBuildFile", 0, 0, {
 							fileName: path.basename(destinationPath),
 							relativePath: destinationPath,

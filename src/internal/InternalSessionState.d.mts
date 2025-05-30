@@ -30,7 +30,7 @@ export type InternalSessionState = {
 		outputHash: string|undefined
 	}>
 
-	_virtualProjectFiles: EnkoreBuildFile[]
+	allBuildFiles: EnkoreBuildFile[]
 
 	internalTargetData: object
 }

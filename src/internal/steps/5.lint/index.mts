@@ -8,7 +8,7 @@ const executeStep: Lint = async function (session) {
 	await runHook(session, "preLint")
 
 	await lintFiles(session, session.state.allProjectFiles!)
-	await lintFiles(session, session.state._virtualProjectFiles)
+	await lintFiles(session, session.state.allBuildFiles)
 
 	return {
 		compile: async function() {
