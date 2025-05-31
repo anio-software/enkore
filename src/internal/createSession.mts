@@ -46,7 +46,13 @@ export async function createSession(
 
 		if (typeof getInitialInternalData === "function") {
 			return await getInitialInternalData(
-				projectRoot, projectConfig
+				{
+					project: {
+						root: projectRoot,
+						config: projectConfig,
+						packageJSON: projectPackageJSON
+					}
+				}
 			)
 		}
 
