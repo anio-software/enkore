@@ -37,6 +37,10 @@ export async function createSession(
 	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
+	const projectPackageJSON = await readFileJSON(
+		path.join(projectRoot, "package.json")
+	) as NodePackageJSON
+
 	async function getInitialTargetData() {
 		const {getInitialInternalData} = coreInstance.targetIntegrationAPI
 
@@ -109,10 +113,6 @@ export async function createSession(
 
 		return true
 	}
-
-	const projectPackageJSON = await readFileJSON(
-		path.join(projectRoot, "package.json")
-	) as NodePackageJSON
 
 	session.publicAPI = createAPI(
 		"EnkoreSessionAPI", 0, 0, {
