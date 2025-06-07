@@ -32,8 +32,8 @@
   },
   "type": "module",
   "devDependencies": {
-    "@anio-software/enkore-private.common": "^0.0.137",
-    "@anio-software/enkore-private.spec": "^0.287.0",
+    "@anio-software/enkore-private.common": "^0.0.139",
+    "@anio-software/enkore-private.spec": "^0.289.0",
     "@anio-software/pkg.is": "^0.0.2",
     "@aniojs/event-emitter": "^0.1.0",
     "@aniojs/node-fs": "^0.4.0",
