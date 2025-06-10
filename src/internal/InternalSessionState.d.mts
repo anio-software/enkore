@@ -31,5 +31,7 @@ export type InternalSessionState = {
 		outputHash: string|undefined
 	}>
 
+	createdObjectFilesByRelativeSourceFilePath: Map<string, string[]>
+
 	internalTargetData: object
 }

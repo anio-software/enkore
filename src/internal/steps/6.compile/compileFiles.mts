@@ -64,6 +64,14 @@ async function createObjectFiles(
 				path.join(session.projectRoot, "objects", destinationPath),
 				objectFile.contents
 			)
+
+			const createdObjectFilesMap = session.state.createdObjectFilesByRelativeSourceFilePath
+
+			if (!createdObjectFilesMap.has(file.relativePath)) {
+				createdObjectFilesMap.set(file.relativePath, [])
+			}
+
+			createdObjectFilesMap.get(file.relativePath)!.push(destinationPath)
 		}
 	}
 }
