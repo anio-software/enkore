@@ -31,6 +31,9 @@ export type InternalSessionState = {
 		outputHash: string|undefined
 	}>
 
+	// flag to emit warning when 'createdObjectFilesByRelativeSourceFilePath'
+	// is accessed before compilation has finished.
+	hasFinishedCompiling: boolean
 	createdObjectFilesByRelativeSourceFilePath: Map<string, string[]>
 
 	internalTargetData: object

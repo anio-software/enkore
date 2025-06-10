@@ -70,7 +70,8 @@ export async function createSession(
 		allBuildFiles: [],
 		filteredProjectFiles: undefined,
 		internalTargetData: await getInitialTargetData(),
-		createdObjectFilesByRelativeSourceFilePath: new Map()
+		createdObjectFilesByRelativeSourceFilePath: new Map(),
+		hasFinishedCompiling: false
 	}
 
 	const emitMessage : InternalSession["publicAPI"]["enkore"]["emitMessage"] = function(severity, arg1, arg2?) {
@@ -186,6 +187,14 @@ export async function createSession(
 					)
 				},
 				getCreatedObjectFilesForRelativeSourcePath(srcFilePath) {
+					if (!state.hasFinishedCompiling) {
+						session.emitMessage(
+							"warning",
+							"inquiringAboutObjectFilesBeforeCompilationHasFinished",
+							`Calling getCreatedObjectFilesForRelativeSourcePath before compilation has finished.`
+						)
+					}
+
 					if (!state.createdObjectFilesByRelativeSourceFilePath.has(srcFilePath)) {
 						return []
 					}
