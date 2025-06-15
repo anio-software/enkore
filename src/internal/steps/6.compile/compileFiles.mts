@@ -3,6 +3,7 @@ import {
 	type EnkoreProjectFile,
 	type EnkoreBuildFile
 } from "@anio-software/enkore-private.spec"
+import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.mts"
 import {writeAtomicFile, readFileString} from "@aniojs/node-fs"
 import path from "node:path"
 
@@ -17,8 +18,10 @@ async function createObjectFiles(
 			)
 		)
 
+		const emitFileMessage = getEmitFileMessage(session, file.relativePath)
+
 		const ret = await session.targetIntegrationAPI.compile(
-			session.publicAPI, file, contents
+			session.publicAPI, file, contents, emitFileMessage
 		)
 
 		if (ret === "unsupported") {

@@ -2,6 +2,7 @@ import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import {isPreprocessableFileName, isFunction, isString} from "@anio-software/pkg.is"
 import {readFileString, writeAtomicFile, copy, isFileSync} from "@aniojs/node-fs"
 import {createEntity} from "@anio-software/enkore-private.spec"
+import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.mts"
 import path from "node:path"
 
 function searchAndReplaceBuildConstants(
@@ -28,12 +29,12 @@ type Preprocess = NonNullable<
 export async function preprocessFiles(
 	session: InternalSession
 ) {
-	const preprocess: Preprocess = async (publicSession, file, code) => {
+	const preprocess: Preprocess = async (publicSession, file, code, emitFileMessage) => {
 		code = searchAndReplaceBuildConstants(session, code)
 
 		if (isFunction(session.targetIntegrationAPI.preprocess)) {
 			return await session.targetIntegrationAPI.preprocess(
-				publicSession, file, code
+				publicSession, file, code, emitFileMessage
 			)
 		}
 
@@ -56,10 +57,12 @@ export async function preprocessFiles(
 			continue
 		}
 
+		const emitFileMessage = getEmitFileMessage(session, projectFile.relativePath)
 		const preprocessResult = await preprocess(
 			session.publicAPI,
 			projectFile,
-			await readFileString(projectFile.absolutePath)
+			await readFileString(projectFile.absolutePath),
+			emitFileMessage
 		)
 
 		if (isString(preprocessResult)) {

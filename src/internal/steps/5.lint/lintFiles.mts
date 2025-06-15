@@ -3,6 +3,7 @@ import type {
 	EnkoreProjectFile,
 	EnkoreBuildFile
 } from "@anio-software/enkore-private.spec"
+import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.mts"
 import {isFunction} from "@anio-software/pkg.is"
 import path from "node:path"
 import {readFileString} from "@aniojs/node-fs"
@@ -24,7 +25,8 @@ export async function lintFiles(
 			)
 		)
 
-		const lintMessages = await lint(session.publicAPI, file, code)
+		const emitFileMessage = getEmitFileMessage(session, file.relativePath)
+		const lintMessages = await lint(session.publicAPI, file, code, emitFileMessage)
 
 		// this is unclean, should i return
 		// those instead?
