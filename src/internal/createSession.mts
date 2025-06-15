@@ -15,6 +15,7 @@ import type {Events} from "./Events.d.mts"
 import type {EventEmitter} from "@aniojs/event-emitter"
 import type {InternalSession} from "./InternalSession.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
+import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.d.mts"
 import path from "node:path"
 import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
 import {readFileJSON} from "@aniojs/node-fs"
@@ -74,7 +75,7 @@ export async function createSession(
 		hasFinishedCompiling: false
 	}
 
-	const emitMessage : InternalSession["publicAPI"]["enkore"]["emitMessage"] = function(severity, arg1, arg2?) {
+	const emitMessage: NodeAPIEmitMessage = function(severity, arg1, arg2?) {
 		if (arguments.length === 2) {
 			events._emitEvent("message", {severity, id: undefined, message: arg1 as string})
 		} else {
