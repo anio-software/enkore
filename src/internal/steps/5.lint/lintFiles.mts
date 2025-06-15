@@ -32,9 +32,9 @@ export async function lintFiles(
 		// those instead?
 		for (const message of lintMessages) {
 			if (message.id) {
-				session.emitMessage(message.severity, message.message, message.id)
+				emitFileMessage(message.severity, message.message, message.id)
 			} else {
-				session.emitMessage(message.severity, message.message)
+				emitFileMessage(message.severity, message.message)
 			}
 		}
 	}
