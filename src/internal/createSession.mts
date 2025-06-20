@@ -18,9 +18,8 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.d.mts"
 import path from "node:path"
 import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
-import {readFileJSON, writeAtomicFile} from "@aniojs/node-fs"
+import {readFileJSON} from "@aniojs/node-fs"
 import {validateProjectPackageJSON} from "./validateProjectPackageJSON.mts"
-import {sortProjectPackageJSON} from "./sortProjectPackageJSON.mts"
 
 // dunno why exactly, but this is needed for _getToolchain to work properly
 // without using a type assertion
@@ -43,11 +42,6 @@ export async function createSession(
 	const projectPackageJSON = await readFileJSON(
 		path.join(projectRoot, "package.json")
 	) as NodePackageJSON
-
-	await writeAtomicFile(
-		path.join(projectRoot, "package.json"),
-		await sortProjectPackageJSON(projectPackageJSON)
-	)
 
 	await validateProjectPackageJSON(projectPackageJSON)
 

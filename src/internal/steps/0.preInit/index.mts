@@ -4,9 +4,18 @@ import clean from "../1.clean/index.mts"
 import {runHook} from "#~src/internal/session/runHook.mts"
 import {writeBoilerplateFiles} from "./writeBoilerplateFiles.mts"
 import {writeGitIgnoreFile} from "./writeGitIgnoreFile.mts"
+import {writeAtomicFile} from "@aniojs/node-fs"
+import {sortProjectPackageJSON} from "./sortProjectPackageJSON.mts"
+import path from "node:path"
 
 const executeStep: PreInit = async function(session) {
 	const {projectConfig} = session
+	const projectPackageJSON = session.publicAPI.project.packageJSON
+
+	await writeAtomicFile(
+		path.join(session.projectRoot, "package.json"),
+		await sortProjectPackageJSON(projectPackageJSON)
+	)
 
 	await writeBoilerplateFiles(session)
 	await writeGitIgnoreFile(session)
