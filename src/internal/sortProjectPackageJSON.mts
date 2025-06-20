@@ -19,18 +19,6 @@ const packageJSONKeyOrder = [
 	"scripts"
 ]
 
-const requiredFixedFields: ([string, any])[] = [
-	["type", "module"],
-	["private", true]
-]
-
-const forbiddenFields = [
-	"exports",
-	"main",
-	"types",
-	"typings"
-]
-
 function indent(str: string): string {
 	return str.split("\n").map((line, index) => {
 		if (index === 0) return line
@@ -39,26 +27,9 @@ function indent(str: string): string {
 	}).join("\n")
 }
 
-export async function validateAndSortProjectPackageJSON(
+export async function sortProjectPackageJSON(
 	projectRoot: string, packageJSON: NodePackageJSON
 ) {
-	// todo: maybe do not throw in here? and use emitEvent instead?
-	for (const [field, value] of requiredFixedFields) {
-		if (!(field in packageJSON)) {
-			throw new Error(`"${field}" field must be present in package.json.`)
-		}
-
-		if (packageJSON[field] !== value) {
-			throw new Error(`"${field}" field must have value "${value}" in package.json.`)
-		}
-	}
-
-	for (const field of forbiddenFields) {
-		if (field in packageJSON) {
-			throw new Error(`"${field}" field must not be present in package.json.`)
-		}
-	}
-
 	const packageJSONOrderedKeys = [
 		...packageJSONKeyOrder.filter(key => {
 			return key in packageJSON
