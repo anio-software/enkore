@@ -1,4 +1,7 @@
-import type {NodePackageJSON} from "@anio-software/enkore-private.spec/primitives"
+import type {
+	NodePackageJSON,
+	NodeAPIMessage
+} from "@anio-software/enkore-private.spec/primitives"
 
 const requiredFixedFields: ([string, any])[] = [
 	["type", "module"],
@@ -14,21 +17,34 @@ const forbiddenFields = [
 
 export async function validateProjectPackageJSON(
 	packageJSON: NodePackageJSON
-) {
-	// todo: maybe do not throw in here? and use emitEvent instead?
+): Promise<NodeAPIMessage[]> {
+	const messages: NodeAPIMessage[] = []
+
 	for (const [field, value] of requiredFixedFields) {
 		if (!(field in packageJSON)) {
-			throw new Error(`"${field}" field must be present in package.json.`)
-		}
-
-		if (packageJSON[field] !== value) {
-			throw new Error(`"${field}" field must have value "${value}" in package.json.`)
+			messages.push({
+				id: undefined,
+				severity: "error",
+				message: `"${field}" field must be present in package.json.`
+			})
+		} else if (packageJSON[field] !== value) {
+			messages.push({
+				id: undefined,
+				severity: "error",
+				message: `"${field}" field must have value "${value}" in package.json.`
+			})
 		}
 	}
 
 	for (const field of forbiddenFields) {
 		if (field in packageJSON) {
-			throw new Error(`"${field}" field must not be present in package.json.`)
+			messages.push({
+				id: undefined,
+				severity: "warning",
+				message: `"${field}" field must not be present in package.json.`
+			})
 		}
 	}
+
+	return messages
 }
