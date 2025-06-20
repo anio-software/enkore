@@ -19,6 +19,7 @@ import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.d.mts"
 import path from "node:path"
 import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
 import {readFileJSON} from "@aniojs/node-fs"
+import {validateAndSortProjectPackageJSON} from "./validateAndSortProjectPackageJSON.mts"
 
 // dunno why exactly, but this is needed for _getToolchain to work properly
 // without using a type assertion
@@ -41,6 +42,8 @@ export async function createSession(
 	const projectPackageJSON = await readFileJSON(
 		path.join(projectRoot, "package.json")
 	) as NodePackageJSON
+
+	await validateAndSortProjectPackageJSON(projectRoot, projectPackageJSON)
 
 	async function getInitialTargetData() {
 		const {getInitialInternalData} = coreInstance.targetIntegrationAPI
