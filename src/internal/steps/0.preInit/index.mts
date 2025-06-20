@@ -6,11 +6,18 @@ import {writeBoilerplateFiles} from "./writeBoilerplateFiles.mts"
 import {writeGitIgnoreFile} from "./writeGitIgnoreFile.mts"
 import {writeAtomicFile} from "@aniojs/node-fs"
 import {sortProjectPackageJSON} from "./sortProjectPackageJSON.mts"
+import {validateProjectPackageJSON} from "./validateProjectPackageJSON.mts"
 import path from "node:path"
 
 const executeStep: PreInit = async function(session) {
 	const {projectConfig} = session
 	const projectPackageJSON = session.publicAPI.project.packageJSON
+
+	for (const diagnostic of validateProjectPackageJSON(projectPackageJSON)) {
+		const {severity, id, message} = diagnostic
+
+		session.emitMessage(severity, id, message)
+	}
 
 	await writeAtomicFile(
 		path.join(session.projectRoot, "package.json"),
