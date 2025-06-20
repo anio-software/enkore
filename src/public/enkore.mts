@@ -8,7 +8,7 @@ import {createSession} from "#~src/internal/createSession.mts"
 import preInit from "#~src/internal/steps/0.preInit/index.mts"
 import {build} from "#~src/internal/steps/build.mts"
 import {realpath} from "node:fs/promises"
-import {log as debugLog} from "@enkore/debug"
+import {log as debugLog} from "@anio-software/enkore-private.debug"
 
 const impl : API["enkore"] = async function(
 	unresolvedProjectRoot,
