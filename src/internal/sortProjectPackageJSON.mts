@@ -1,6 +1,4 @@
 import type {NodePackageJSON} from "@anio-software/enkore-private.spec/primitives"
-import path from "node:path"
-import {writeAtomicFile} from "@aniojs/node-fs"
 
 const packageJSONKeyOrder = [
 	"private",
@@ -28,8 +26,8 @@ function indent(str: string): string {
 }
 
 export async function sortProjectPackageJSON(
-	projectRoot: string, packageJSON: NodePackageJSON
-) {
+	packageJSON: NodePackageJSON
+): Promise<string> {
 	const packageJSONOrderedKeys = [
 		...packageJSONKeyOrder.filter(key => {
 			return key in packageJSON
@@ -60,7 +58,5 @@ export async function sortProjectPackageJSON(
 
 	ret += `}\n`
 
-	await writeAtomicFile(
-		path.join(projectRoot, "package.json"), ret
-	)
+	return ret
 }

@@ -18,7 +18,7 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.d.mts"
 import path from "node:path"
 import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
-import {readFileJSON} from "@aniojs/node-fs"
+import {readFileJSON, writeAtomicFile} from "@aniojs/node-fs"
 import {validateProjectPackageJSON} from "./validateProjectPackageJSON.mts"
 import {sortProjectPackageJSON} from "./sortProjectPackageJSON.mts"
 
@@ -44,8 +44,12 @@ export async function createSession(
 		path.join(projectRoot, "package.json")
 	) as NodePackageJSON
 
+	await writeAtomicFile(
+		path.join(projectRoot, "package.json"),
+		await sortProjectPackageJSON(projectPackageJSON)
+	)
+
 	await validateProjectPackageJSON(projectPackageJSON)
-	await sortProjectPackageJSON(projectRoot, projectPackageJSON)
 
 	async function getInitialTargetData() {
 		const {getInitialInternalData} = coreInstance.targetIntegrationAPI
