@@ -43,7 +43,7 @@ export async function createSession(
 		path.join(projectRoot, "package.json")
 	) as NodePackageJSON
 
-	await validateProjectPackageJSON(projectPackageJSON)
+	validateProjectPackageJSON(projectPackageJSON)
 
 	async function getInitialTargetData() {
 		const {getInitialInternalData} = coreInstance.targetIntegrationAPI

@@ -15,9 +15,9 @@ const forbiddenFields = [
 	"typings"
 ]
 
-export async function validateProjectPackageJSON(
+export function validateProjectPackageJSON(
 	packageJSON: NodePackageJSON
-): Promise<NodeAPIMessage[]> {
+): NodeAPIMessage[] {
 	const messages: NodeAPIMessage[] = []
 
 	for (const [field, value] of requiredFixedFields) {
