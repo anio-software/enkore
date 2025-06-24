@@ -7,7 +7,6 @@ import path from "node:path"
 import {scandir, scandirExt} from "@aniojs/node-fs"
 
 const executeStep: Preprocess = async function(session) {
-	// --- //
 	const entries = await scandir(
 		path.join(session.projectRoot, "project")
 	)
@@ -22,7 +21,6 @@ const executeStep: Preprocess = async function(session) {
 		session.projectRoot,
 		session.state.projectFilesAndDirectoriesOnDiskByRelativePath
 	)
-	// --- //
 
 	// we don't care about the entries because
 	// the build/ folder doesn't contain any files yet
