@@ -56,7 +56,7 @@ const executeStep: Preprocess = async function(session) {
 		path.join(session.projectRoot, "build")
 	)
 
-	for (const projectFile of session.state.allProjectFiles!) {
+	for (const [_, projectFile] of session.state.projectFiles.entries()) {
 		const buildFiles = await preprocessFile(session, projectFile)
 
 		for (const [_, buildFile] of buildFiles.entries()) {
