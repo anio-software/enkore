@@ -14,6 +14,9 @@ const executeStep: Clean = async function(session) {
 	await remove(path.join(session.projectRoot, "objects"))
 	await mkdirp(path.join(session.projectRoot, "objects"))
 
+	if (session.options.isCIEnvironment) {
+		await remove(path.join(session.projectRoot, "products"))
+	}
 	await mkdirp(path.join(session.projectRoot, "products"))
 
 	return {
