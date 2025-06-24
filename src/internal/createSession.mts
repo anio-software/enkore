@@ -74,6 +74,8 @@ export async function createSession(
 		createdObjectFilesByRelativeSourceFilePath: new Map(),
 		projectFilesAndDirectoriesOnDiskByRelativePath: new Map(),
 		buildFilesCreatedByPreprocessingStageByRelativePath: new Map(),
+		projectFiles: new Map(),
+		buildFiles: new Map(),
 		hasFinishedCompiling: false
 	}
 
