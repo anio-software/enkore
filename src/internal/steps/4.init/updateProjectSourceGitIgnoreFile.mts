@@ -1,0 +1,7 @@
+import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
+
+export async function updateProjectSourceGitIgnoreFile(
+	session: InternalSession
+) {
+
+}
