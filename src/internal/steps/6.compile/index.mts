@@ -12,7 +12,7 @@ const executeStep: Compile = async function(session) {
 		await compileFile(file)
 	}
 
-	for (const file of session.state.allBuildFiles) {
+	for (const [_, file] of session.state.buildFiles.entries()) {
 		await compileFile(file)
 	}
 

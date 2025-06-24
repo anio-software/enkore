@@ -11,7 +11,7 @@ const executeStep: Lint = async function (session) {
 		await lintFile(session, file)
 	}
 
-	for (const file of session.state.allBuildFiles!) {
+	for (const [_, file] of session.state.buildFiles.entries()) {
 		await lintFile(session, file)
 	}
 
