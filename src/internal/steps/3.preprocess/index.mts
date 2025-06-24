@@ -1,6 +1,6 @@
 import type {Preprocess} from "#~synthetic/user/Steps.d.mts"
 import {_replicateDirectoryTree} from "#~src/internal/_replicateDirectoryTree.mts"
-import {preprocessFile as preprocessSingleFile} from "./preprocessFile.mts"
+import {preprocessSingleFile} from "./preprocessSingleFile.mts"
 import init from "../4.init/index.mts"
 import {defineStepChecked} from "../defineStepChecked.mts"
 import path from "node:path"

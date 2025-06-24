@@ -14,7 +14,7 @@ type Preprocess = NonNullable<
 	InternalSession["targetIntegrationAPI"]["preprocess"]
 >
 
-export async function preprocessFile(
+export async function preprocessSingleFile(
 	session: InternalSession, projectFile: EnkoreProjectFile
 ): Promise<Map<string, EnkoreBuildFile>> {
 	const map: Map<string, EnkoreBuildFile> = new Map()
