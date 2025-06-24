@@ -3,8 +3,21 @@ import {replicateDirectoryTree} from "./replicateDirectoryTree.mts"
 import {preprocessFile} from "./preprocessFile.mts"
 import init from "../4.init/index.mts"
 import {defineStepChecked} from "../defineStepChecked.mts"
+import path from "node:path"
+import {scandir} from "@aniojs/node-fs"
 
 const executeStep: Preprocess = async function(session) {
+	// --- //
+	const entries = await scandir(
+		path.join(session.projectRoot, "project")
+	)
+
+	for (const entry of entries) {
+		session.state.projectFilesAndDirectoriesOnDiskByRelativePath.set(
+			entry.relative_path, entry
+		)
+	}
+	// --- //
 	await replicateDirectoryTree(session)
 
 	for (const projectFile of session.state.allProjectFiles!) {
