@@ -4,7 +4,7 @@ import {preprocessFile} from "./preprocessFile.mts"
 import init from "../4.init/index.mts"
 import {defineStepChecked} from "../defineStepChecked.mts"
 import path from "node:path"
-import {scandir} from "@aniojs/node-fs"
+import {scandir, scandirExt} from "@aniojs/node-fs"
 
 const executeStep: Preprocess = async function(session) {
 	// --- //
@@ -24,10 +24,23 @@ const executeStep: Preprocess = async function(session) {
 	)
 	// --- //
 
+	// we don't care about the entries because
+	// the build/ folder doesn't contain any files yet
+	const {createScandirEntryFromPath} = await scandirExt(
+		path.join(session.projectRoot, "build")
+	)
+
 	for (const projectFile of session.state.allProjectFiles!) {
 		const buildFiles = await preprocessFile(session, projectFile)
 
 		for (const [_, buildFile] of buildFiles.entries()) {
+			session.state.buildFilesCreatedByPreprocessingStageByRelativePath.set(
+				buildFile.relativePath,
+				createScandirEntryFromPath(
+					buildFile.absolutePath
+				)
+			)
+
 			session.state.allBuildFiles.push(buildFile)
 		}
 	}
