@@ -8,7 +8,7 @@ import {isFunction} from "@anio-software/pkg.is"
 import path from "node:path"
 import {readFileString} from "@aniojs/node-fs"
 
-export async function lintFiles(
+export async function lintFile(
 	session: InternalSession,
 	files: EnkoreProjectFile[] | EnkoreBuildFile[]
 ) {
