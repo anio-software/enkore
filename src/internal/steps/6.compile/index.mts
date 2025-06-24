@@ -8,7 +8,7 @@ import {runHook} from "#~src/internal/session/runHook.mts"
 const executeStep: Compile = async function(session) {
 	await runHook(session, "preCompile")
 
-	for (const file of session.state.allProjectFiles!) {
+	for (const [_, file] of session.state.projectFiles.entries()) {
 		await compileFile(file)
 	}
 
