@@ -4,23 +4,7 @@ import {readFileString, writeAtomicFile, copy, isFileSync} from "@aniojs/node-fs
 import {createEntity} from "@anio-software/enkore-private.spec"
 import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.mts"
 import path from "node:path"
-
-function searchAndReplaceBuildConstants(
-	session: InternalSession,
-	code: string
-): string {
-	let newCode = code
-
-	if (session.projectConfig.buildConstants) {
-		for (const name in session.projectConfig.buildConstants) {
-			const replaceWith = session.projectConfig.buildConstants[name]
-
-			newCode = newCode.split(`%%${name}%%`).join(replaceWith)
-		}
-	}
-
-	return newCode
-}
+import {searchAndReplaceBuildConstants} from "#~src/internal/preprocess/searchAndReplaceBuildConstants.mts"
 
 type Preprocess = NonNullable<
 	InternalSession["targetIntegrationAPI"]["preprocess"]
