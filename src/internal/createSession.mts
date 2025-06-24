@@ -239,6 +239,7 @@ export async function createSession(
 
 				session.state.filesToAutogenerate.set(
 					normalizedDestinationPath, {
+						generateAfterPreprocessing: file.generateAfterPreprocessing === true,
 						normalizedDestinationPath,
 						generator: file.generator,
 						output: undefined,
