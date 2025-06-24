@@ -1,4 +1,4 @@
-import type {InternalSession} from "../InternalSession.d.mts"
+import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import {
 	type EnkoreProjectFile,
 	type EnkoreBuildFile,
