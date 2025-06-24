@@ -72,6 +72,7 @@ export async function createSession(
 		filteredProjectFiles: undefined,
 		internalTargetData: await getInitialTargetData(),
 		createdObjectFilesByRelativeSourceFilePath: new Map(),
+		projectFilesAndDirectoriesOnDiskByRelativePath: new Map(),
 		hasFinishedCompiling: false
 	}
 

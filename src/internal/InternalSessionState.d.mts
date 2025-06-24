@@ -23,6 +23,8 @@ export type InternalSessionState = {
 
 	currentStep: Step|undefined
 
+	projectFilesAndDirectoriesOnDiskByRelativePath: Map<string, ScandirEntry>
+
 	projectDirectoryEntries: ScandirEntry[]|undefined
 	filteredProjectFiles: EnkoreProjectFile[]|undefined
 	allProjectFiles: EnkoreProjectFile[]|undefined
