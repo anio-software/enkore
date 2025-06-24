@@ -172,13 +172,13 @@ export async function createSession(
 					return session.state.currentStep
 				},
 				getProjectFiles(relativeBaseDir) {
-					if (!checkAccessUninitializedStateVariable("filteredProjectFiles")) {
-						return []
-					}
+					const projectFilesAsArray = [
+						...session.state.projectFiles.entries()
+					].map(([_, v]) => v).filter(projectFile => {
+						return projectFile.wasFiltered === false
+					})
 
-					return getProjectFilesGeneric(
-						relativeBaseDir, session.state.filteredProjectFiles!
-					)
+					return getProjectFilesGeneric(relativeBaseDir, projectFilesAsArray)
 				},
 				getAllProjectFiles(relativeBaseDir) {
 					const projectFilesAsArray = [
