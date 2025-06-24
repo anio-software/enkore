@@ -7,5 +7,8 @@ export async function preprocessFiles(
 	for (const projectFile of session.state.allProjectFiles!) {
 		const buildFiles = await preprocessFile(session, projectFile)
 
+		for (const [_, buildFile] of buildFiles.entries()) {
+			session.state.allBuildFiles.push(buildFile)
+		}
 	}
 }
