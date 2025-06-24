@@ -7,7 +7,7 @@ import {lintFile} from "./lintFile.mts"
 const executeStep: Lint = async function (session) {
 	await runHook(session, "preLint")
 
-	for (const file of session.state.allProjectFiles!) {
+	for (const [_, file] of session.state.projectFiles.entries()) {
 		await lintFile(session, file)
 	}
 
