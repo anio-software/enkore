@@ -18,7 +18,9 @@ const executeStep: Preprocess = async function(session) {
 		)
 	}
 	// --- //
-	await replicateDirectoryTree(session)
+	await replicateDirectoryTree(
+		session.projectRoot, session.state.projectFilesAndDirectoriesOnDiskByRelativePath
+	)
 
 	for (const projectFile of session.state.allProjectFiles!) {
 		const buildFiles = await preprocessFile(session, projectFile)
