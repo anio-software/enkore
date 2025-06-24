@@ -25,62 +25,6 @@ const executeStep: Autogenerate = async function(session) {
 		file.outputHash = result.outputHash
 	}
 
-	// vvvvv needs to be moved to preprocess stage vvvvv //
-	const projectDirectoryEntries = await scandir(
-		path.join(session.projectRoot, "project")
-	)
-
-	const scandirEntryToEntity = scandirEntryToEntityFactory(session.state)
-	const allProjectFiles = projectDirectoryEntries.filter(entry => {
-		//
-		// ignore project root .gitignore file
-		// because we are maintaining it from this package here
-		//
-		if (entry.relative_path === ".gitignore") return false
-
-		return entry.type === "regularFile"
-	}).map(scandirEntryToEntity)
-
-	let filteredProjectFiles : EnkoreProjectFile[]  = []
-
-	function markProjectFileAsFiltered(filePath: string) {
-		for (const projectFile of allProjectFiles) {
-			if (projectFile.absolutePath === filePath) {
-				projectFile.wasFiltered = true
-
-				return
-			}
-		}
-	}
-
-	if (typeof session.targetIntegrationAPI.projectSourceFileFilter === "function") {
-		const filter = session.targetIntegrationAPI.projectSourceFileFilter
-		const tmp : EnkoreProjectFile[]  = []
-
-		for (const projectFile of allProjectFiles) {
-			const keep = await filter(session.publicAPI, projectFile)
-
-			if (!keep) {
-				// i might have to change this in the future
-				// dependening on the performance
-
-				markProjectFileAsFiltered(projectFile.absolutePath)
-
-				continue
-			}
-
-			tmp.push(projectFile)
-		}
-
-		filteredProjectFiles = tmp
-	} else {
-		filteredProjectFiles = allProjectFiles
-	}
-
-	session.state.projectDirectoryEntries = projectDirectoryEntries
-	session.state.filteredProjectFiles = filteredProjectFiles
-	// ^^^^^ needs to be moved to preprocess stage ^^^^^ //
-
 	return {
 		preprocess: async function() {
 			return await preprocess.runStep(session)

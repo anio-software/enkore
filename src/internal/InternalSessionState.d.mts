@@ -28,9 +28,6 @@ export type InternalSessionState = {
 	projectFiles: Map<string, EnkoreProjectFile>
 	buildFiles: Map<string, EnkoreBuildFile>
 
-	projectDirectoryEntries: ScandirEntry[]|undefined
-	filteredProjectFiles: EnkoreProjectFile[]|undefined
-
 	productNames: string[]
 
 	hasEncounteredError: boolean

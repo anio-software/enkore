@@ -66,8 +66,6 @@ export async function createSession(
 		filesToAutogenerate: new Map(),
 		finalized: false,
 		productNames: [],
-		projectDirectoryEntries: undefined,
-		filteredProjectFiles: undefined,
 		internalTargetData: await getInitialTargetData(),
 		createdObjectFilesByRelativeSourceFilePath: new Map(),
 		projectFilesAndDirectoriesOnDiskByRelativePath: new Map(),
