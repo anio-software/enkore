@@ -34,9 +34,7 @@ const executeStep: Preprocess = async function(session) {
 		for (const [_, buildFile] of buildFiles.entries()) {
 			session.state.buildFilesCreatedByPreprocessingStageByRelativePath.set(
 				buildFile.relativePath,
-				createScandirEntryFromPath(
-					buildFile.absolutePath
-				)
+				createScandirEntryFromPath(buildFile.absolutePath)
 			)
 
 			session.state.allBuildFiles.push(buildFile)
