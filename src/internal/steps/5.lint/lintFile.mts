@@ -10,7 +10,7 @@ import {readFileString} from "@aniojs/node-fs"
 
 export async function lintFile(
 	session: InternalSession,
-	files: EnkoreProjectFile[] | EnkoreBuildFile[]
+	file: EnkoreProjectFile | EnkoreBuildFile
 ) {
 	const {lint} = session.targetIntegrationAPI
 
@@ -18,24 +18,22 @@ export async function lintFile(
 		return
 	}
 
-	for (const file of files) {
-		const code = await readFileString(
-			path.join(
-				session.projectRoot, "build", file.relativePath
-			)
+	const code = await readFileString(
+		path.join(
+			session.projectRoot, "build", file.relativePath
 		)
+	)
 
-		const emitFileMessage = getEmitFileMessage(session, file.relativePath)
-		const lintMessages = await lint(session.publicAPI, file, code, emitFileMessage)
+	const emitFileMessage = getEmitFileMessage(session, file.relativePath)
+	const lintMessages = await lint(session.publicAPI, file, code, emitFileMessage)
 
-		// this is unclean, should i return
-		// those instead?
-		for (const message of lintMessages) {
-			if (message.id) {
-				emitFileMessage(message.severity, message.message, message.id)
-			} else {
-				emitFileMessage(message.severity, message.message)
-			}
+	// this is unclean, should i return
+	// those instead?
+	for (const message of lintMessages) {
+		if (message.id) {
+			emitFileMessage(message.severity, message.message, message.id)
+		} else {
+			emitFileMessage(message.severity, message.message)
 		}
 	}
 }
