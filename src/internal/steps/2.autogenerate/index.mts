@@ -5,7 +5,6 @@ import {scandir} from "@aniojs/node-fs"
 import path from "node:path"
 import preprocess from "../3.preprocess/index.mts"
 import {defineStepChecked} from "../defineStepChecked.mts"
-import {scandirEntryToEntityFactory} from "#~src/internal/scandirEntryToEntityFactory.mts"
 
 const executeStep: Autogenerate = async function(session) {
 	for (const [_, file] of session.state.filesToAutogenerate.entries()) {
