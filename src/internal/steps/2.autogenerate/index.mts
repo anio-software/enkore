@@ -78,7 +78,6 @@ const executeStep: Autogenerate = async function(session) {
 	}
 
 	session.state.projectDirectoryEntries = projectDirectoryEntries
-	session.state.allProjectFiles = allProjectFiles
 	session.state.filteredProjectFiles = filteredProjectFiles
 	// ^^^^^ needs to be moved to preprocess stage ^^^^^ //
 

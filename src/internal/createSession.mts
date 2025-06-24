@@ -67,7 +67,6 @@ export async function createSession(
 		finalized: false,
 		productNames: [],
 		projectDirectoryEntries: undefined,
-		allProjectFiles: undefined,
 		allBuildFiles: [],
 		filteredProjectFiles: undefined,
 		internalTargetData: await getInitialTargetData(),
