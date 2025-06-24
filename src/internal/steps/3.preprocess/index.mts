@@ -65,6 +65,15 @@ const executeStep: Preprocess = async function(session) {
 				createScandirEntryFromPath(buildFile.absolutePath)
 			)
 
+			session.state.buildFiles.set(
+				buildFile.relativePath,
+				createEntity("EnkoreBuildFile", 0, 0, {
+					absolutePath: buildFile.absolutePath,
+					relativePath: buildFile.relativePath,
+					fileName: buildFile.fileName
+				})
+			)
+
 			session.state.allBuildFiles.push(buildFile)
 		}
 	}
