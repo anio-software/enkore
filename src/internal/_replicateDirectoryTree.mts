@@ -1,7 +1,7 @@
 import path from "node:path"
 import {type ScandirEntry, mkdirp} from "@aniojs/node-fs"
 
-export async function replicateDirectoryTree(
+export async function _replicateDirectoryTree(
 	projectRoot: string,
 	map: Map<string, ScandirEntry>
 ) {
