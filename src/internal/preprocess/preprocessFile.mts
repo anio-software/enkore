@@ -85,17 +85,17 @@ export async function preprocessFile(
 			if (!isFileSync(
 				path.join(session.projectRoot, "project", destinationPath))
 			) {
-				session.state.allBuildFiles.push(
-					createEntity("EnkoreBuildFile", 0, 0, {
-						fileName: path.basename(destinationPath),
-						relativePath: destinationPath,
-						absolutePath: path.join(
-							session.projectRoot,
-							"build",
-							destinationPath
-						)
-					})
-				)
+				const buildFile = createEntity("EnkoreBuildFile", 0, 0, {
+					fileName: path.basename(destinationPath),
+					relativePath: destinationPath,
+					absolutePath: path.join(
+						session.projectRoot,
+						"build",
+						destinationPath
+					)
+				})
+
+				map.set(buildFile.relativePath, buildFile)
 			}
 		}
 	}
