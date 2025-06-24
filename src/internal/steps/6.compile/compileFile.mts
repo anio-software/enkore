@@ -10,7 +10,7 @@ import path from "node:path"
 export async function compileFile(
 	session: InternalSession,
 	file: EnkoreProjectFile | EnkoreBuildFile
-) {
+): Promise<string[]> {
 	const contents = await readFileString(
 		path.join(
 			session.projectRoot, "build", file.relativePath
@@ -28,13 +28,13 @@ export async function compileFile(
 			"warning", `Ignoring unsupported file '${file.relativePath}'`
 		)
 
-		return
+		return []
 	} else if (ret === "skip") {
 		session.emitMessage(
 			"info", `Skipping file '${file.relativePath}'`
 		)
 
-		return
+		return []
 	} else if (ret === "copy") {
 		await writeAtomicFile(
 			path.join(
@@ -45,9 +45,10 @@ export async function compileFile(
 			contents
 		)
 
-		return
+		return []
 	}
 
+	const createdObjectFiles: string[] = []
 	const objectFiles = Array.isArray(ret) ? ret : [ret]
 
 	for (const objectFile of objectFiles) {
@@ -67,12 +68,8 @@ export async function compileFile(
 			objectFile.contents
 		)
 
-		const createdObjectFilesMap = session.state.createdObjectFilesByRelativeSourceFilePath
-
-		if (!createdObjectFilesMap.has(file.relativePath)) {
-			createdObjectFilesMap.set(file.relativePath, [])
-		}
-
-		createdObjectFilesMap.get(file.relativePath)!.push(destinationPath)
+		createdObjectFiles.push(destinationPath)
 	}
+
+	return createdObjectFiles
 }
