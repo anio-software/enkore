@@ -183,13 +183,11 @@ export async function createSession(
 					)
 				},
 				getAllProjectFiles(relativeBaseDir) {
-					if (!checkAccessUninitializedStateVariable("allProjectFiles")) {
-						return []
-					}
+					const projectFilesAsArray = [
+						...session.state.projectFiles.entries()
+					].map(([_, v]) => v)
 
-					return getProjectFilesGeneric(
-						relativeBaseDir, session.state.allProjectFiles!
-					)
+					return getProjectFilesGeneric(relativeBaseDir, projectFilesAsArray)
 				},
 				getCreatedObjectFilesForRelativeSourcePath(srcFilePath) {
 					if (!state.hasFinishedCompiling) {
