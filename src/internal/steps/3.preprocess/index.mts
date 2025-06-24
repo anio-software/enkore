@@ -73,8 +73,6 @@ const executeStep: Preprocess = async function(session) {
 					fileName: buildFile.fileName
 				})
 			)
-
-			session.state.allBuildFiles.push(buildFile)
 		}
 	}
 
