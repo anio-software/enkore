@@ -58,6 +58,7 @@ const executeStep: Preprocess = async function(session) {
 	)
 
 	for (const [_, projectFile] of session.state.projectFiles.entries()) {
+		// todo: refactor into function
 		const buildFiles = await preprocessFile(session, projectFile)
 
 		for (const [_, buildFile] of buildFiles.entries()) {
