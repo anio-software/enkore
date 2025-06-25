@@ -47,7 +47,9 @@ const executeStep: Preprocess = async function(session) {
 
 	// we don't care about the entries because
 	// the build/ folder doesn't contain any files yet
-	const {createScandirEntryFromPath} = await scandirExt(
+	const {
+		createScandirEntryFromPath: createScandirEntryFromPathBuild
+	} = await scandirExt(
 		path.join(session.projectRoot, "build")
 	)
 
@@ -108,7 +110,7 @@ const executeStep: Preprocess = async function(session) {
 		for (const [_, buildFile] of buildFiles.entries()) {
 			session.state.buildFilesCreatedByPreprocessingStageByRelativePath.set(
 				buildFile.relativePath,
-				createScandirEntryFromPath(buildFile.absolutePath)
+				createScandirEntryFromPathBuild(buildFile.absolutePath)
 			)
 
 			session.state.buildFiles.set(
