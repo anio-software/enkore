@@ -10,12 +10,7 @@ export async function _replicateDirectoryTree(
 
 		const dirName = path.dirname(entry.relative_path)
 
-		await mkdirp(
-			path.join(projectRoot, "build", dirName)
-		)
-
-		await mkdirp(
-			path.join(projectRoot, "objects", dirName)
-		)
+		await mkdirp(path.join(projectRoot, "build", dirName))
+		await mkdirp(path.join(projectRoot, "objects", dirName))
 	}
 }
