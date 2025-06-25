@@ -68,7 +68,6 @@ export async function createSession(
 		productNames: [],
 		internalTargetData: await getInitialTargetData(),
 		createdObjectFilesByRelativeSourceFilePath: new Map(),
-		projectFilesAndDirectoriesOnDiskByRelativePath: new Map(),
 		buildFilesCreatedByPreprocessingStageByRelativePath: new Map(),
 		projectFiles: new Map(),
 		buildFiles: new Map(),
