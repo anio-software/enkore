@@ -6,14 +6,16 @@ export async function _replicateDirectoryTree(
 	map: Map<string, ScandirEntry>
 ) {
 	for (const [_, entry] of map.entries()) {
-		if (entry.type !== "regularDir") continue
+		if (entry.type !== "regularFile") continue
+
+		const dirName = path.dirname(entry.relative_path)
 
 		await mkdirp(
-			path.join(projectRoot, "build", entry.relative_path)
+			path.join(projectRoot, "build", dirName)
 		)
 
 		await mkdirp(
-			path.join(projectRoot, "objects", entry.relative_path)
+			path.join(projectRoot, "objects", dirName)
 		)
 	}
 }
