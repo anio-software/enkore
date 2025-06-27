@@ -2,7 +2,8 @@ import {spawnSync} from "node:child_process"
 
 export function getFilesTrackedByGit(projectRoot: string): Map<string, {}> {
 	const child = spawnSync("git", ["ls-files"], {
-		stdio: "pipe"
+		stdio: "pipe",
+		cwd: projectRoot
 	})
 
 	if (child.status !== 0) {
