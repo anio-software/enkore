@@ -23,6 +23,8 @@ export type InternalSessionState = {
 
 	currentStep: Step|undefined
 
+	filesTrackedByGit: Map<string, {}>
+
 	buildFilesCreatedByPreprocessingStageByRelativePath: Map<string, ScandirEntry>
 	projectFiles: Map<string, EnkoreProjectFile>
 	buildFiles: Map<string, EnkoreBuildFile>

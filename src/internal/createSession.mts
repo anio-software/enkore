@@ -19,6 +19,7 @@ import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.d.mts"
 import path from "node:path"
 import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
 import {readFileJSON} from "@aniojs/node-fs"
+import {getFilesTrackedByGit} from "#~src/internal/getFilesTrackedByGit.mts"
 
 // dunno why exactly, but this is needed for _getToolchain to work properly
 // without using a type assertion
@@ -71,7 +72,8 @@ export async function createSession(
 		buildFilesCreatedByPreprocessingStageByRelativePath: new Map(),
 		projectFiles: new Map(),
 		buildFiles: new Map(),
-		hasFinishedCompiling: false
+		hasFinishedCompiling: false,
+		filesTrackedByGit: getFilesTrackedByGit(projectRoot)
 	}
 
 	const emitMessage: NodeAPIEmitMessage = function(severity, arg1, arg2?) {
