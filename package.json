@@ -4,15 +4,6 @@
   "author": "Anio Software <info@anio.software>",
   "description": "Next generation of fourtune.",
   "license": "MIT",
-  "exports": {
-    ".": {
-      "types": "./dist/default/index.d.mts",
-      "default": "./dist/default/index.mjs"
-    },
-    "./package.json": {
-      "default": "./package.json"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anio-software/enkore.git"
@@ -24,15 +15,5 @@
     "@anio-software/pkg.event-emitter": "^0.0.1",
     "@anio-software/pkg.is": "^0.0.3",
     "@anio-software/pkg.node-fs": "^0.0.2"
-  },
-  "scripts": {
-    "prepare": "./node_modules/.bin/fourtune ."
-  },
-  "files": [
-    "./dist/",
-    "./cli.mjs"
-  ],
-  "bin": {
-    "enkore": "./cli.mjs"
   }
 }
