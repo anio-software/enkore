@@ -6,7 +6,7 @@ import type {InternalSession} from "../InternalSession.d.mts"
 import type {NodeAPIMessage} from "@anio-software/enkore-private.spec/primitives"
 import {onStepStarted} from "#~src/internal/session/onStepStarted.mts"
 import {onStepFinished} from "#~src/internal/session/onStepFinished.mts"
-import type {EventListener} from "@aniojs/event-emitter"
+import type {EventListener} from "@anio-software/pkg.event-emitter"
 
 export type * from "#~synthetic/user/Steps.d.mts"
 

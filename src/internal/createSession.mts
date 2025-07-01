@@ -12,7 +12,7 @@ import {
 import type {NodePackageJSON} from "@anio-software/enkore-private.spec/primitives"
 
 import type {Events} from "./Events.d.mts"
-import type {EventEmitter} from "@aniojs/event-emitter"
+import type {EventEmitter} from "@anio-software/pkg.event-emitter"
 import type {InternalSession} from "./InternalSession.d.mts"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.d.mts"

@@ -8,7 +8,7 @@ import type {
 } from "@anio-software/enkore-private.spec"
 
 import type {Events} from "./Events.d.mts"
-import type {EventEmitter} from "@aniojs/event-emitter"
+import type {EventEmitter} from "@anio-software/pkg.event-emitter"
 import type {InternalSessionState} from "./InternalSessionState.d.mts"
 
 export type InternalSession = {
