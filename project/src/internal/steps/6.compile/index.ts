@@ -1,4 +1,4 @@
-import type {Compile} from "#~synthetic/user/Steps.ts"
+import type {Compile} from "#~src/Steps.ts"
 import type {EnkoreProjectFile, EnkoreBuildFile} from "@anio-software/enkore-private.spec"
 import {compileFile as compileSingleFile} from "./compileFile.ts"
 import buildProducts from "../7.buildProducts/index.ts"

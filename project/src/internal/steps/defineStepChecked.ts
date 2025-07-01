@@ -1,14 +1,14 @@
 import type {
 	Step,
 	StepsMap
-} from "#~synthetic/user/Steps.ts"
+} from "#~src/Steps.ts"
 import type {InternalSession} from "../InternalSession.ts"
 import type {NodeAPIMessage} from "@anio-software/enkore-private.spec/primitives"
 import {onStepStarted} from "#~src/internal/session/onStepStarted.ts"
 import {onStepFinished} from "#~src/internal/session/onStepFinished.ts"
 import type {EventListener} from "@anio-software/pkg.event-emitter"
 
-export type * from "#~synthetic/user/Steps.ts"
+export type * from "#~src/Steps.ts"
 
 type Ret<StepName extends Step> = {
 	stepName: StepName,

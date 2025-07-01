@@ -1,7 +1,7 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import type {InternalSession} from "#~src/internal/InternalSession.ts"
-import type {BuildProducts} from "#~synthetic/user/Steps.ts"
+import type {BuildProducts} from "#~src/Steps.ts"
 import testProducts from "../8.testProducts/index.ts"
 import {defineStepChecked} from "../defineStepChecked.ts"
 import {remove} from "@anio-software/pkg.node-fs"

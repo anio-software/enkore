@@ -1,4 +1,4 @@
-import type {Preprocess} from "#~synthetic/user/Steps.ts"
+import type {Preprocess} from "#~src/Steps.ts"
 import {_replicateDirectoryTree} from "#~src/internal/_replicateDirectoryTree.ts"
 import {preprocessSingleFile} from "./preprocessSingleFile.ts"
 import init from "../4.init/index.ts"

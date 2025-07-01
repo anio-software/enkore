@@ -4,7 +4,7 @@ import type {
 	EnkoreBuildFile
 } from "@anio-software/enkore-private.spec"
 
-import type {Step} from "#~synthetic/user/Steps.ts"
+import type {Step} from "#~src/Steps.ts"
 import type {ScandirEntry} from "@anio-software/pkg.node-fs"
 
 export type FileToAutogenerate = {

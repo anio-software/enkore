@@ -1,4 +1,4 @@
-import type {PreInit} from "#~synthetic/user/Steps.ts"
+import type {PreInit} from "#~src/Steps.ts"
 import {defineStepChecked} from "../defineStepChecked.ts"
 import clean from "../1.clean/index.ts"
 import {runHook} from "#~src/internal/session/runHook.ts"

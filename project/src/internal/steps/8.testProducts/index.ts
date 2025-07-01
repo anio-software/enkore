@@ -1,4 +1,4 @@
-import type {TestProducts} from "#~synthetic/user/Steps.ts"
+import type {TestProducts} from "#~src/Steps.ts"
 import publishProducts from "../9.publishProducts/index.ts"
 import {defineStepChecked} from "../defineStepChecked.ts"
 

@@ -1,5 +1,5 @@
 import path from "node:path"
-import type {PublishProducts} from "#~synthetic/user/Steps.ts"
+import type {PublishProducts} from "#~src/Steps.ts"
 import {defineStepChecked} from "../defineStepChecked.ts"
 
 const executeStep: PublishProducts = async function(session, productNames) {

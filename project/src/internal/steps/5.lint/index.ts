@@ -1,4 +1,4 @@
-import type {Lint} from "#~synthetic/user/Steps.ts"
+import type {Lint} from "#~src/Steps.ts"
 import compile from "../6.compile/index.ts"
 import {defineStepChecked} from "../defineStepChecked.ts"
 import {runHook} from "#~src/internal/session/runHook.ts"
