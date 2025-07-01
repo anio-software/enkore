@@ -40,7 +40,10 @@ export async function preprocessSingleFile(
 	// don't preprocess file that aren't preprocessable, just copy them
 	//
 	if (!isPreprocessableFileName(projectFile.fileName)) {
-		await copy(projectFile.absolutePath, defaultDestinationFilePath)
+		await copy({
+			source: projectFile.absolutePath,
+			destination: defaultDestinationFilePath
+		})
 
 		return map
 	}
