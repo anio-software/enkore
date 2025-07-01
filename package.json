@@ -21,6 +21,7 @@
   "devDependencies": {
     "@anio-software/enkore-private.debug": "^0.0.7",
     "@anio-software/enkore-private.spec": "^0.338.0",
+    "@anio-software/pkg.event-emitter": "^0.0.1",
     "@anio-software/pkg.is": "^0.0.3",
     "@aniojs/node-fs": "^0.6.0",
     "@fourtune/core": "^0.1101.0",
