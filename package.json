@@ -1,4 +1,5 @@
 {
+  "private": true,
   "type": "module",
   "name": "@anio-software/enkore",
   "version": "0.0.130",
