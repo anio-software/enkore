@@ -38,16 +38,16 @@ function buildRunStep(step) {
 }
 
 export function buildRunAllStepsFile() {
-	let code = `import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
+	let code = `import type {InternalSession} from "#~src/internal/InternalSession.ts"
 import type {NodeAPIMessage} from "@anio-software/enkore-private.spec/primitives"
-import type {Step} from "#~synthetic/user/Steps.d.mts"
+import type {Step} from "#~src/Steps.ts"
 
 type ExtendedNodeAPIMessage = NodeAPIMessage & {
 	step: string
 }
 
-import preInit from "#~src/internal/steps/0.preInit/index.mts"
-import {hasErrors} from "#~src/internal/steps/defineStepChecked.mts"
+import preInit from "#~src/internal/steps/0.preInit/index.ts"
+import {hasErrors} from "#~src/internal/steps/defineStepChecked.ts"
 
 function emitStoppedBecauseOfError(
 	session: InternalSession,

@@ -4,8 +4,8 @@ import {identifierToType} from "./buildUtils.mts"
 export function buildStepsTypeFile() {
 	let code = ``
 
-	code += `import type {InternalSession} from "#~src/internal/InternalSession.d.mts"\n`
-	code += `import type {API} from "#~src/API.d.mts"\n`
+	code += `import type {InternalSession} from "#~src/internal/InternalSession.ts"\n`
+	code += `import type {API} from "#~src/API.ts"\n`
 	code += `\n`
 	code += `type R<T extends (...args: any[]) => any> = Awaited<ReturnType<T>>\n`
 	//
