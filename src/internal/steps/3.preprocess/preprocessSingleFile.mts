@@ -7,7 +7,7 @@ import {
 import {searchAndReplaceBuildConstants} from "#~src/internal/preprocess/searchAndReplaceBuildConstants.mts"
 import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.mts"
 import {isFunction, isPreprocessableFileName, isString} from "@anio-software/pkg.is"
-import {copy, readFileString, writeAtomicFile, isFileSync} from "@aniojs/node-fs"
+import {copy, readFileString, writeAtomicFile, isFileSync} from "@anio-software/pkg.node-fs"
 import path from "node:path"
 
 type Preprocess = NonNullable<

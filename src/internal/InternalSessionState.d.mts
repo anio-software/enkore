@@ -5,7 +5,7 @@ import type {
 } from "@anio-software/enkore-private.spec"
 
 import type {Step} from "#~synthetic/user/Steps.d.mts"
-import type {ScandirEntry} from "@aniojs/node-fs"
+import type {ScandirEntry} from "@anio-software/pkg.node-fs"
 
 export type FileToAutogenerate = {
 	generateAfterPreprocessing: boolean

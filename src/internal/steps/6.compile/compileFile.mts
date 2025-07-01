@@ -4,7 +4,7 @@ import {
 	type EnkoreBuildFile
 } from "@anio-software/enkore-private.spec"
 import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.mts"
-import {writeAtomicFile, readFileString} from "@aniojs/node-fs"
+import {writeAtomicFile, readFileString} from "@anio-software/pkg.node-fs"
 import path from "node:path"
 
 export async function compileFile(

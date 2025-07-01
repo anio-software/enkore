@@ -18,7 +18,7 @@ import type {InternalSessionState} from "./InternalSessionState.d.mts"
 import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.d.mts"
 import path from "node:path"
 import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
-import {readFileJSON} from "@aniojs/node-fs"
+import {readFileJSON} from "@anio-software/pkg.node-fs"
 import {getFilesTrackedByGit} from "#~src/internal/getFilesTrackedByGit.mts"
 
 // dunno why exactly, but this is needed for _getToolchain to work properly

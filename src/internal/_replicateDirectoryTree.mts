@@ -1,5 +1,5 @@
 import path from "node:path"
-import {type ScandirEntry, mkdirp} from "@aniojs/node-fs"
+import {type ScandirEntry, mkdirp} from "@anio-software/pkg.node-fs"
 
 export async function _replicateDirectoryTree(
 	projectRoot: string,

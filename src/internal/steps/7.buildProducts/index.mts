@@ -4,7 +4,7 @@ import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
 import type {BuildProducts} from "#~synthetic/user/Steps.d.mts"
 import testProducts from "../8.testProducts/index.mts"
 import {defineStepChecked} from "../defineStepChecked.mts"
-import {remove} from "@aniojs/node-fs"
+import {remove} from "@anio-software/pkg.node-fs"
 
 async function buildProduct(
 	session: InternalSession,

@@ -1,5 +1,5 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import {writeAtomicFile} from "@aniojs/node-fs"
+import {writeAtomicFile} from "@anio-software/pkg.node-fs"
 import path from "node:path"
 
 export async function updateProjectSourceGitIgnoreFile(

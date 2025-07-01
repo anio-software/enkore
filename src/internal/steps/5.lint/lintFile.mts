@@ -6,7 +6,7 @@ import type {
 import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.mts"
 import {isFunction} from "@anio-software/pkg.is"
 import path from "node:path"
-import {readFileString} from "@aniojs/node-fs"
+import {readFileString} from "@anio-software/pkg.node-fs"
 
 export async function lintFile(
 	session: InternalSession,

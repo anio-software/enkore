@@ -1,5 +1,5 @@
 import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
-import {isFileSync, writeAtomicFile, readFileString} from "@aniojs/node-fs"
+import {isFileSync, writeAtomicFile, readFileString} from "@anio-software/pkg.node-fs"
 import {getGitIgnoredFiles} from "#~src/internal/getGitIgnoredFiles.mts"
 import {gitIgnoreMarkerUUID} from "@anio-software/enkore-private.spec/uuid"
 import path from "node:path"
