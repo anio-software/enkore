@@ -1,6 +1,6 @@
 import {enkoreSteps} from "./enkoreSteps.mts"
 
-function buildRunStep(step) {
+function buildRunStep(step: string) {
 	const stepIndex = enkoreSteps.indexOf(step)
 	const nextStep = (enkoreSteps.length > stepIndex + 1) ? enkoreSteps[stepIndex + 1] : false
 
