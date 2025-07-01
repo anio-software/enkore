@@ -1,4 +1,4 @@
-import {enkoreSteps} from "./enkoreSteps.mjs"
+import {enkoreSteps} from "./enkoreSteps.mts"
 
 function buildRunStep(step) {
 	const stepIndex = enkoreSteps.indexOf(step)

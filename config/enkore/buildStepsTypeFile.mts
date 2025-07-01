@@ -1,5 +1,5 @@
-import {enkoreSteps} from "./enkoreSteps.mjs"
-import {identifierToType} from "./buildUtils.mjs"
+import {enkoreSteps} from "./enkoreSteps.mts"
+import {identifierToType} from "./buildUtils.mts"
 
 export function buildStepsTypeFile() {
 	let code = ``
