@@ -1,11 +1,11 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
+import type {InternalSession} from "#~src/internal/InternalSession.ts"
 import {
 	type EnkoreProjectFile,
 	type EnkoreBuildFile,
 	createEntity
 } from "@anio-software/enkore-private.spec"
-import {searchAndReplaceBuildConstants} from "#~src/internal/preprocess/searchAndReplaceBuildConstants.mts"
-import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.mts"
+import {searchAndReplaceBuildConstants} from "#~src/internal/preprocess/searchAndReplaceBuildConstants.ts"
+import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.ts"
 import {isFunction, isPreprocessableFileName, isString} from "@anio-software/pkg.is"
 import {copy, readFileString, writeAtomicFile, isFileSync} from "@anio-software/pkg.node-fs"
 import path from "node:path"

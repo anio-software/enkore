@@ -1,4 +1,4 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
+import type {InternalSession} from "#~src/internal/InternalSession.ts"
 import type {EnkoreTargetIntegrationAPI} from "@anio-software/enkore-private.spec"
 
 export async function runHook(

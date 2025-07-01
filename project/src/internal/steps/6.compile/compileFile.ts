@@ -1,9 +1,9 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
+import type {InternalSession} from "#~src/internal/InternalSession.ts"
 import {
 	type EnkoreProjectFile,
 	type EnkoreBuildFile
 } from "@anio-software/enkore-private.spec"
-import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.mts"
+import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.ts"
 import {writeAtomicFile, readFileString} from "@anio-software/pkg.node-fs"
 import path from "node:path"
 

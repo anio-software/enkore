@@ -1,8 +1,8 @@
-import type {Lint} from "#~synthetic/user/Steps.d.mts"
-import compile from "../6.compile/index.mts"
-import {defineStepChecked} from "../defineStepChecked.mts"
-import {runHook} from "#~src/internal/session/runHook.mts"
-import {lintFile} from "./lintFile.mts"
+import type {Lint} from "#~synthetic/user/Steps.ts"
+import compile from "../6.compile/index.ts"
+import {defineStepChecked} from "../defineStepChecked.ts"
+import {runHook} from "#~src/internal/session/runHook.ts"
+import {lintFile} from "./lintFile.ts"
 
 const executeStep: Lint = async function (session) {
 	await runHook(session, "preLint")

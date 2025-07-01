@@ -1,9 +1,9 @@
-import type {Compile} from "#~synthetic/user/Steps.d.mts"
+import type {Compile} from "#~synthetic/user/Steps.ts"
 import type {EnkoreProjectFile, EnkoreBuildFile} from "@anio-software/enkore-private.spec"
-import {compileFile as compileSingleFile} from "./compileFile.mts"
-import buildProducts from "../7.buildProducts/index.mts"
-import {defineStepChecked} from "../defineStepChecked.mts"
-import {runHook} from "#~src/internal/session/runHook.mts"
+import {compileFile as compileSingleFile} from "./compileFile.ts"
+import buildProducts from "../7.buildProducts/index.ts"
+import {defineStepChecked} from "../defineStepChecked.ts"
+import {runHook} from "#~src/internal/session/runHook.ts"
 
 const executeStep: Compile = async function(session) {
 	await runHook(session, "preCompile")

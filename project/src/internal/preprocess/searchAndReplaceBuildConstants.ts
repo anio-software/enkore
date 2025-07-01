@@ -1,4 +1,4 @@
-import type {InternalSession} from "../InternalSession.d.mts"
+import type {InternalSession} from "../InternalSession.ts"
 
 export function searchAndReplaceBuildConstants(
 	session: InternalSession,

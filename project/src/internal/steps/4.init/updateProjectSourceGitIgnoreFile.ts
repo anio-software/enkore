@@ -1,4 +1,4 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
+import type {InternalSession} from "#~src/internal/InternalSession.ts"
 import {writeAtomicFile} from "@anio-software/pkg.node-fs"
 import path from "node:path"
 

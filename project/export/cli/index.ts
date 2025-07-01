@@ -5,7 +5,7 @@ import {
 	type EnkoreNodeAPIOptions
 } from "@anio-software/enkore-private.spec"
 import type {NodeAPIMessage} from "@anio-software/enkore-private.spec/primitives"
-import {enkore} from "#~src/public/enkore.mts"
+import {enkore} from "#~src/public/enkore.ts"
 
 const args = process.argv.slice(2)
 

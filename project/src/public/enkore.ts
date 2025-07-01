@@ -1,12 +1,12 @@
-import type {API} from "#~src/API.d.mts"
-import type {Events} from "#~src/internal/Events.d.mts"
+import type {API} from "#~src/API.ts"
+import type {Events} from "#~src/internal/Events.ts"
 
 import {readEnkoreConfigFile} from "@anio-software/enkore-private.spec/utils"
 import {createEventEmitter} from "@anio-software/pkg.event-emitter"
-import {loadEnkoreCoreAPI} from "#~src/internal/loadEnkoreCoreAPI.mts"
-import {createSession} from "#~src/internal/createSession.mts"
-import preInit from "#~src/internal/steps/0.preInit/index.mts"
-import {build} from "#~src/internal/steps/build.mts"
+import {loadEnkoreCoreAPI} from "#~src/internal/loadEnkoreCoreAPI.ts"
+import {createSession} from "#~src/internal/createSession.ts"
+import preInit from "#~src/internal/steps/0.preInit/index.ts"
+import {build} from "#~src/internal/steps/build.ts"
 import {realpath} from "node:fs/promises"
 import {log as debugLog} from "@anio-software/enkore-private.debug"
 

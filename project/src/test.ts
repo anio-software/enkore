@@ -1,5 +1,5 @@
-import type {API} from "./API.d.mts"
+import type {API} from "./API.ts"
 
-import * as core from "#~src/export/__star_export.mts"
+import * as core from "#~src/export/__star_export.ts"
 
 core satisfies API

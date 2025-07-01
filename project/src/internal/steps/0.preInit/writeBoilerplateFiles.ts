@@ -1,6 +1,6 @@
-import type {InternalSession} from "#~src/internal/InternalSession.d.mts"
+import type {InternalSession} from "#~src/internal/InternalSession.ts"
 import type {EnkoreBoilerplateFile} from "@anio-software/enkore-private.spec"
-import {getBoilerplateFiles} from "#~src/internal/getBoilerplateFiles.mts"
+import {getBoilerplateFiles} from "#~src/internal/getBoilerplateFiles.ts"
 import path from "node:path"
 import {isFileSync, writeAtomicFile} from "@anio-software/pkg.node-fs"
 import {

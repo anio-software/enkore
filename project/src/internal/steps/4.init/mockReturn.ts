@@ -1,4 +1,4 @@
-import type {Init} from "#~synthetic/user/Steps.d.mts"
+import type {Init} from "#~synthetic/user/Steps.ts"
 import type {NodeAPIMessage} from "@anio-software/enkore-private.spec/primitives"
 
 export async function mockReturn() : ReturnType<Init> {

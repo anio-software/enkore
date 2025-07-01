@@ -7,9 +7,9 @@ import type {
 	EnkoreNodeAPIOptions
 } from "@anio-software/enkore-private.spec"
 
-import type {Events} from "./Events.d.mts"
+import type {Events} from "./Events.ts"
 import type {EventEmitter} from "@anio-software/pkg.event-emitter"
-import type {InternalSessionState} from "./InternalSessionState.d.mts"
+import type {InternalSessionState} from "./InternalSessionState.ts"
 
 export type InternalSession = {
 	coreAPI: EnkoreCoreAPI

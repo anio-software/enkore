@@ -11,15 +11,15 @@ import {
 } from "@anio-software/enkore-private.spec"
 import type {NodePackageJSON} from "@anio-software/enkore-private.spec/primitives"
 
-import type {Events} from "./Events.d.mts"
+import type {Events} from "./Events.ts"
 import type {EventEmitter} from "@anio-software/pkg.event-emitter"
-import type {InternalSession} from "./InternalSession.d.mts"
-import type {InternalSessionState} from "./InternalSessionState.d.mts"
-import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.d.mts"
+import type {InternalSession} from "./InternalSession.ts"
+import type {InternalSessionState} from "./InternalSessionState.ts"
+import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.ts"
 import path from "node:path"
-import {getProjectFilesGeneric} from "./getProjectFilesGeneric.mts"
+import {getProjectFilesGeneric} from "./getProjectFilesGeneric.ts"
 import {readFileJSON} from "@anio-software/pkg.node-fs"
-import {getFilesTrackedByGit} from "#~src/internal/getFilesTrackedByGit.mts"
+import {getFilesTrackedByGit} from "#~src/internal/getFilesTrackedByGit.ts"
 
 // dunno why exactly, but this is needed for _getToolchain to work properly
 // without using a type assertion

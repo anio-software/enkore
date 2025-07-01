@@ -1,6 +1,6 @@
-import type {TestProducts} from "#~synthetic/user/Steps.d.mts"
-import publishProducts from "../9.publishProducts/index.mts"
-import {defineStepChecked} from "../defineStepChecked.mts"
+import type {TestProducts} from "#~synthetic/user/Steps.ts"
+import publishProducts from "../9.publishProducts/index.ts"
+import {defineStepChecked} from "../defineStepChecked.ts"
 
 const executeStep: TestProducts = async function(session, productNames) {
 	if (productNames !== false) {

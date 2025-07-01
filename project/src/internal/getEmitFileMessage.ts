@@ -1,5 +1,5 @@
-import type {InternalSession} from "./InternalSession.d.mts"
-import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.d.mts"
+import type {InternalSession} from "./InternalSession.ts"
+import type {NodeAPIEmitMessage} from "./NodeAPIEmitMessage.ts"
 
 export function getEmitFileMessage(
 	session: InternalSession,
