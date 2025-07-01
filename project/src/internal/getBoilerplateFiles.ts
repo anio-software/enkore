@@ -4,7 +4,7 @@ import {
 } from "@anio-software/enkore-private.spec"
 import {enkoreBoilerplateFileMarkerUUID} from "@anio-software/enkore-private.spec/uuid"
 
-import {getAsset} from "@fourtune/realm-js/v0/assets"
+import {getEmbedAsString} from "@anio-software/enkore.target-js-node/project"
 
 export function getBoilerplateFiles() : EnkoreBoilerplateFile[] {
 	const files : EnkoreBoilerplateFile[] = []
@@ -30,11 +30,11 @@ export function getBoilerplateFiles() : EnkoreBoilerplateFile[] {
 		return tmp
 	})()
 
-	addFile(".editorconfig", header + getAsset("text://boilerplate/editorconfig") as string, true)
+	addFile(".editorconfig", header + getEmbedAsString("text://boilerplate/editorconfig"), true)
 
-	addFile(".github/CODEOWNERS", header + getAsset("text://boilerplate/github/CODEOWNERS") as string, true)
-	addFile(".github/workflows/cicd.yaml", header + getAsset("text://boilerplate/github/cicd_workflow.yaml") as string, true)
-	addFile(".github/actions/setup/action.yaml", header + getAsset("text://boilerplate/github/cicd_setup_action.yaml") as string, true)
+	addFile(".github/CODEOWNERS", header + getEmbedAsString("text://boilerplate/github/CODEOWNERS"), true)
+	addFile(".github/workflows/cicd.yaml", header + getEmbedAsString("text://boilerplate/github/cicd_workflow.yaml"), true)
+	addFile(".github/actions/setup/action.yaml", header + getEmbedAsString("text://boilerplate/github/cicd_setup_action.yaml"), true)
 
 	addFile(".cicd/test.sh", `#!/bin/bash -euf\n\n./node_modules/.bin/enkore . -ci -test\n`, false, true)
 	addFile(".cicd/deploy.sh", `#!/bin/bash -euf\n\n./node_modules/.bin/enkore . -ci -test -publish\n`, false, true)
