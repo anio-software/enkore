@@ -3,6 +3,10 @@ import {defineTargetOptions} from "@anio-software/enkore.target-js-node"
 import {buildStepsTypeFile} from "./config/enkore/buildStepsTypeFile.mts"
 import {buildRunAllStepsFile} from "./config/enkore/buildRunAllStepsFile.mts"
 
+const isPublicRelease = (
+	process.env?.RELEASE_VERSION ?? ""
+).startsWith("vp")
+
 export const config: unknown = defineConfig({
 	target: {
 		name: "js-node",
@@ -33,7 +37,8 @@ export const config: unknown = defineConfig({
 
 			publish: [{
 				packageName: "@anio-software/enkore",
-				registry: "anioSoftware"
+				registry: "anioSoftware",
+				tag: isPublicRelease ? "latest" : "canary"
 			}]
 		})
 	},
