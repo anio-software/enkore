@@ -1,7 +1,7 @@
 {
   "private": true,
   "type": "module",
-  "name": "@anio-software/enkore",
+  "name": "enkore",
   "version": "0.0.151",
   "description": "Next generation of fourtune.",
   "author": "Anio Software <info@anio.software>",
