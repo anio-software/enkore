@@ -25,7 +25,7 @@ async function buildProduct(
 			session.publicAPI, productName
 		)
 
-		await remove(productDestPath)
+		await remove(productDestPath, {force: true})
 		await fs.rename(productTmpPath, productDestPath)
 	} finally {
 		process.chdir(savedCWD)
