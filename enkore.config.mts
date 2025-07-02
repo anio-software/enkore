@@ -32,6 +32,7 @@ export const config: unknown = defineConfig({
 			},
 
 			publish: [{
+				packageName: "@anio-software/enkore",
 				registry: "anioSoftware"
 			}]
 		})
