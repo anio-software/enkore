@@ -6,7 +6,7 @@ import {
 	createAPI,
 	createEntity
 } from "@anio-software/enkore-private.spec"
-import type {NodePackageJSON} from "@anio-software/enkore-private.spec/primitives"
+import type {NodePackageJSON, UnknownToolchain} from "@anio-software/enkore-private.spec/primitives"
 
 import type {Events} from "./Events.ts"
 import type {EventEmitter} from "@anio-software/pkg.event-emitter"
@@ -18,19 +18,12 @@ import {getProjectFilesGeneric} from "./getProjectFilesGeneric.ts"
 import {readFileJSON} from "@anio-software/pkg.node-fs"
 import {getFilesTrackedByGit} from "#~src/internal/getFilesTrackedByGit.ts"
 
-type Toolchain = {
-	toolchainID: string
-	toolchainRev: number
-
-	[prop: string]: unknown
-}
-
 export async function createSession(
 	projectRoot: string,
 	projectConfig: EnkoreConfig,
 	coreAPI: EnkoreCoreAPI,
 	coreInstance: InternalSession["coreInstance"],
-	toolchain: Toolchain,
+	toolchain: UnknownToolchain,
 	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
