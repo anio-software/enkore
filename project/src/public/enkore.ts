@@ -1,5 +1,6 @@
 import type {API} from "#~src/API.ts"
 import type {Events} from "#~src/internal/Events.ts"
+import type {ToolchainSpecifier} from "@anio-software/enkore-private.spec/primitives"
 
 import {readEnkoreConfigFile} from "@anio-software/enkore-private.spec/utils"
 import {createEventEmitter} from "@anio-software/pkg.event-emitter"
@@ -38,11 +39,21 @@ const impl : API["enkore"] = async function(
 	const projectConfig = await readEnkoreConfigFile(projectRoot)
 	const core = await loadEnkoreCoreAPI(projectRoot)
 
+	const forceToolchain: ToolchainSpecifier|false = (() => {
+		if (options?._forceToolchain) {
+			return options._forceToolchain
+		} else if (projectConfig.target._toolchain) {
+			return projectConfig.target._toolchain
+		}
+
+		return false
+	})()
+
 	const coreInstance = await core.initializeProject(
 		projectRoot, isCIEnvironment, {
 			npmBinaryPath,
 			force,
-			forceToolchain: false
+			forceToolchain
 		}
 	)
 
