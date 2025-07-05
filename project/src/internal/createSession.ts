@@ -142,7 +142,7 @@ export async function createSession(
 					return toolchain
 				},
 
-				getInternalData() {
+				__getInternalData() {
 					return state.internalTargetData
 				}
 			},
