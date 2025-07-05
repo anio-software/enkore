@@ -3,9 +3,6 @@ import {
 	type EnkoreCoreAPI,
 	type EnkoreNodeAPIOptions,
 	type RawType,
-	type Toolchains,
-	type ToolchainIDs,
-	type ToolchainByID,
 	createAPI,
 	createEntity
 } from "@anio-software/enkore-private.spec"
@@ -21,13 +18,11 @@ import {getProjectFilesGeneric} from "./getProjectFilesGeneric.ts"
 import {readFileJSON} from "@anio-software/pkg.node-fs"
 import {getFilesTrackedByGit} from "#~src/internal/getFilesTrackedByGit.ts"
 
-// dunno why exactly, but this is needed for _getToolchain to work properly
-// without using a type assertion
-function isToolchainOfID<ID extends ToolchainIDs>(
-	toolchain: Toolchains,
-	id: ID
-): toolchain is ToolchainByID<ID> {
-	return toolchain.toolchainID === id
+type Toolchain = {
+	toolchainID: string
+	toolchainRev: number
+
+	[prop: string]: unknown
 }
 
 export async function createSession(
@@ -35,7 +30,7 @@ export async function createSession(
 	projectConfig: EnkoreConfig,
 	coreAPI: EnkoreCoreAPI,
 	coreInstance: InternalSession["coreInstance"],
-	toolchain: Toolchains,
+	toolchain: Toolchain,
 	events: EventEmitter<Events, true>,
 	options: Required<RawType<EnkoreNodeAPIOptions>>
 ) : Promise<InternalSession> {
@@ -143,17 +138,7 @@ export async function createSession(
 					return projectConfig.target.options as any
 				},
 
-				_getToolchain(expectedToolchainID) {
-					if (isToolchainOfID(toolchain, expectedToolchainID)) {
-						return toolchain
-					}
-
-					throw new Error(
-						`Failed to get requested toolchain '${expectedToolchainID}'.`
-					)
-				},
-
-				__getInstalledToolchain() {
+				__getCurrentlyInstalledToolchain() {
 					return toolchain
 				},
 
