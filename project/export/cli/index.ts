@@ -13,6 +13,7 @@ let isCIEnvironment = false
 let force = false
 let onlyInitializeProject = false
 let allowTypeErrorsInEnkoreConfigFile = false
+let buildMode: "development" | "production" = "development"
 let _partialBuild = false
 let _forceBuild = false
 let projectRoot : string|null = null
@@ -36,6 +37,8 @@ for (const arg of args) {
 		runPublish = true
 	} else if (arg === "-allowTypeErrorsInEnkoreConfigFile") {
 		allowTypeErrorsInEnkoreConfigFile = true
+	} else if (arg === "-prod") {
+		buildMode = "development"
 	} else {
 		projectRoot = arg
 	}
@@ -56,6 +59,7 @@ const {project} = await enkore(
 		onlyInitializeProject,
 		isCIEnvironment,
 		allowTypeErrorsInEnkoreConfigFile,
+		buildMode,
 		_partialBuild,
 		_forceBuild
 	})

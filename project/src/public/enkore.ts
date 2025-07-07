@@ -28,6 +28,7 @@ const impl : API["enkore"] = async function(
 
 		return options?.allowTypeErrorsInEnkoreConfigFile === true
 	})()
+	const buildMode = options?.buildMode ?? "development"
 	const _partialBuild = options?._partialBuild === true
 	const _forceBuild = options?._forceBuild === true
 
@@ -87,6 +88,7 @@ const impl : API["enkore"] = async function(
 			npmBinaryPath,
 			onlyInitializeProject,
 			allowTypeErrorsInEnkoreConfigFile,
+			buildMode,
 			_partialBuild,
 			_forceBuild,
 			_forceToolchain: false
