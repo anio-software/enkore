@@ -52,6 +52,10 @@ function defineOptions(options: RawType<EnkoreNodeAPIOptions>) {
 	return createEntity("EnkoreNodeAPIOptions", 0, 0, options)
 }
 
+if (runPublish) {
+	buildMode = "production"
+}
+
 const {project} = await enkore(
 	projectRoot, defineOptions({
 		stdIOLogs: true,
