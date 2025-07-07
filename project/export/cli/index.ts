@@ -38,7 +38,7 @@ for (const arg of args) {
 	} else if (arg === "-allowTypeErrorsInEnkoreConfigFile") {
 		allowTypeErrorsInEnkoreConfigFile = true
 	} else if (arg === "-prod") {
-		buildMode = "development"
+		buildMode = "production"
 	} else {
 		projectRoot = arg
 	}
