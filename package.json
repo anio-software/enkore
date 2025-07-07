@@ -1,41 +1,23 @@
 {
-  "name": "@anio-software/enkore",
-  "version": "0.0.104",
-  "author": "Anio Software <info@anio.software>",
+  "private": true,
+  "type": "module",
+  "name": "enkore",
+  "version": "0.0.175",
   "description": "Next generation of fourtune.",
-  "license": "MIT",
-  "exports": {
-    ".": {
-      "types": "./dist/default/index.d.mts",
-      "default": "./dist/default/index.mjs"
-    },
-    "./package.json": {
-      "default": "./package.json"
-    }
-  },
+  "author": "Anio Software <info@anio.software>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anio-software/enkore.git"
   },
-  "type": "module",
+  "license": "MIT",
   "devDependencies": {
+    "@anio-software/enkore": "^0.0.162-canary-cbabfc4c-be79b172",
     "@anio-software/enkore-private.debug": "^0.0.7",
-    "@anio-software/enkore-private.spec": "^0.338.0",
+    "@anio-software/enkore-private.spec": "^0.372.0",
+    "@anio-software/enkore.core": "^0.11.22-canary-5564f69f-71984fdf",
+    "@anio-software/enkore.target-js-node": "^0.0.300-canary-9cac994a-97f325c5",
+    "@anio-software/pkg.event-emitter": "^0.0.1",
     "@anio-software/pkg.is": "^0.0.3",
-    "@aniojs/event-emitter": "^0.1.0",
-    "@aniojs/node-fs": "^0.6.0",
-    "@fourtune/core": "^0.1101.0",
-    "@fourtune/realm-js": "^1.0.5",
-    "fourtune": "^0.30000.1"
-  },
-  "scripts": {
-    "prepare": "./node_modules/.bin/fourtune ."
-  },
-  "files": [
-    "./dist/",
-    "./cli.mjs"
-  ],
-  "bin": {
-    "enkore": "./cli.mjs"
+    "@anio-software/pkg.node-fs": "^0.0.2"
   }
 }
