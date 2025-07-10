@@ -63,6 +63,7 @@ export async function createSession(
 		buildFiles: new Map(),
 		hasFinishedCompiling: false,
 		hasUpToDateLockFile: false,
+		lockFileData: null,
 		filesTrackedByGit: getFilesTrackedByGit(projectRoot)
 	}
 
@@ -163,7 +164,7 @@ export async function createSession(
 						)
 					}
 
-					return {} as any
+					return state.lockFileData!
 				},
 				getOptions() {
 					return createEntity("EnkoreNodeAPIOptions", 0, 0, session.options)
