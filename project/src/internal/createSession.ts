@@ -143,6 +143,16 @@ export async function createSession(
 			},
 
 			enkore: {
+				getVersions() {
+					return {
+						enkore: "",
+						core: "",
+						target: ""
+					}
+				},
+				getLockFile() {
+					return {} as any
+				},
 				getOptions() {
 					return createEntity("EnkoreNodeAPIOptions", 0, 0, session.options)
 				},
