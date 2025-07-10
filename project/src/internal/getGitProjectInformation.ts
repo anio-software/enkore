@@ -16,7 +16,13 @@ function executeGitCommand(
 		return false
 	}
 
-	return child.stdout.toString().trim()
+	const stdout = child.stdout.toString().trim()
+
+	if (!stdout.length) {
+		return false
+	}
+
+	return stdout
 }
 
 export function getGitProjectInformation(
