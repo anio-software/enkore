@@ -18,6 +18,7 @@ import {getProjectFilesGeneric} from "./getProjectFilesGeneric.ts"
 import {readFileJSON} from "@anio-software/pkg.node-fs"
 import {getFilesTrackedByGit} from "#~src/internal/getFilesTrackedByGit.ts"
 import {getGitProjectInformation} from "#~src/internal/getGitProjectInformation.ts"
+import {getEnkoreVersions} from "#~src/internal/getEnkoreVersions.ts"
 
 export async function createSession(
 	projectRoot: string,
@@ -115,6 +116,7 @@ export async function createSession(
 	}
 
 	const git = getGitProjectInformation(projectRoot)
+	const enkoreVersions = getEnkoreVersions(projectRoot, projectConfig.target.name)
 
 	session.publicAPI = createAPI(
 		"EnkoreSessionAPI", 0, 0, {
@@ -150,11 +152,7 @@ export async function createSession(
 
 			enkore: {
 				getVersions() {
-					return {
-						enkore: "",
-						core: "",
-						target: ""
-					}
+					return enkoreVersions
 				},
 				getLockFile() {
 					if (!state.lockFileData) {
