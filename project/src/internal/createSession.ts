@@ -62,7 +62,6 @@ export async function createSession(
 		projectFiles: new Map(),
 		buildFiles: new Map(),
 		hasFinishedCompiling: false,
-		hasUpToDateLockFile: false,
 		lockFileData: null,
 		filesTrackedByGit: getFilesTrackedByGit(projectRoot)
 	}
@@ -158,13 +157,13 @@ export async function createSession(
 					}
 				},
 				getLockFile() {
-					if (!state.hasUpToDateLockFile) {
+					if (!state.lockFileData) {
 						throw new Error(
 							`Called getLockFile() before lockfile was synchronized. This is an error.`
 						)
 					}
 
-					return state.lockFileData!
+					return state.lockFileData
 				},
 				getOptions() {
 					return createEntity("EnkoreNodeAPIOptions", 0, 0, session.options)

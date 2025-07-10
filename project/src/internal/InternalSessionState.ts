@@ -36,8 +36,7 @@ export type InternalSessionState = {
 
 	filesToAutogenerate: Map<string, FileToAutogenerate>
 
-	// flag to throw error when getLockFile() is called **before** lock file has been synced
-	hasUpToDateLockFile: boolean
+	// if this is null it means lock file data has not been synced yet.
 	lockFileData: EnkoreLockFile|null
 
 	// flag to emit warning when 'createdObjectFilesByRelativeSourceFilePath'
