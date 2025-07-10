@@ -35,6 +35,9 @@ export type InternalSessionState = {
 
 	filesToAutogenerate: Map<string, FileToAutogenerate>
 
+	// flag to throw error when getLockFile() is called **before** lock file has been synced
+	hasUpToDateLockFile: boolean
+
 	// flag to emit warning when 'createdObjectFilesByRelativeSourceFilePath'
 	// is accessed before compilation has finished.
 	hasFinishedCompiling: boolean

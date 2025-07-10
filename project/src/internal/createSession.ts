@@ -62,6 +62,7 @@ export async function createSession(
 		projectFiles: new Map(),
 		buildFiles: new Map(),
 		hasFinishedCompiling: false,
+		hasUpToDateLockFile: false,
 		filesTrackedByGit: getFilesTrackedByGit(projectRoot)
 	}
 
@@ -156,6 +157,12 @@ export async function createSession(
 					}
 				},
 				getLockFile() {
+					if (!state.hasUpToDateLockFile) {
+						throw new Error(
+							`Called getLockFile() before lockfile was synchronized. This is an error.`
+						)
+					}
+
 					return {} as any
 				},
 				getOptions() {
