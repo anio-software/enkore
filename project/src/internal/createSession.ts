@@ -121,6 +121,8 @@ export async function createSession(
 			},
 
 			target: {
+				identifier: projectConfig.target.name,
+
 				getOptions(targetIdentifier) {
 					if (projectConfig.target.name !== targetIdentifier) {
 						throw new Error(
