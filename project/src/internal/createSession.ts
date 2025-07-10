@@ -17,6 +17,7 @@ import path from "node:path"
 import {getProjectFilesGeneric} from "./getProjectFilesGeneric.ts"
 import {readFileJSON} from "@anio-software/pkg.node-fs"
 import {getFilesTrackedByGit} from "#~src/internal/getFilesTrackedByGit.ts"
+import {getGitProjectInformation} from "#~src/internal/getGitProjectInformation.ts"
 
 export async function createSession(
 	projectRoot: string,
@@ -112,6 +113,8 @@ export async function createSession(
 		return true
 	}
 
+	const git = getGitProjectInformation(projectRoot)
+
 	session.publicAPI = createAPI(
 		"EnkoreSessionAPI", 0, 0, {
 			project: {
@@ -141,6 +144,8 @@ export async function createSession(
 					return state.internalTargetData
 				}
 			},
+
+			git,
 
 			enkore: {
 				getVersions() {
