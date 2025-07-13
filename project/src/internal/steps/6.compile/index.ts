@@ -18,6 +18,8 @@ const executeStep: Compile = async function(session) {
 
 	session.state.hasFinishedCompiling = true
 
+	await runHook(session, "postCompile")
+
 	return {
 		buildProducts: async function(productNames: string[]|null) {
 			return await buildProducts.runStep(session, productNames)
