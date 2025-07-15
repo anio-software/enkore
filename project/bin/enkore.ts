@@ -1,1 +1,1 @@
-import "../dist/cli/index.mjs"
+import "../dist/cli/index.min.mjs"
