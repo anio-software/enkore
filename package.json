@@ -16,7 +16,7 @@
     "@anio-software/enkore-private.spec": "^0.403.0",
     "@anio-software/enkore.core": "^0.13.1",
     "@anio-software/enkore.target-js-node": "^0.0.461",
-    "@anio-software/pkg.event-emitter": "^0.0.1",
+    "@anio-software/pkg.event-emitter": "^0.0.3",
     "@anio-software/pkg.is": "^0.0.4",
     "@anio-software/pkg.node-fs": "^0.0.21"
   }
