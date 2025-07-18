@@ -18,6 +18,8 @@ function executeGitCommand(
 
 	const stdout = child.stdout.toString().trim()
 
+	process.stderr.write("git command stderr: " + child.stderr.toString())
+
 	if (!stdout.length) {
 		return false
 	}
