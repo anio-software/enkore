@@ -12,7 +12,7 @@ function executeGitCommand(
 		stdio: "pipe"
 	})
 
-	process.stderr.write("git command stderr: " + child.stderr.toString())
+	process.stderr.write("git command stderr: " + child.stderr.toString() + "\n")
 
 	if (child.status !== 0) {
 		return false
