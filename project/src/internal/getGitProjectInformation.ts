@@ -37,13 +37,20 @@ export function getGitProjectInformation(
 
 	if (!commitHash) return null
 
-	const gitTag = executeGitCommand(projectRoot, [
-		"describe", "--exact-match", "--tags"
+	const tags: Set<string> = new Set()
+	const gitTags = executeGitCommand(projectRoot, [
+		"tag", "--points-at", "HEAD"
 	])
+
+	if (gitTags) {
+		for (const line of gitTags.split("\n")) {
+			tags.add(line.trim())
+		}
+	}
 
 	return {
 		commitHash,
 		commitHashShort: commitHash.slice(0, 5) + commitHash.slice(-5),
-		tag: gitTag === false ? null : gitTag
+		tags: [...tags]
 	}
 }
