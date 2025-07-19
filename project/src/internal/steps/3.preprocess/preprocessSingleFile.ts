@@ -4,6 +4,7 @@ import {
 	type EnkoreBuildFile,
 	createEntity
 } from "@anio-software/enkore-private.spec"
+import {replaceEnkoreConstants} from "#~src/internal/preprocess/replaceEnkoreConstants.ts"
 import {searchAndReplaceBuildConstants} from "#~src/internal/preprocess/searchAndReplaceBuildConstants.ts"
 import {getEmitFileMessage} from "#~src/internal/getEmitFileMessage.ts"
 import {isFunction, isPreprocessableFileName, isString} from "@anio-software/pkg.is"
@@ -19,6 +20,7 @@ export async function preprocessSingleFile(
 ): Promise<Map<string, EnkoreBuildFile>> {
 	const map: Map<string, EnkoreBuildFile> = new Map()
 	const preprocess: Preprocess = async (publicSession, file, code, emitFileMessage) => {
+		code = replaceEnkoreConstants(session, file, code)
 		code = searchAndReplaceBuildConstants(session, code)
 
 		if (isFunction(session.targetIntegrationAPI.preprocess)) {
